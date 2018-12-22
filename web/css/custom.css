@@ -1,0 +1,73 @@
+/*.navbar-fixed-bottom {
+    background-color: #2c3e50;
+    height: 30px;
+}
+.modal-footer{
+    padding: 1px;
+}*/
+/*.modal-footer .navbar-brand{
+    float: right;
+    font-size: 15px;
+    color: red;
+}*/
+.navbar-right {
+    margin-right: 0;
+}
+
+#nav-2 {
+    /*top: -25px;
+    left: -80px;
+    z-index:2;*/
+
+    /*background:lightgray;*/
+
+    left: 0;
+    top: 60px;
+    height: 100%; /* 100% Full-height */
+    width: 90px; /* 0 width - change this with JavaScript */
+    position: fixed;
+}
+#nav-2 a{
+    margin-left: 5px;
+    left: -50px;
+    display: block;
+    font-size: 17px;
+    /*width: 100px;
+    color: darkgray;*/
+}
+#dropDownCreateArticle {
+    /*background-color: #ecf0f1;*/
+    width: 70px;
+    margin-left: -20px;
+}
+#nav-2 .dropdown-menu {
+    min-width: 120px;
+    margin-top: -10px;
+    top: 80%;
+}
+#mainAdmin {
+    left: 85px;
+    top: -30px;
+}
+/*FIXING WHITESPACE UNDER FOOTER*/
+body {
+//padding-bottom: 0;
+
+    font-size: 17px;
+
+    /*IN ORDER TO MAKE FOOTER STAY OT BOTTOM*/
+    margin:0;
+    padding:0;
+    display:flex;
+    flex-direction:column;
+    justify-content:space-between;
+    min-height:100vh;
+
+}
+.container {
+    /*IN ORDER TO MAKE FOOTER STAY OT BOTTOM*/
+    flex:1 0 auto;
+    margin-bottom: 30px;
+}
+/*MAKING FONT SIZE ON WHOLE WEBSITE BIGGER*/
+html { font-size: 130%; }

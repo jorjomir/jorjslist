@@ -1,0 +1,40 @@
+{% extends 'base.html.twig' %}
+
+{% block main %}
+    <div class="well">
+        {% for message in app.flashes('success') %}
+            <div class="alert alert-success" id="success-alert">
+                {{ message }}
+            </div>
+        {% endfor %}
+        <h4>All Users</h4>
+        <table class="table">
+            <thead>
+            <tr>
+                <th scope="col">ID</th>
+                <th scope="col">Username</th>
+                <th scope="col">Role</th>
+                <th scope="col">Delete</th>
+            </tr>
+            </thead>
+            <tbody>
+            {% for user in users %}
+                <tr>
+                    <th scope="row">{{ user.id }}</th>
+                    <td>{{ user.username }}</td>
+                    {% if user.role == "" %}
+                    <td><a class="btn btn-danger btn-sm" href="{{ path('makeUserAdmin', {id: user.id}) }}" onclick="return confirm('Are u sure you want to make this user Admin?')">Make Admin</a></td>
+                    {% else %}
+                    <td>{{ user.role }}</td>
+                    {% endif %}
+                    <td><a class="btn btn-danger btn-sm" href="{{ path('deleteUser', {id: user.id}) }}" onclick="return confirm('Are u sure you want to Delete this User?')">Delete User</a></td>
+                </tr>
+            {% else %}
+                <tr>
+                    <th scope="row">No Users Found!</th>
+                </tr>
+            {% endfor %}
+            </tbody>
+        </table>
+    </div>
+{% endblock %}

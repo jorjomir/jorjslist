@@ -1,0 +1,118 @@
+{#
+   This is the base template used as the application layout which contains the
+   common elements and decorates all the other templates.
+   See http://symfony.com/doc/current/book/templating.html#template-inheritance-and-layouts
+#}
+<!DOCTYPE html>
+<html lang="en-US">
+<head>
+    <meta charset="UTF-8"/>
+    <meta name="viewport" content="width=device-width, initial-scale=1"/>
+    <title>{% block title %}JorjPress{% endblock %}</title>
+    {% block stylesheets %}
+        <link rel="stylesheet" href="{{ asset('css/bootstrap.css') }}">
+        <link rel="stylesheet" href="{{ asset('css/custom.css') }}">
+        <link rel="stylesheet" href="{{ asset('css/bootstrap-datetimepicker.min.css') }}">
+        <link rel="stylesheet" href="{{ asset('css/mdb.min.css') }}">
+    {% endblock %}
+    <link rel="icon" type="image/x-icon" href="{{ asset('favicon.ico') }}"/>
+</head>
+
+<body id="{% block body_id %}{% endblock %}">
+
+{% block header %}
+    <header>
+        <nav class="navbar navbar-default navbar-static-top" role="navigation">
+                <div class="navbar-header">
+                    <a href="{{ path('index') }}" class="navbar-brand">JorjPress</a>
+
+                    <button type="button" class="navbar-toggle" data-toggle="collapse" data-target=".navbar-collapse">
+                        <span class="icon-bar"></span>
+                        <span class="icon-bar"></span>
+                        <span class="icon-bar"></span>
+                    </button>
+                </div>
+                <div class="navbar-collapse collapse">
+                    <ul class="nav navbar-nav navbar-left">
+                        <li><a class="nav-item nav-link active" href="#">Home <span class="sr-only">(current)</span></a></li>
+                        <li><a class="nav-item nav-link" href="#">Features</a></li>
+                        <li><a class="nav-item nav-link" href="#">Pricing</a></li>
+                    </ul>
+                    <ul class="nav navbar-nav navbar-right">
+                    {% if app.user %}
+                        <li><a id="login" class="nav-item nav-link" href="{{ path('login') }}">Здравей, {{ app.user.username }}!</a></li>
+                        <li><a id="logout" class="nav-item nav-link" href="{{ path('logout') }}">Logout</a></li>
+                        {% if app.user.role=="admin" %}
+                            {% if path(app.request.attributes.get('_route'),
+    app.request.attributes.get('_route_params')) starts with '/admin' %}
+                                {% else %}
+                                    <li><a id="adminButton" class="nav-item nav-link" href="{{ path('adminIndex') }}">Админ Панел </a></li>
+                                {% endif %}
+                        {% endif %}
+                    {% else %}
+                    <li><a id="login" class="nav-item nav-link" href="{{ path('login') }}">Log In</a></li>
+                    {% endif %}
+                    </ul>
+                </div>
+        </nav>
+    </header>
+{% endblock %}
+
+{% block secondNav %}
+    {% if path(app.request.attributes.get('_route'),
+        app.request.attributes.get('_route_params')) starts with '/admin' %}
+        <div id="nav-2" class="mdb-color darken-4" role="navigation">
+                <div>
+                    <div class="dropdown">
+                        <a class="dropdown-toggle text-center white-text" type="button" id="dropDownCreateArticle"
+                                data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">Article</a>
+                        <div class="dropdown-menu" aria-labelledby="dropDownCreateArticle">
+                            <a class="dropdown-item" href="{{ path('createArticle') }}">Create Article</a>
+                            <a class="dropdown-item" href="{{ path('allArticles') }}">All Articles</a>
+                        </div>
+                        <a class="text-center white-text" href="{{ path('allUsers') }}">Users &nbsp; &nbsp;</a>
+                    </div>
+                </div>
+
+        </div>
+    {% endif %}
+{% endblock %}
+
+<div class="container body-container">
+    {% block body %}
+        <div class="row">
+            {% if path(app.request.attributes.get('_route'),
+                app.request.attributes.get('_route_params')) starts with '/admin' %}
+            <div id="mainAdmin" class="col-sm-9">
+                {% else %}
+                <div id="main" class="col-sm-9">
+            {% endif %}
+
+                {% block main %}{% endblock %}
+                </div>
+            </div>
+        </div>
+    {% endblock %}
+</div>
+
+
+
+{% block footer %}
+    <footer class="page-footer mdb-color darken-3 pt-4">
+        <div class="footer-copyright text-center py-3">
+            <a href="#">© 2019 Copyright Georgi Sabev</a>
+        </div>
+    </footer>
+{% endblock %}
+
+{% block javascripts %}
+    <script src="{{ asset('js/jquery-2.2.4.min.js') }}"></script>
+    <script src="{{ asset('js/moment.min.js') }}"></script>
+    <script src="{{ asset('js/bootstrap.js') }}"></script>
+    <script src="{{ asset('js/custom.js') }}"></script>
+    <script src="{{ asset('js/mdb.min.js') }}"></script>
+{% endblock %}
+
+</body>
+</html>
+

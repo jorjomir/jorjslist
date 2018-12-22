@@ -1,0 +1,44 @@
+{% extends 'base.html.twig' %}
+
+{% block main %}
+    <div class="container body-content span=8 offset=2">
+        <div class="well">
+            <form class="form-horizontal" action="{{ path('register') }}" method="post">
+                <fieldset>
+                    <legend>Регистрация</legend>
+                    <div class="form-group">
+                        <label class="col-sm-4 control-label" for="username">Потребителско име</label>
+                        <div class="col-sm-4 ">
+                            <input type="text" class="form-control" id="username" placeholder="Потребителско име"
+                                   name="user[username]" required>
+                        </div>
+                    </div>
+                    <div class="form-group">
+                        <label class="col-sm-4 control-label" for="user_password_first">Парола</label>
+                        <div class="col-sm-4">
+                            <input type="password" class="form-control" id="user_password_first" placeholder="Парола"
+                                   name="user[password][first]" required>
+                        </div>
+                    </div>
+                    <div class="form-group">
+                        <label class="col-sm-4 control-label" for="user_password_second">Потвърди парола</label>
+                        <div class="col-sm-4">
+                            <input type="password" class="form-control" id="user_password_second" placeholder="Потвърди парола"
+                                   name="user[password][second]" required>
+                        </div>
+                    </div>
+                    <div class="form-group">
+                        <div class="col-sm-4 col-sm-offset-4">
+                            <a class="btn btn-default" href="{{ path('index') }}">Откажи</a>
+                            <button type="submit" class="btn btn-primary">Продължи</button>
+                        </div>
+                    </div>
+                    {{ form_row(form._token) }}
+
+
+                </fieldset>
+            </form>
+        </div>
+    </div>
+{% endblock %}
+

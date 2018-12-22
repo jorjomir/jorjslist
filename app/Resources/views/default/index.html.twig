@@ -1,0 +1,14 @@
+{% extends 'base.html.twig' %}
+
+{% block main %}
+    {% if app.request.get('login') == "success" %}
+        <div class="alert alert-success" id="success-alert">
+            Успешно влязохте в профила си!
+        </div>
+    {% endif %}
+<h1>
+    Lorem ipsum dolor sit amet, consectetur adipiscing elit. Donec at nunc eleifend velit tempus ultricies nec sed dui. Nullam ultricies faucibus volutpat. Maecenas venenatis massa quis erat scelerisque, at hendrerit sem luctus. Ut tempus mauris quis risus convallis gravida. Nunc mollis risus sed rhoncus hendrerit. Pellentesque efficitur, lorem et iaculis vehicula, mi neque facilisis magna, sit amet porta quam lacus sit amet nulla. Etiam vitae rutrum mauris, ut malesuada nisl. Cras nec porttitor augue. Fusce sodales sollicitudin est, eu mattis quam vestibulum sit amet. Ut lobortis luctus massa, vel sagittis ex sodales at. Proin augue nulla, gravida sed laoreet non, tristique at velit. Vivamus ante enim, molestie nec mauris eget, rhoncus facilisis tellus.
+</h1>
+
+{% endblock %}
+
