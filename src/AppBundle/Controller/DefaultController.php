@@ -2,6 +2,8 @@
 
 namespace AppBundle\Controller;
 
+use AppBundle\Entity\Article;
+use AppBundle\Repository\ArticleRepository;
 use Sensio\Bundle\FrameworkExtraBundle\Configuration\Method;
 use Symfony\Bundle\FrameworkBundle\Controller\Controller;
 use Symfony\Component\HttpFoundation\Request;
@@ -18,5 +20,10 @@ class DefaultController extends Controller
     }
 
 
+    public function sidebarWidgetAction() {
+        $articles=$this->getDoctrine()->getRepository(Article::class)->findRecentArticles();
+        //$articles=$this->getDoctrine()->getRepository(Article::class)->findAll();
+        return $this->render('sidebarWidget.html.twig', ['articles' => $articles]);
+    }
 
 }

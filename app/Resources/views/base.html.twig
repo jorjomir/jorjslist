@@ -68,7 +68,7 @@
                                 data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">Article</a>
                         <div class="dropdown-menu" aria-labelledby="dropDownCreateArticle">
                             <a class="dropdown-item" href="{{ path('createArticle') }}">Create Article</a>
-                            <a class="dropdown-item" href="{{ path('allArticles') }}">All Articles</a>
+                            <a class="dropdown-item" href="{{ path('adminAllArticles') }}">All Articles</a>
                         </div>
                         <a class="text-center white-text" href="{{ path('allUsers') }}">Users &nbsp; &nbsp;</a>
                     </div>
@@ -78,22 +78,31 @@
     {% endif %}
 {% endblock %}
 
+
 <div class="container body-container">
     {% block body %}
         <div class="row">
+            <div class="col-lg-9 col-md-9 col-sm-12">
             {% if path(app.request.attributes.get('_route'),
                 app.request.attributes.get('_route_params')) starts with '/admin' %}
             <div id="mainAdmin" class="col-sm-9">
                 {% else %}
-                <div id="main" class="col-sm-9">
+                <div id="main">
             {% endif %}
 
                 {% block main %}{% endblock %}
                 </div>
             </div>
-        </div>
+                {% if not (path(app.request.attributes.get('_route'),
+                    app.request.attributes.get('_route_params')) starts with '/admin') %}
+                    {{ render(controller('AppBundle:Default:sidebarWidget')) }}
+         {% endif %}
+            </div>
     {% endblock %}
+
 </div>
+
+
 
 
 

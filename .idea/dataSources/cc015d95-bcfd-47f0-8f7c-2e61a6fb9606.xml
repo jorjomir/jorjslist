@@ -997,243 +997,275 @@
     <table id="254" parent="2" name="parts_cars"/>
     <table id="255" parent="2" name="sales"/>
     <table id="256" parent="2" name="suppliers"/>
-    <table id="257" parent="7" name="user">
+    <table id="257" parent="7" name="article">
       <Collation>utf8_unicode_ci</Collation>
     </table>
-    <column id="258" parent="251" name="id">
+    <table id="258" parent="7" name="user">
+      <Collation>utf8_unicode_ci</Collation>
+    </table>
+    <column id="259" parent="251" name="id">
       <Position>1</Position>
       <DataType>bigint(20)|0s</DataType>
       <NotNull>1</NotNull>
       <ColumnKind>normal</ColumnKind>
     </column>
-    <column id="259" parent="251" name="make">
+    <column id="260" parent="251" name="make">
       <Position>2</Position>
       <DataType>varchar(255)|0s</DataType>
       <NotNull>1</NotNull>
       <ColumnKind>normal</ColumnKind>
     </column>
-    <column id="260" parent="251" name="model">
+    <column id="261" parent="251" name="model">
       <Position>3</Position>
       <DataType>varchar(255)|0s</DataType>
       <NotNull>1</NotNull>
       <ColumnKind>normal</ColumnKind>
     </column>
-    <column id="261" parent="251" name="travelledDistance">
+    <column id="262" parent="251" name="travelledDistance">
       <Position>4</Position>
       <DataType>bigint(20)|0s</DataType>
       <NotNull>1</NotNull>
       <ColumnKind>normal</ColumnKind>
     </column>
-    <key id="262" parent="251" name="PRIMARY">
+    <key id="263" parent="251" name="PRIMARY">
       <NameSurrogate>1</NameSurrogate>
       <ColNames>id</ColNames>
       <Primary>1</Primary>
     </key>
-    <column id="263" parent="252" name="id">
+    <column id="264" parent="252" name="id">
       <Position>1</Position>
       <DataType>bigint(20)|0s</DataType>
       <NotNull>1</NotNull>
       <ColumnKind>normal</ColumnKind>
     </column>
-    <column id="264" parent="252" name="name">
+    <column id="265" parent="252" name="name">
       <Position>2</Position>
       <DataType>varchar(255)|0s</DataType>
       <NotNull>1</NotNull>
       <ColumnKind>normal</ColumnKind>
     </column>
-    <column id="265" parent="252" name="birthDate">
+    <column id="266" parent="252" name="birthDate">
       <Position>3</Position>
       <DataType>datetime|0s</DataType>
       <NotNull>1</NotNull>
       <ColumnKind>normal</ColumnKind>
     </column>
-    <column id="266" parent="252" name="isYoungDriver">
+    <column id="267" parent="252" name="isYoungDriver">
       <Position>4</Position>
       <DataType>bit(1)|0s</DataType>
       <NotNull>1</NotNull>
       <ColumnKind>normal</ColumnKind>
     </column>
-    <key id="267" parent="252" name="PRIMARY">
+    <key id="268" parent="252" name="PRIMARY">
       <NameSurrogate>1</NameSurrogate>
       <ColNames>id</ColNames>
       <Primary>1</Primary>
     </key>
-    <column id="268" parent="253" name="id">
+    <column id="269" parent="253" name="id">
       <Position>1</Position>
       <DataType>bigint(20)|0s</DataType>
       <NotNull>1</NotNull>
       <ColumnKind>normal</ColumnKind>
     </column>
-    <column id="269" parent="253" name="name">
+    <column id="270" parent="253" name="name">
       <Position>2</Position>
       <DataType>varchar(255)|0s</DataType>
       <ColumnKind>normal</ColumnKind>
     </column>
-    <column id="270" parent="253" name="price">
+    <column id="271" parent="253" name="price">
       <Position>3</Position>
       <DataType>double|0s</DataType>
       <ColumnKind>normal</ColumnKind>
     </column>
-    <column id="271" parent="253" name="quantity">
+    <column id="272" parent="253" name="quantity">
       <Position>4</Position>
       <DataType>bigint(20)|0s</DataType>
       <ColumnKind>normal</ColumnKind>
     </column>
-    <column id="272" parent="253" name="supplier_id">
+    <column id="273" parent="253" name="supplier_id">
       <Position>5</Position>
       <DataType>bigint(20)|0s</DataType>
       <ColumnKind>normal</ColumnKind>
     </column>
-    <index id="273" parent="253" name="FK__suppliers">
+    <index id="274" parent="253" name="FK__suppliers">
       <ColNames>supplier_id</ColNames>
       <Type>btree</Type>
     </index>
-    <key id="274" parent="253" name="PRIMARY">
+    <key id="275" parent="253" name="PRIMARY">
       <NameSurrogate>1</NameSurrogate>
       <ColNames>id</ColNames>
       <Primary>1</Primary>
     </key>
-    <foreign-key id="275" parent="253" name="FK__suppliers">
+    <foreign-key id="276" parent="253" name="FK__suppliers">
       <ColNames>supplier_id</ColNames>
       <RefSchemaName>cardb</RefSchemaName>
       <RefTableName>suppliers</RefTableName>
       <RefColNames>id</RefColNames>
     </foreign-key>
-    <column id="276" parent="254" name="part_id">
+    <column id="277" parent="254" name="part_id">
       <Position>1</Position>
       <DataType>bigint(20)|0s</DataType>
       <ColumnKind>normal</ColumnKind>
     </column>
-    <column id="277" parent="254" name="car_id">
+    <column id="278" parent="254" name="car_id">
       <Position>2</Position>
       <DataType>bigint(20)|0s</DataType>
       <ColumnKind>normal</ColumnKind>
     </column>
-    <index id="278" parent="254" name="FK__parts">
+    <index id="279" parent="254" name="FK__parts">
       <ColNames>part_id</ColNames>
       <Type>btree</Type>
     </index>
-    <index id="279" parent="254" name="FK__cars">
+    <index id="280" parent="254" name="FK__cars">
       <ColNames>car_id</ColNames>
       <Type>btree</Type>
     </index>
-    <foreign-key id="280" parent="254" name="FK__parts">
+    <foreign-key id="281" parent="254" name="FK__parts">
       <ColNames>part_id</ColNames>
       <RefSchemaName>cardb</RefSchemaName>
       <RefTableName>parts</RefTableName>
       <RefColNames>id</RefColNames>
     </foreign-key>
-    <foreign-key id="281" parent="254" name="FK__cars">
+    <foreign-key id="282" parent="254" name="FK__cars">
       <ColNames>car_id</ColNames>
       <RefSchemaName>cardb</RefSchemaName>
       <RefTableName>cars</RefTableName>
       <RefColNames>id</RefColNames>
     </foreign-key>
-    <column id="282" parent="255" name="id">
+    <column id="283" parent="255" name="id">
       <Position>1</Position>
       <DataType>bigint(20)|0s</DataType>
       <NotNull>1</NotNull>
       <ColumnKind>normal</ColumnKind>
     </column>
-    <column id="283" parent="255" name="discount">
+    <column id="284" parent="255" name="discount">
       <Position>2</Position>
       <DataType>double|0s</DataType>
       <ColumnKind>normal</ColumnKind>
     </column>
-    <column id="284" parent="255" name="car_id">
+    <column id="285" parent="255" name="car_id">
       <Position>3</Position>
       <DataType>bigint(20)|0s</DataType>
       <ColumnKind>normal</ColumnKind>
     </column>
-    <column id="285" parent="255" name="customer_id">
+    <column id="286" parent="255" name="customer_id">
       <Position>4</Position>
       <DataType>bigint(20)|0s</DataType>
       <ColumnKind>normal</ColumnKind>
     </column>
-    <index id="286" parent="255" name="FK_sales_cars">
+    <index id="287" parent="255" name="FK_sales_cars">
       <ColNames>car_id</ColNames>
       <Type>btree</Type>
     </index>
-    <index id="287" parent="255" name="FK_sales_customers">
+    <index id="288" parent="255" name="FK_sales_customers">
       <ColNames>customer_id</ColNames>
       <Type>btree</Type>
     </index>
-    <key id="288" parent="255" name="PRIMARY">
+    <key id="289" parent="255" name="PRIMARY">
       <NameSurrogate>1</NameSurrogate>
       <ColNames>id</ColNames>
       <Primary>1</Primary>
     </key>
-    <foreign-key id="289" parent="255" name="FK_sales_cars">
+    <foreign-key id="290" parent="255" name="FK_sales_cars">
       <ColNames>car_id</ColNames>
       <RefSchemaName>cardb</RefSchemaName>
       <RefTableName>cars</RefTableName>
       <RefColNames>id</RefColNames>
     </foreign-key>
-    <foreign-key id="290" parent="255" name="FK_sales_customers">
+    <foreign-key id="291" parent="255" name="FK_sales_customers">
       <ColNames>customer_id</ColNames>
       <RefSchemaName>cardb</RefSchemaName>
       <RefTableName>customers</RefTableName>
       <RefColNames>id</RefColNames>
     </foreign-key>
-    <column id="291" parent="256" name="id">
+    <column id="292" parent="256" name="id">
       <Position>1</Position>
       <DataType>bigint(20)|0s</DataType>
       <NotNull>1</NotNull>
       <ColumnKind>normal</ColumnKind>
     </column>
-    <column id="292" parent="256" name="name">
+    <column id="293" parent="256" name="name">
       <Position>2</Position>
       <DataType>varchar(255)|0s</DataType>
       <NotNull>1</NotNull>
       <ColumnKind>normal</ColumnKind>
     </column>
-    <column id="293" parent="256" name="isImporter">
+    <column id="294" parent="256" name="isImporter">
       <Position>3</Position>
       <DataType>bit(1)|0s</DataType>
       <NotNull>1</NotNull>
       <ColumnKind>normal</ColumnKind>
     </column>
-    <key id="294" parent="256" name="PRIMARY">
+    <key id="295" parent="256" name="PRIMARY">
       <NameSurrogate>1</NameSurrogate>
       <ColNames>id</ColNames>
       <Primary>1</Primary>
     </key>
-    <column id="295" parent="257" name="id">
+    <column id="296" parent="257" name="id">
       <Position>1</Position>
       <DataType>int(11)|0s</DataType>
       <NotNull>1</NotNull>
       <SequenceIdentity>1</SequenceIdentity>
       <ColumnKind>normal</ColumnKind>
     </column>
-    <column id="296" parent="257" name="username">
+    <column id="297" parent="257" name="title">
       <Position>2</Position>
       <DataType>varchar(255)|0s</DataType>
       <NotNull>1</NotNull>
       <ColumnKind>normal</ColumnKind>
     </column>
-    <column id="297" parent="257" name="password">
+    <column id="298" parent="257" name="content">
       <Position>3</Position>
-      <DataType>varchar(255)|0s</DataType>
+      <DataType>longtext|0s</DataType>
       <NotNull>1</NotNull>
       <ColumnKind>normal</ColumnKind>
     </column>
-    <column id="298" parent="257" name="role">
+    <column id="299" parent="257" name="dateAdded">
       <Position>4</Position>
-      <DataType>varchar(255)|0s</DataType>
+      <DataType>datetime|0s</DataType>
       <NotNull>1</NotNull>
       <ColumnKind>normal</ColumnKind>
     </column>
-    <index id="299" parent="257" name="UNIQ_8D93D649F85E0677">
-      <ColNames>username</ColNames>
-      <Unique>1</Unique>
-      <Type>btree</Type>
-    </index>
     <key id="300" parent="257" name="PRIMARY">
       <NameSurrogate>1</NameSurrogate>
       <ColNames>id</ColNames>
       <Primary>1</Primary>
     </key>
-    <key id="301" parent="257" name="UNIQ_8D93D649F85E0677">
+    <column id="301" parent="258" name="id">
+      <Position>1</Position>
+      <DataType>int(11)|0s</DataType>
+      <NotNull>1</NotNull>
+      <SequenceIdentity>1</SequenceIdentity>
+      <ColumnKind>normal</ColumnKind>
+    </column>
+    <column id="302" parent="258" name="username">
+      <Position>2</Position>
+      <DataType>varchar(255)|0s</DataType>
+      <NotNull>1</NotNull>
+      <ColumnKind>normal</ColumnKind>
+    </column>
+    <column id="303" parent="258" name="password">
+      <Position>3</Position>
+      <DataType>varchar(255)|0s</DataType>
+      <NotNull>1</NotNull>
+      <ColumnKind>normal</ColumnKind>
+    </column>
+    <column id="304" parent="258" name="role">
+      <Position>4</Position>
+      <DataType>varchar(255)|0s</DataType>
+      <ColumnKind>normal</ColumnKind>
+    </column>
+    <index id="305" parent="258" name="UNIQ_8D93D649F85E0677">
+      <ColNames>username</ColNames>
+      <Unique>1</Unique>
+      <Type>btree</Type>
+    </index>
+    <key id="306" parent="258" name="PRIMARY">
+      <NameSurrogate>1</NameSurrogate>
+      <ColNames>id</ColNames>
+      <Primary>1</Primary>
+    </key>
+    <key id="307" parent="258" name="UNIQ_8D93D649F85E0677">
       <ColNames>username</ColNames>
       <UnderlyingIndexName>UNIQ_8D93D649F85E0677</UnderlyingIndexName>
     </key>

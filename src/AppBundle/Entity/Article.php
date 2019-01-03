@@ -3,6 +3,7 @@
 namespace AppBundle\Entity;
 
 use Doctrine\ORM\Mapping as ORM;
+use Symfony\Component\Validator\Constraints as Assert;
 
 /**
  * Article
@@ -46,6 +47,13 @@ class Article
      * @var string
      */
     private $summary;
+
+    /**
+     * @ORM\Column(type="string")
+     *
+     * @Assert\File(mimeTypes={ "image/jpeg", "image/png" })
+     */
+    private $image;
 
     /**
      * Article constructor.
@@ -155,8 +163,19 @@ class Article
      */
     public function setSummary()
     {
-        $this->summary = substr($this->getContent(), 0, strlen($this->getContent()) / 2) . "...";
+        $this->summary = substr($this->getContent(), 0, 36) . "...";
     }
+
+    public function getImage()
+    {
+        return $this->image;
+    }
+
+    public function setImage($image)
+    {
+        $this->image = $image;
+    }
+
 
 }
 

@@ -68,6 +68,73 @@ body {
     /*IN ORDER TO MAKE FOOTER STAY OT BOTTOM*/
     flex:1 0 auto;
     margin-bottom: 30px;
+
 }
+
 /*MAKING FONT SIZE ON WHOLE WEBSITE BIGGER*/
 html { font-size: 130%; }
+
+/*-----------------------------------------------------------------------------------------*/
+/*-----------------------------------------------------------------------------------------*/
+/*-----------------------------------------------------------------------------------------*/
+.col-md-4 {
+    width: 40%;
+
+}
+.col-md-offset-4 {
+    /*margin-left: 110%;*/
+
+}
+
+/*--------------------------------All Articles-----------------------------------------------*/
+.post
+{
+    background-color: #FFF;
+    overflow: hidden;
+    box-shadow: 0 0 1px #CCC;
+}
+.post .content
+{
+    padding-left: 15px;
+    padding-right: 15px;
+    padding-bottom: 15px;
+}
+.post .author
+{
+    font-size: 11px;
+    color: #737373;
+    padding: 5px 0 10px;
+}
+.post .post-img-content
+{
+    height: 50px;
+    position: relative;
+}
+.post .post-img-content img
+{
+    position: absolute;
+}
+.post .post-title
+{
+    display: table-cell;
+    vertical-align: bottom;
+    z-index: 2;
+    position: relative;
+}
+.post .post-title b
+{
+    background-color: rgba(51, 51, 51, 0.58);
+    display: inline-block;
+    margin-bottom: 5px;
+    color: #FFF;
+    padding: 10px 15px;
+    margin-top: 5px;
+}
+#articles {
+    width: 50%;
+    padding-bottom: 30px;
+}
+#articles h3 {
+    text-align: center;
+}
+

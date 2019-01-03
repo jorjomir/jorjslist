@@ -10,4 +10,10 @@ namespace AppBundle\Repository;
  */
 class ArticleRepository extends \Doctrine\ORM\EntityRepository
 {
+    public function findRecentArticles(){
+        return $this->getEntityManager()
+            ->createQuery('SELECT a.id, a.title, a.content, a.dateAdded FROM AppBundle:Article a ORDER BY a.dateAdded DESC')
+            ->setMaxResults(5)
+            ->getResult();
+    }
 }

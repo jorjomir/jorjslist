@@ -6,7 +6,10 @@
         if (window.location.href.match("/admin/")) {
             $('.well').css("z-index", "2")
         }
+        $('#list').click(function(event){event.preventDefault();$('#products .item').addClass('list-group-item');});
+        $('#grid').click(function(event){event.preventDefault();$('#products .item').removeClass('list-group-item');$('#products .item').addClass('grid-group-item');});
     });
+
 
 
 }(window.jQuery);
