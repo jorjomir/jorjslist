@@ -6,15 +6,21 @@
     <div class="col-lg-4 col-md-4 col-sm-12">
         <figure class="card card-product">
             <div class="img-wrap">
-                <img style="max-width: 250px" src="http://bootstrap-ecommerce.com/ui-ecommerce/images/items/3.jpg">
+                {% if ad.images %}
+                    <img href="{{ path('viewAd', {id : ad.id}) }}" src="{{ asset('uploads/images/' ~ ad.images) }}">
+                {% else %}
+                    <img href="{{ path('viewAd', {id : ad.id}) }}" src="{{ asset('uploads/images/noimage.jpg') }}">
+                {% endif %}
             </div>
             <figcaption class="info-wrap">
-                <a href="#" class="title">{{ ad.title }}</a>
+                <a href="{{ path('viewAd', {id : ad.id}) }}" class="title text-center">{{ ad.title }}</a><br/>
+                <a href="{{ path('viewAd', {id : ad.id}) }}" class="text-info text-sm-center">{{ ad.summary }}</a>
                 <div class="action-wrap">
-                    <a href="#" class="btn btn-primary btn-sm float-right"> Order </a>
                     <div class="price-wrap h5">
-                        <span class="price-new ">{{ ad.price }}</span>
+                        <span class="price-new text-center">{{ ad.price }} лв.</span>
                     </div> <!-- price-wrap.// -->
+                    <a href="{{ path('viewAd', {id : ad.id}) }}" class="btn btn-primary btn-sm">Details</a><br/>
+                    <span class="text-right">Viewed: {{ ad.views }} times</span>
                 </div> <!-- action-wrap -->
             </figcaption>
         </figure> <!-- card // -->

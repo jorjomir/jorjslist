@@ -25,7 +25,7 @@ class AdType extends AbstractType
             ->add('town', TextType::class, array('label' => false))
             ->add('phoneNumber', TextType::class, array('label' => false))
             ->add('price', TextType::class, array('label' => false))
-            ->add('images', FileType::class, array('label' => false));
+            ->add('images', FileType::class, array('label' => false, 'required' => false));
     }
 
     public function configureOptions(OptionsResolver $resolver)

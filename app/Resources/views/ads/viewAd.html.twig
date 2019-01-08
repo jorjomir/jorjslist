@@ -2,10 +2,23 @@
 
 {% block main %}
     <div class="well">
+        {% for message in app.flashes('success') %}
+            <div class="alert alert-success" id="success-alert">
+                {{ message }}
+            </div>
+        {% endfor %}
+        {% if ad.author==app.user.username %}
+            <div class="text-right">
+                <a href="{{ path('editAd', {id : ad.id}) }}" class="btn btn-info btn-sm">Edit</a>
+                <a href="{{ path('viewAd', {id : ad.id}) }}" class="btn btn-danger btn-sm">Delete</a>
+            </div>
+        {% endif %}
         <h2 class="text-center">{{ ad.title }}</h2>
 
         {% if ad.images %}
             <img style="max-width: 500px" class="img-rounded img-responsive center-block" src="{{ asset('uploads/images/' ~ ad.images) }}" alt="{{ ad.title }}">
+        {% else %}
+            <img style="max-width: 500px" class="img-rounded img-responsive center-block" href="{{ path('viewAd', {id : ad.id}) }}" src="{{ asset('uploads/images/noimage.jpg') }}">
         {% endif %}
         <br/>
         <h4 class="pull-left"><strong>Price: {{ ad.price }} лв.</strong></h4>

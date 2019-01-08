@@ -3,13 +3,16 @@
 {% block main %}
     <div>
     <div class="well">
-    {% if app.session.flashBag.has('success') %}
-        <div class="alert alert-success" id="success-alert">
-            {% for msg in app.session.flashBag.get('success') %}
-                {{ msg }}
-            {% endfor %}
-        </div>
-    {% endif %}
+        {% for message in app.flashes('success') %}
+            <div class="alert alert-success" id="success-alert">
+                {{ message }}
+            </div>
+        {% endfor %}
+        {% for message in app.flashes('error') %}
+            <div class="alert alert-danger" id="success-alert">
+                {{ message }}
+            </div>
+        {% endfor %}
     <form class="form-horizontal" name="authenticate" action="{{ path('login') }}" method="post">
         <fieldset>
             <legend>Вход</legend>
@@ -30,7 +33,7 @@
         <input type="hidden" name="_target_path" value="/?login=success" />
         <div class="form-group">
             <div id="loginButton" class="col-sm-4 col-sm-offset-4">
-        <button type="submit" class="btn btn-primary btn-lg">Влез</button></br>
+        <button type="submit" class="btn btn-primary btn-sm">Влез</button></br>
         </div>
         </div>
         <div class="col-sm-8 col-sm-offset-4">

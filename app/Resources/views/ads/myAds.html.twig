@@ -2,12 +2,23 @@
 
 {% block main %}
     <div class="well" id="myAds">
+        {% for message in app.flashes('success') %}
+            <div class="alert alert-success" id="success-alert">
+                {{ message }}
+            </div>
+        {% endfor %}
         <h2 class="text-center">My Ads</h2>
         {% for ad in ads %}
             <article class="itemlist">
                 <div class="row row-sm">
                     <aside class="col-sm-3">
-                        <div class="img-wrap"><img style="max-width: 150px; max-height: 200px" src="{{ asset('uploads/images/' ~ ad.images) }}" class="img-md"></div>
+                        <div class="img-wrap">
+                            {% if ad.images %}
+                                <img style="max-width: 150px; max-height: 130px" href="{{ path('viewAd', {id : ad.id}) }}" src="{{ asset('uploads/images/' ~ ad.images) }}" class="img-md">
+                            {% else %}
+                                <img style="max-width: 150px; max-height: 130px" href="{{ path('viewAd', {id : ad.id}) }}" src="{{ asset('uploads/images/noimage.jpg') }}" class="img-md">
+                            {% endif %}
+                        </div>
                     </aside> <!-- col.// -->
                     <div class="col-sm-6">
                         <div class="text-wrap">

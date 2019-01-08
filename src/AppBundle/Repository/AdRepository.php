@@ -12,7 +12,7 @@ class AdRepository extends \Doctrine\ORM\EntityRepository
 {
     public function findAdsByCategory($id){
         return $this->getEntityManager()
-            ->createQuery('SELECT a.id, a.title, a.summary, a.dateAdded, a.author, a.town, a.phoneNumber, a.price FROM AppBundle:Ad a JOIN AppBundle:Category c
+            ->createQuery('SELECT a.id, a.title, a.summary, a.dateAdded, a.author, a.town, a.phoneNumber, a.price, a.images, a.views FROM AppBundle:Ad a JOIN AppBundle:Category c
             WITH a.categoryId=c.id WHERE a.categoryId= :id')
             ->setParameter('id', $id)
             ->getResult();

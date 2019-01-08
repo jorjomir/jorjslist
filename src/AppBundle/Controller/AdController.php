@@ -32,7 +32,10 @@ class AdController extends Controller
     public function newAd(Request $request) {
         /** @var User $currentUser */
         $currentUser= $this->getUser();
-
+        if($currentUser==null) {
+            $this->addFlash('error', 'In order to create ad, please Log in!');
+            return $this->redirectToRoute('login');
+        }
         /** @var Ad $ad */
         $ad= new Ad();
         $form= $this->createForm(AdType::class, $ad);
@@ -65,7 +68,7 @@ class AdController extends Controller
             $em->persist($ad);
             $em->flush();
             $this->addFlash('success', 'Ad created successfuly!');
-            return $this->redirectToRoute('index');
+            return $this->redirectToRoute('myAds');
         }
 
         return $this->render('ads/newAd.html.twig',
@@ -94,8 +97,44 @@ class AdController extends Controller
     public function myAds() {
         /** @var User $currentUser */
         $currentUser= $this->getUser();
+        if($currentUser==null) {
+            return $this->redirectToRoute('index');
+        }
         $em = $this->getDoctrine()->getManager();
         $ads=$em->getRepository('AppBundle:Ad')->findBy(array("author" => $currentUser->getUsername()));
         return $this->render('ads/myAds.html.twig', ['ads' => $ads]);
+    }
+
+    /**
+     * @Route("/ad/edit/{id}", name="editAd")
+     *
+     * @param $id
+     * @param Request $request
+     * @return \Symfony\Component\HttpFoundation\Response
+     */
+    public function editAd($id, Request $request) {
+        $ad=$this->getDoctrine()->getRepository(Ad::class)->find($id);
+        /** @var User $currentUser */
+        $currentUser= $this->getUser();
+        if($currentUser->getUsername()!=$ad->getAuthor()) {
+            return $this->redirectToRoute('index');
+        }
+
+        if($ad===null) {
+            return $this->redirectToRoute("myAds");
+        }
+
+        $form=$this->createForm(AdType::class, $ad);
+        $form->handleRequest($request);
+        if($form->isSubmitted() && $form->isValid()) {
+            $em=$this->getDoctrine()->getManager();
+            $em->persist($ad);
+            $em->flush();
+            $this->addFlash('success', 'You have successfuly edited ' . $ad->getTitle() . '!');
+            return $this->redirect("/ad/".$ad->getId());
+        }
+        return $this->render('ads/editAd.html.twig',
+            array('ad' => $ad,
+                'form' => $form->createView()));
     }
 }

@@ -211,3 +211,23 @@ html { font-size: 130%; }
 #dropdownFixAllCategories {
     margin-top: -20px;
 }
+.card-product {
+    min-height: 355px;
+}
+.info-wrap {
+    padding: 10px;
+}
+
+@media (max-width: 1198px) {
+    .card-product img {
+        max-width: 200px;
+    }
+}
+@media (min-width: 1198px) {
+    .card-product img {
+        max-width: 250px;
+    }
+}
+#editAd .control-label {
+    padding-top: 5px;
+}

@@ -51,7 +51,7 @@ class UserController extends Controller
             $em = $this->getDoctrine()->getManager();
             $em->persist($user);
             $em->flush();
-            $this->addFlash('success', 'Успешно се регистрирахте, сега влезте в профила си!');
+            $this->addFlash('success', 'You have successfully created your profile!');
 
             // ... do any other work - like sending them an email, etc
             // maybe set a "flash" success message for the user
