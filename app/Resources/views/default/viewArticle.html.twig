@@ -5,7 +5,7 @@
     <h2 class="text-center">{{ article.title }}</h2>
 
     {% if article.image %}
-    <img style="max-width: 500px" class="img-rounded img-responsive center-block" src="{{ asset('uploads/images/' ~ article.image) }}" alt="{{ article.title }}">
+    <img style="max-width: 500px; max-height: 600px" class="img-rounded img-responsive center-block" src="{{ asset('uploads/images/' ~ article.image) }}" alt="{{ article.title }}">
     {% endif %}
     <br/>
     <p>{{ article.content }}</p>

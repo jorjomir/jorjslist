@@ -3,8 +3,10 @@
 namespace AppBundle\Controller;
 
 use AppBundle\Entity\Article;
+use AppBundle\Entity\Category;
 use AppBundle\Entity\User;
 use AppBundle\Form\ArticleType;
+use AppBundle\Form\CategoryType;
 use Symfony\Component\Console\Question\ConfirmationQuestion;
 use Symfony\Component\HttpFoundation\File\Exception\FileException;
 use Symfony\Component\HttpFoundation\Request;

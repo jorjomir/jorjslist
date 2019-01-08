@@ -1,0 +1,24 @@
+{% extends 'base.html.twig' %}
+
+{% block main %}
+    <div id="adsCategory">
+        {% for ad in ads %}
+    <div class="col-lg-4 col-md-4 col-sm-12">
+        <figure class="card card-product">
+            <div class="img-wrap">
+                <img style="max-width: 250px" src="http://bootstrap-ecommerce.com/ui-ecommerce/images/items/3.jpg">
+            </div>
+            <figcaption class="info-wrap">
+                <a href="#" class="title">{{ ad.title }}</a>
+                <div class="action-wrap">
+                    <a href="#" class="btn btn-primary btn-sm float-right"> Order </a>
+                    <div class="price-wrap h5">
+                        <span class="price-new ">{{ ad.price }}</span>
+                    </div> <!-- price-wrap.// -->
+                </div> <!-- action-wrap -->
+            </figcaption>
+        </figure> <!-- card // -->
+    </div> <!-- col // -->
+        {% endfor %}
+    </div>
+{% endblock %}

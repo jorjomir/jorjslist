@@ -1,7 +1,7 @@
 {% extends 'base.html.twig' %}
 
 {% block main %}
-    <div class="container body-content span=8 offset=2">
+    <div>
         <div class="well">
             <form class="form-horizontal" action="{{ path('editArticle', {id: article.id}) }}" method="POST">
                 <fieldset>
@@ -26,9 +26,9 @@
                     {{ form_row(form._token) }}
 
                     <div class="form-group">
-                        <div class="col-sm-4 col-sm-offset-4">
-                            <a class="btn btn-default" href="{{ path('allArticles') }}">Cancel</a>
-                            <button type="submit" class="btn btn-success">Edit</button>
+                        <div class="col-sm-offset-4">
+                            <a class="btn btn-default btn-sm" href="{{ path('allArticles') }}">Cancel</a>
+                            <button type="submit" class="btn btn-success btn-sm">Edit</button>
                         </div>
                     </div>
                 </fieldset>

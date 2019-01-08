@@ -1,0 +1,13 @@
+<li>
+    <a class="dropdown-toggle text-center white-text" type="button" id="dropDownCategories"
+   data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">Categories <span class="caret"></span></a>
+<div class="dropdown-menu" aria-labelledby="dropDownCategories">
+    <ul class="list-group">
+    {% for category in categories %}
+            <li><a class="dropdown-item" href="{{ path('adsByCategory', {id: category.id}) }}">{{ category.name }}</a></li>
+            {% endfor %}
+    </ul>
+    <a id="dropdownFixAllCategories" class="dropdown-item" href="{{ path('adminAllCategories') }}">All Categories</a>
+</div>
+
+</li>

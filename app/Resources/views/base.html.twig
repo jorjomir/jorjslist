@@ -8,7 +8,7 @@
 <head>
     <meta charset="UTF-8"/>
     <meta name="viewport" content="width=device-width, initial-scale=1"/>
-    <title>{% block title %}JorjPress{% endblock %}</title>
+    <title>{% block title %}JorjsList{% endblock %}</title>
     {% block stylesheets %}
         <link rel="stylesheet" href="{{ asset('css/bootstrap.css') }}">
         <link rel="stylesheet" href="{{ asset('css/custom.css') }}">
@@ -24,7 +24,7 @@
     <header>
         <nav class="navbar navbar-default navbar-static-top" role="navigation">
                 <div class="navbar-header">
-                    <a href="{{ path('index') }}" class="navbar-brand">JorjPress</a>
+                    <a href="{{ path('index') }}" class="navbar-brand">JorjsList</a>
 
                     <button type="button" class="navbar-toggle" data-toggle="collapse" data-target=".navbar-collapse">
                         <span class="icon-bar"></span>
@@ -34,7 +34,9 @@
                 </div>
                 <div class="navbar-collapse collapse">
                     <ul class="nav navbar-nav navbar-left">
-                        <li><a class="nav-item nav-link active" href="#">Home <span class="sr-only">(current)</span></a></li>
+
+                            {{ render(controller('AppBundle:Default:primaryMenuCategoriesDropdownMenu')) }}
+
                         <li><a class="nav-item nav-link" href="#">Features</a></li>
                         <li><a class="nav-item nav-link" href="#">Pricing</a></li>
                     </ul>
@@ -61,19 +63,22 @@
 {% block secondNav %}
     {% if path(app.request.attributes.get('_route'),
         app.request.attributes.get('_route_params')) starts with '/admin' %}
-        <div id="nav-2" class="mdb-color darken-4" role="navigation">
-                <div>
-                    <div class="dropdown">
-                        <a class="dropdown-toggle text-center white-text" type="button" id="dropDownCreateArticle"
-                                data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">Article</a>
-                        <div class="dropdown-menu" aria-labelledby="dropDownCreateArticle">
-                            <a class="dropdown-item" href="{{ path('createArticle') }}">Create Article</a>
-                            <a class="dropdown-item" href="{{ path('adminAllArticles') }}">All Articles</a>
-                        </div>
-                        <a class="text-center white-text" href="{{ path('allUsers') }}">Users &nbsp; &nbsp;</a>
-                    </div>
-                </div>
-
+        <div class="sidenav">
+            <button class="dropdown-btn">Article
+                <span class="caret"></span>
+            </button>
+            <div class="dropdown-container">
+                <a href="{{ path('createArticle') }}">Create Article</a>
+                <a href="{{ path('adminAllArticles') }}">All Articles</a>
+            </div>
+            <a href="{{ path('allUsers') }}">Users</a>
+            <button class="dropdown-btn">Category
+                <span class="caret"></span>
+            </button>
+            <div class="dropdown-container">
+                <a href="{{ path('createCategory') }}">Create Category</a>
+                <a href="{{ path('adminAllCategories') }}">All Categories</a>
+            </div>
         </div>
     {% endif %}
 {% endblock %}

@@ -1,0 +1,27 @@
+{% extends 'base.html.twig' %}
+
+{% block main %}
+    <div class="well">
+        <h2 class="text-center">{{ ad.title }}</h2>
+
+        {% if ad.images %}
+            <img style="max-width: 500px" class="img-rounded img-responsive center-block" src="{{ asset('uploads/images/' ~ ad.images) }}" alt="{{ ad.title }}">
+        {% endif %}
+        <br/>
+        <h4 class="pull-left"><strong>Price: {{ ad.price }} лв.</strong></h4>
+        <h4 class="pull-right"><strong>City: {{ ad.town }}</strong></h4>
+        <br/>
+        {% if app.user %}
+        <h4><strong class="text-left">Tel: {{ ad.phoneNumber }}</strong></h4>
+        {% else %}
+        <h5 class="text-muted text-left">You need to be logged in order to see the Phone Number</h5>
+            <br/>
+        {% endif %}
+        <p size="18">{{ ad.description }}</p>
+        <h5 class="pull-left">Viewed: {{ ad.views }} times</h5>
+        <h5 class="pull-right">{{ ad.dateAdded|date('H:i d-m-Y') }}</h5><br/>
+
+
+
+    </div>
+{% endblock %}

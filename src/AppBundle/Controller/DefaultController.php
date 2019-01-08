@@ -3,6 +3,7 @@
 namespace AppBundle\Controller;
 
 use AppBundle\Entity\Article;
+use AppBundle\Entity\Category;
 use AppBundle\Repository\ArticleRepository;
 use Sensio\Bundle\FrameworkExtraBundle\Configuration\Method;
 use Symfony\Bundle\FrameworkBundle\Controller\Controller;
@@ -16,7 +17,14 @@ class DefaultController extends Controller
      */
     public function index()
     {
-        return $this->render('/default/index.html.twig');
+        $categories=$this->getDoctrine()->getRepository(Category::class)->findAll();
+        return $this->render('/default/index.html.twig', ['categories' => $categories]);
+    }
+
+    public function primaryMenuCategoriesDropdownMenuAction()
+    {
+        $categories=$this->getDoctrine()->getRepository(Category::class)->findAll();
+        return $this->render('default/primaryMenuCategoriesDropdownMenu.html.twig', ['categories' => $categories]);
     }
 
 
@@ -25,5 +33,4 @@ class DefaultController extends Controller
         //$articles=$this->getDoctrine()->getRepository(Article::class)->findAll();
         return $this->render('sidebarWidget.html.twig', ['articles' => $articles]);
     }
-
 }

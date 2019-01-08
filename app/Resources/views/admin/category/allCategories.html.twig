@@ -1,0 +1,35 @@
+{% extends 'base.html.twig' %}
+
+{% block main %}
+    <div class="well">
+        {% for message in app.flashes('success') %}
+            <div class="alert alert-success" id="success-alert">
+                {{ message }}
+            </div>
+        {% endfor %}
+        <h4>All Categories &nbsp; &nbsp; &nbsp; &nbsp;<a class="btn btn-primary btn-sm" type="button" href="{{ path('createCategory') }}" role="button">Create Category</a></h4>
+        <table class="table">
+            <thead>
+            <tr>
+                <th scope="col">ID</th>
+                <th scope="col">Name</th>
+                <th scope="col">Delete</th>
+            </tr>
+            </thead>
+            <tbody>
+            {% for category in categories %}
+                <tr>
+                    <th scope="row">{{ category.id }}</th>
+                    <td>{{ category.name }}</td>
+                    <td><a class="btn btn-danger btn-sm" href="#" onclick="return confirm('Are u sure you want to Delete this Article?')">Delete</a></td>
+                </tr>
+            {% else %}
+                <tr>
+                    <th scope="row">No Categories Found!</th>
+                </tr>
+            {% endfor %}
+            </tbody>
+        </table>
+    </div>
+{% endblock %}
+

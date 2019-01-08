@@ -1,4 +1,10 @@
 <div class="col-lg-3  col-md-3 col-sm-12">
+    {% if app.user %}
+        <div class="text-center">
+    <a href="{{ path('newAd') }}">+ New Ad</a><br/>
+    <a href="{{ path('myAds') }}">My Ads</a>
+        </div>
+    {% endif %}
     <!-- Begin fluid width widget -->
     <div class="panel panel-info">
         <div class="panel-heading">
@@ -12,12 +18,12 @@
                 <li class="media">
                     <div class="media-body">
                         <h4 class="media-heading">
-                            <a href="#" class="text-info">
+                            <a href="{{ path('viewArticle', {id: article.id}) }}" class="text-info">
                                 {{ article.title }}
                             </a>
                         </h4>
                         <p class="margin-top-10 margin-bottom-20">
-                            {{ article.content|slice(1,33) }}...
+                            {{ article.content|slice(0,33) }}...
                         </p>
                     </div>
                 </li>

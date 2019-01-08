@@ -41,12 +41,12 @@
     margin-left: -20px;
 }
 #nav-2 .dropdown-menu {
-    min-width: 120px;
+    min-width: 135px;
     margin-top: -10px;
     top: 80%;
 }
 #mainAdmin {
-    left: 85px;
+    left: 185px;
     top: -30px;
 }
 /*FIXING WHITESPACE UNDER FOOTER*/
@@ -138,3 +138,76 @@ html { font-size: 130%; }
     text-align: center;
 }
 
+/*---------------------------SIDENAV----------------------------*/
+.sidenav {
+    margin-top: 40px;
+    height: 100%;
+    width: 150px;
+    position: fixed;
+    z-index: 1;
+    top: 0;
+    left: 0;
+    background-color: #111;
+    overflow-x: hidden;
+    padding-top: 20px;
+}
+
+/* Style the sidenav links and the dropdown button */
+.sidenav a, .dropdown-btn {
+    padding: 6px 8px 6px 16px;
+    text-decoration: none;
+    font-size: 16px;
+    color: #818181;
+    display: block;
+    border: none;
+    background: none;
+    width:100%;
+    text-align: left;
+    cursor: pointer;
+    outline: none;
+}
+
+/* On mouse-over */
+.sidenav a:hover, .dropdown-btn:hover {
+    color: #f1f1f1;
+}
+
+/* Main content */
+.main {
+    margin-left: 200px; /* Same as the width of the sidenav */
+    font-size: 20px; /* Increased text to enable scrolling */
+    padding: 0px 10px;
+}
+
+/* Add an active class to the active dropdown button */
+.active {
+    background-color: green;
+    color: white;
+}
+
+/* Dropdown container (hidden by default). Optional: add a lighter background color and some left padding to change the design of the dropdown content */
+.dropdown-container {
+    display: none;
+    background-color: #262626;
+    padding-left: 8px;
+}
+
+#adsCategory .col-md-4 {
+    width: 33%;
+}
+
+#createAd .control-label {
+    padding-top: 5px;
+}
+#createAd .form-group .col-sm-4 {
+    float: unset;
+}
+#myAds .img-wrap {
+    margin-top: 30px;
+}
+#myAds .border-left {
+    margin-top: 30px;
+}
+#dropdownFixAllCategories {
+    margin-top: -20px;
+}
