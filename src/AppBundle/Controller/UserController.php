@@ -29,6 +29,15 @@ class UserController extends Controller
     }
 
     /**
+     * @Route("/login/error", name="loginError")
+     * @return \Symfony\Component\HttpFoundation\Response
+     */
+    public function errorLogin() {
+        $this->addFlash('error', 'Wrong username or password!');
+        return $this->render('login/login.html.twig');
+    }
+
+    /**
      * @Route("/register", name="register")
      * @param Request $request
      * @return \Symfony\Component\HttpFoundation\RedirectResponse|\Symfony\Component\HttpFoundation\Response
