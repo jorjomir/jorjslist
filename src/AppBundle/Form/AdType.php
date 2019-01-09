@@ -16,9 +16,9 @@ class AdType extends AbstractType
     {
         $builder
             ->add('title', TextType::class, array('label' => false))
-            ->add('summary', TextType::class, array('label' => false))
-            ->add('description', TextareaType::class, array('label' => false,
-            'attr' => array('max_length' => 10)))
+            ->add('summary', TextType::class, array('label' => false,
+                'attr' => array('maxLength' => 38)))
+            ->add('description', TextareaType::class, array('label' => false))
             ->add('categoryId', EntityType::class, array(
                 'class' =>'AppBundle\Entity\Category',
                 'choice_label' => 'name', 'placeholder' =>'Choose...', 'label' => false))

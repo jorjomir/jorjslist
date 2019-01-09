@@ -4,6 +4,7 @@ namespace AppBundle\Controller;
 
 use AppBundle\Entity\Article;
 use AppBundle\Entity\Category;
+use AppBundle\Entity\ImageSlider;
 use AppBundle\Repository\ArticleRepository;
 use Sensio\Bundle\FrameworkExtraBundle\Configuration\Method;
 use Symfony\Bundle\FrameworkBundle\Controller\Controller;
@@ -18,7 +19,8 @@ class DefaultController extends Controller
     public function index()
     {
         $categories=$this->getDoctrine()->getRepository(Category::class)->findAll();
-        return $this->render('/default/index.html.twig', ['categories' => $categories]);
+        $images=$this->getDoctrine()->getRepository(ImageSlider::class)->recentImages();
+        return $this->render('/default/index.html.twig', ['categories' => $categories, 'images' => $images]);
     }
 
     public function primaryMenuCategoriesDropdownMenuAction()
