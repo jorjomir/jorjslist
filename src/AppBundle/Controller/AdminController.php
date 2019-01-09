@@ -2,6 +2,7 @@
 
 namespace AppBundle\Controller;
 
+use AppBundle\Entity\Article;
 use AppBundle\Entity\User;
 use Symfony\Bundle\FrameworkBundle\Controller\Controller;
 use Symfony\Component\Routing\Annotation\Route;
@@ -25,7 +26,8 @@ class AdminController extends Controller
         if($currentUser->getRole()!=="admin") {
             return $this->redirectToRoute('index');
         }
-        return $this->render('admin/index.html.twig');
+        $articles=$this->getDoctrine()->getRepository(Article::class)->findRecentArticles();
+        return $this->render('admin/index.html.twig', ['articles' => $articles]);
     }
 
     /**

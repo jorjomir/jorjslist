@@ -56,6 +56,12 @@ class Article
     private $image;
 
     /**
+     * @var int
+     *
+     * @ORM\Column(name="views", type="integer")
+     */
+    private $views=0;
+    /**
      * Article constructor.
      */
     public function __construct()
@@ -174,6 +180,22 @@ class Article
     public function setImage($image)
     {
         $this->image = $image;
+    }
+
+    /**
+     * @return int
+     */
+    public function getViews()
+    {
+        return $this->views;
+    }
+
+    /**
+     * @param int $views
+     */
+    public function setViews($views)
+    {
+        $this->views = $views;
     }
 
 

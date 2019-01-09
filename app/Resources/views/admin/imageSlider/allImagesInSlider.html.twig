@@ -1,0 +1,39 @@
+{% extends 'base.html.twig' %}
+
+{% block main %}
+    <div class="well">
+        {% for message in app.flashes('success') %}
+            <div class="alert alert-success" id="success-alert">
+                {{ message }}
+            </div>
+        {% endfor %}
+        <h4>All Images &nbsp; &nbsp; &nbsp; &nbsp;<a class="btn btn-primary btn-sm" type="button" href="{{ path('addImageToSlide') }}" role="button">Add Image</a></h4>
+        <table class="table">
+            <thead>
+            <tr>
+                <th scope="col">Order</th>
+                <th scope="col">Image</th>
+                <th scope="col">Delete</th>
+            </tr>
+            </thead>
+            <tbody>
+            {% for image in images %}
+                <tr>
+                    <th scope="row">{{ loop.index }}</th>
+                    <td>
+                        <div class="img-wrap">
+                            <img style="max-width: 150px; max-height: 130px" src="{{ asset('uploads/images/' ~ image.image) }}" class="img-md">
+                        </div>
+                    </td>
+                    <td><a class="btn btn-danger btn-sm" href="{{ path('imageDelete', {id: image.id}) }}" onclick="return confirm('Are u sure you want to Delete this Article?')">Delete</a></td>
+                </tr>
+            {% else %}
+                <tr>
+                    <th scope="row">No Articles Found!</th>
+                </tr>
+            {% endfor %}
+            </tbody>
+        </table>
+    </div>
+{% endblock %}
+

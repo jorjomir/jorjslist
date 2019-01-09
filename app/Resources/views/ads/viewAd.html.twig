@@ -10,7 +10,7 @@
         {% if ad.author==app.user.username %}
             <div class="text-right">
                 <a href="{{ path('editAd', {id : ad.id}) }}" class="btn btn-info btn-sm">Edit</a>
-                <a href="{{ path('viewAd', {id : ad.id}) }}" class="btn btn-danger btn-sm">Delete</a>
+                <a href="{{ path('deleteAd', {id : ad.id}) }}" class="btn btn-danger btn-sm">Delete</a>
             </div>
         {% endif %}
         <h2 class="text-center">{{ ad.title }}</h2>

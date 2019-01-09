@@ -16,6 +16,11 @@ class UserController extends Controller
      */
     public function login()
     {
+        /** @var User $currentUser */
+        $currentUser= $this->getUser();
+        if($currentUser!=null) {
+            return $this->redirectToRoute('index');
+        }
         /*$msg = new \Plasticbrain\FlashMessages\FlashMessages();
         $msg->success('opa');
         $msg->display();*/
@@ -30,6 +35,12 @@ class UserController extends Controller
      */
     public function registerAction(Request $request)
     {
+        /** @var User $currentUser */
+        $currentUser= $this->getUser();
+        if($currentUser!=null) {
+            return $this->redirectToRoute('index');
+        }
+
         if (!session_id()) @session_start();
         // Instantiate the class
 

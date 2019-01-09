@@ -6,6 +6,9 @@
         if (window.location.href.match("/admin/")) {
             $('.well').css("z-index", "2")
         }
+        if (window.location.href.match("/admin/")) {
+            $('.col-md-9').css("left", "150px")
+        }
         $('#list').click(function(event){event.preventDefault();$('#products .item').addClass('list-group-item');});
         $('#grid').click(function(event){event.preventDefault();$('#products .item').removeClass('list-group-item');$('#products .item').addClass('grid-group-item');});
 

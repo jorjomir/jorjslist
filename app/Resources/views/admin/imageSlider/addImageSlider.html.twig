@@ -1,0 +1,28 @@
+{% extends 'base.html.twig' %}
+{% block main %}
+    {{ form_start(form) }}
+    <div class="well">
+        <form id="createArticle" class="form-horizontal" action="{{ path('addImageToSlide') }}" method="POST">
+            <fieldset>
+                <legend>Add Image to Slider</legend>
+
+                <div class="form-group">
+                    <div class="col-sm-4 ">
+                        {{ form_row(form.image) }}
+                    </div>
+                </div>
+                {{ form_row(form._token) }}
+                {{ form_end(form) }}
+                <br/>
+                <p>Image needs to be 16:9. The newest uploaded image will be the primary one!</p>
+                <div class="form-group">
+                    <div class="col-sm-4 col-sm-offset-4">
+                        <button type="submit" class="btn btn-primary btn-sm">Submit</button>
+                    </div>
+                </div>
+            </fieldset>
+        </form>
+    </div>
+
+
+{% endblock main %}

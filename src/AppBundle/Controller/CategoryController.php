@@ -62,4 +62,21 @@ class CategoryController extends Controller
 
         return $this->render('admin/category/allCategories.html.twig', ['categories' => $categories]);
     }
+
+    /**
+     * @Route("/admin/category/delete/{id}", name="deleteCategory")
+     *
+     * @param $id
+     * @return \Symfony\Component\HttpFoundation\RedirectResponse
+     */
+    public function deleteCategory($id)
+    {
+
+        $em = $this->getDoctrine()->getManager();
+        $category=$em->getRepository('AppBundle:Category')->find($id);
+        $em->remove($category);
+        $em->flush();
+        $this->addFlash('success', 'Category Deleted Successfully!');
+        return $this->redirectToRoute('adminAllCategories');
+    }
 }

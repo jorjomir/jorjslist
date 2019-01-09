@@ -1,0 +1,24 @@
+<div class="sidenav">
+    <button class="dropdown-btn">Article
+        <span class="caret"></span>
+    </button>
+    <div class="dropdown-container">
+        <a href="{{ path('createArticle') }}">Create Article</a>
+        <a href="{{ path('adminAllArticles') }}">All Articles</a>
+    </div>
+    <a href="{{ path('allUsers') }}">Users</a>
+    <button class="dropdown-btn">Category
+        <span class="caret"></span>
+    </button>
+    <div class="dropdown-container">
+        <a href="{{ path('createCategory') }}">Create Category</a>
+        <a href="{{ path('adminAllCategories') }}">All Categories</a>
+    </div>
+    <button class="dropdown-btn">Image Slider
+        <span class="caret"></span>
+    </button>
+    <div class="dropdown-container">
+        <a href="{{ path('addImageToSlide') }}">Add Image</a>
+        <a href="{{ path('allImagesInSlider') }}">All Images</a>
+    </div>
+</div>

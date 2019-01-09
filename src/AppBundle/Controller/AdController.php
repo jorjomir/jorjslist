@@ -3,6 +3,7 @@
 namespace AppBundle\Controller;
 
 use AppBundle\Entity\Ad;
+use AppBundle\Entity\Category;
 use AppBundle\Entity\User;
 use AppBundle\Form\AdType;
 use Symfony\Bundle\FrameworkBundle\Controller\Controller;
@@ -136,5 +137,31 @@ class AdController extends Controller
         return $this->render('ads/editAd.html.twig',
             array('ad' => $ad,
                 'form' => $form->createView()));
+    }
+
+    /**
+     * @Route("/ad/delete/{id}", name="deleteAd")
+     *
+     * @param $id
+     * @return \Symfony\Component\HttpFoundation\RedirectResponse
+     */
+    public function deleteAd($id)
+    {
+        $em = $this->getDoctrine()->getManager();
+        $ad=$em->getRepository('AppBundle:Ad')->find($id);
+        $em->remove($ad);
+        $em->flush();
+        $this->addFlash('success', 'Ad Deleted Successfully!');
+        return $this->redirectToRoute('myAds');
+    }
+
+    /**
+     * @Route("/allCategories", name="allCategories")
+     */
+    public function allCategories() {
+
+        $categories=$this->getDoctrine()->getRepository(Category::class)->findAll();
+
+        return $this->render('default/allCategories.html.twig', ['categories' => $categories]);
     }
 }

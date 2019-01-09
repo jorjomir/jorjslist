@@ -21,7 +21,7 @@
                 <tr>
                     <th scope="row">{{ category.id }}</th>
                     <td>{{ category.name }}</td>
-                    <td><a class="btn btn-danger btn-sm" href="#" onclick="return confirm('Are u sure you want to Delete this Article?')">Delete</a></td>
+                    <td><a class="btn btn-danger btn-sm" href="{{ path('deleteCategory', {id: category.id}) }}" onclick="return confirm('Are u sure you want to Delete this Category?')">Delete</a></td>
                 </tr>
             {% else %}
                 <tr>

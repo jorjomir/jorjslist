@@ -1,0 +1,10 @@
+{% extends 'base.html.twig' %}
+
+{% block main %}
+    <div class="well">
+        <h2>All Categories</h2>
+        {% for category in categories %}
+            <a class="btn btn-indigo btn-lg" href="{{ path('adsByCategory', {'id': category.id}) }}">{{ category.name }}</a>
+        {% endfor %}
+    </div>
+{% endblock %}

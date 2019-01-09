@@ -37,12 +37,11 @@
 
                             {{ render(controller('AppBundle:Default:primaryMenuCategoriesDropdownMenu')) }}
 
-                        <li><a class="nav-item nav-link" href="#">Features</a></li>
-                        <li><a class="nav-item nav-link" href="#">Pricing</a></li>
+                        <li><a class="nav-item nav-link" href="{{ path('allArticles') }}">Articles</a></li>
                     </ul>
                     <ul class="nav navbar-nav navbar-right">
                     {% if app.user %}
-                        <li><a id="login" class="nav-item nav-link" href="{{ path('login') }}">Здравей, {{ app.user.username }}!</a></li>
+                        <li><a id="login" class="nav-item nav-link" href="{{ path('login') }}">Hello, {{ app.user.username }}!</a></li>
                         <li><a id="logout" class="nav-item nav-link" href="{{ path('logout') }}">Logout</a></li>
                         {% if app.user.role=="admin" %}
                             {% if path(app.request.attributes.get('_route'),
@@ -63,23 +62,7 @@
 {% block secondNav %}
     {% if path(app.request.attributes.get('_route'),
         app.request.attributes.get('_route_params')) starts with '/admin' %}
-        <div class="sidenav">
-            <button class="dropdown-btn">Article
-                <span class="caret"></span>
-            </button>
-            <div class="dropdown-container">
-                <a href="{{ path('createArticle') }}">Create Article</a>
-                <a href="{{ path('adminAllArticles') }}">All Articles</a>
-            </div>
-            <a href="{{ path('allUsers') }}">Users</a>
-            <button class="dropdown-btn">Category
-                <span class="caret"></span>
-            </button>
-            <div class="dropdown-container">
-                <a href="{{ path('createCategory') }}">Create Category</a>
-                <a href="{{ path('adminAllCategories') }}">All Categories</a>
-            </div>
-        </div>
+        {% include 'admin/adminSidebar.html.twig' %}
     {% endif %}
 {% endblock %}
 
@@ -90,7 +73,7 @@
             <div class="col-lg-9 col-md-9 col-sm-12">
             {% if path(app.request.attributes.get('_route'),
                 app.request.attributes.get('_route_params')) starts with '/admin' %}
-            <div id="mainAdmin" class="col-sm-9">
+            <div id="mainAdmin">
                 {% else %}
                 <div id="main">
             {% endif %}

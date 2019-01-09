@@ -1,8 +1,10 @@
 <div class="col-lg-3  col-md-3 col-sm-12">
-    <a href="{{ path('newAd') }}">+ New Ad</a><br/>
+    <div class="text-center">
+    <a class="btn btn-deep-orange btn-sm" href="{{ path('newAd') }}">New Ad</a>
     {% if app.user %}
-    <a href="{{ path('myAds') }}">&nbsp; &nbsp; My Ads</a>
+    <a class="btn btn-deep-orange btn-sm" href="{{ path('myAds') }}">My Ads</a>
     {% endif %}
+    </div>
     <!-- Begin fluid width widget -->
     <div class="panel panel-info">
         <div class="panel-heading">
