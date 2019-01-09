@@ -6,6 +6,7 @@ use AppBundle\Entity\ImageSlider;
 use AppBundle\Entity\User;
 use AppBundle\Form\ImageSliderType;
 use Symfony\Bundle\FrameworkBundle\Controller\Controller;
+use Symfony\Component\Filesystem\Filesystem;
 use Symfony\Component\HttpFoundation\Request;
 use Symfony\Component\Routing\Annotation\Route;
 use Symfony\Component\Validator\Constraints\Image;
@@ -92,8 +93,15 @@ class ImageSliderController extends Controller
 
         $em = $this->getDoctrine()->getManager();
         $image=$em->getRepository('AppBundle:ImageSlider')->find($id);
+
+        /** @var Filesystem $fileSystem */
+        $fileSystem=new Filesystem();
+        $fileSystem->remove($this->get('kernel')->getRootDir()."/../web/uploads/images/".$image->getImage());
+
         $em->remove($image);
         $em->flush();
+
+
         $this->addFlash('success', 'Image Deleted Successfully!');
         return $this->redirectToRoute('allImagesInSlider');
     }

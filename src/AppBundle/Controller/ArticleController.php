@@ -8,6 +8,7 @@ use AppBundle\Entity\User;
 use AppBundle\Form\ArticleType;
 use AppBundle\Form\CategoryType;
 use Symfony\Component\Console\Question\ConfirmationQuestion;
+use Symfony\Component\Filesystem\Filesystem;
 use Symfony\Component\HttpFoundation\File\Exception\FileException;
 use Symfony\Component\HttpFoundation\Request;
 use Symfony\Bundle\FrameworkBundle\Controller\Controller;
@@ -133,6 +134,11 @@ class ArticleController extends Controller
 
         $em = $this->getDoctrine()->getManager();
         $article=$em->getRepository('AppBundle:Article')->find($id);
+
+        /** @var Filesystem $fileSystem */
+        $fileSystem=new Filesystem();
+        $fileSystem->remove($this->get('kernel')->getRootDir()."/../web/uploads/images/".$article->getImage());
+
         $em->remove($article);
         $em->flush();
         $this->addFlash('success', 'Article Deleted Successfully!');

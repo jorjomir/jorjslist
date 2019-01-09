@@ -7,6 +7,7 @@ use AppBundle\Entity\Category;
 use AppBundle\Entity\User;
 use AppBundle\Form\AdType;
 use Symfony\Bundle\FrameworkBundle\Controller\Controller;
+use Symfony\Component\Filesystem\Filesystem;
 use Symfony\Component\HttpFoundation\File\Exception\FileException;
 use Symfony\Component\HttpFoundation\Request;
 use Symfony\Component\Routing\Annotation\Route;
@@ -147,6 +148,8 @@ class AdController extends Controller
      */
     public function deleteAd($id)
     {
+        /** @var Filesystem $nesh */
+        $nesh=new Filesystem();
         $em = $this->getDoctrine()->getManager();
         $ad=$em->getRepository('AppBundle:Ad')->find($id);
         $em->remove($ad);
