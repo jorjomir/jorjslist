@@ -1,0 +1,46 @@
+{% extends 'base.html.twig' %}
+
+{% block main %}
+    <div class="well" id="myAds">
+        {% for message in app.flashes('success') %}
+            <div class="alert alert-success" id="success-alert">
+                {{ message }}
+            </div>
+        {% endfor %}
+        <h2 class="text-center">Ads by </h2>
+        {% for ad in ads %}
+            <article class="itemlist">
+                <div class="row row-sm">
+                    <aside class="col-sm-3">
+                        <div class="img-wrap">
+                            {% if ad.images %}
+                                <img style="max-width: 150px; max-height: 130px" href="{{ path('viewAd', {id : ad.id}) }}" src="{{ asset('uploads/images/' ~ ad.images) }}" class="img-md">
+                            {% else %}
+                                <img style="max-width: 150px; max-height: 130px" href="{{ path('viewAd', {id : ad.id}) }}" src="{{ asset('uploads/images/noimage.jpg') }}" class="img-md">
+                            {% endif %}
+                        </div>
+                    </aside> <!-- col.// -->
+                    <div class="col-sm-6">
+                        <div class="text-wrap">
+                            <h3 class="title">{{ ad.title }}</h3>
+                            <p>{{ ad.summary }}</p>
+                            <p class="rating-wrap my-0 text-muted">
+                                <span class="label-rating">Viewed: {{ ad.views }} times</span><br/>
+                                <span class="label-rating">Date: {{ ad.dateAdded|date('H:i d-m-Y') }}</span>
+                            </p> <!-- rating-wrap.// -->
+                        </div> <!-- text-wrap.// -->
+                    </div> <!-- col.// -->
+                    <aside class="col-sm-3">
+                        <div class="border-left pl-3">
+                            <div class="price-wrap">
+                                <span class="h3 price">{{ ad.price }} лв.</span>
+                            </div> <!-- info-price-detail // -->
+                            <p>
+                                <a href="{{ path('viewAd', {id : ad.id}) }}" class="btn btn-light btn-sm">Details</a> </p>
+                        </div> <!-- action-wrap.// -->
+                    </aside> <!-- col.// -->
+                </div> <!-- row.// -->
+            </article> <!-- itemlist.// -->
+        {% endfor %}
+    </div>
+{% endblock %}

@@ -142,7 +142,7 @@ class ArticleController extends Controller
         $em->remove($article);
         $em->flush();
         $this->addFlash('success', 'Article Deleted Successfully!');
-        return $this->redirectToRoute('allArticles');
+        return $this->redirectToRoute('adminAllArticles');
     }
 
     /**

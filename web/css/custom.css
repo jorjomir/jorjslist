@@ -200,8 +200,20 @@ html { font-size: 130%; }
     padding-top: 5px;
 }
 #createAd .form-group .col-sm-4 {
-    float: unset;
+float: unset;
 }
+#createArticle .col-sm-4 {
+    float: none;
+}
+#editArticle .col-sm-4 {
+    float: none;
+}
+#editAd .col-sm-4 {
+    float: none;
+}
+
+
+
 #myAds .img-wrap {
     margin-top: 30px;
 }
@@ -221,11 +233,13 @@ html { font-size: 130%; }
 @media (max-width: 1198px) {
     .card-product img {
         max-width: 200px;
+        max-height: 300px;
     }
 }
 @media (min-width: 1198px) {
     .card-product img {
         max-width: 250px;
+        max-height: 350px;
     }
 }
 #editAd .control-label {

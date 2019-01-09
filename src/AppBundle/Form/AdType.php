@@ -15,17 +15,17 @@ class AdType extends AbstractType
     public function buildForm(FormBuilderInterface $builder, array $options)
     {
         $builder
-            ->add('title', TextType::class, array('label' => false))
-            ->add('summary', TextType::class, array('label' => false,
+            ->add('title', TextType::class, array('data_class' => null, 'label' => false))
+            ->add('summary', TextType::class, array('data_class' => null, 'label' => false,
                 'attr' => array('maxLength' => 38)))
-            ->add('description', TextareaType::class, array('label' => false))
+            ->add('description', TextareaType::class, array('data_class' => null, 'label' => false))
             ->add('categoryId', EntityType::class, array(
-                'class' =>'AppBundle\Entity\Category',
+                'data_class' => null, 'class' =>'AppBundle\Entity\Category',
                 'choice_label' => 'name', 'placeholder' =>'Choose...', 'label' => false))
-            ->add('town', TextType::class, array('label' => false))
-            ->add('phoneNumber', TextType::class, array('label' => false))
-            ->add('price', TextType::class, array('label' => false))
-            ->add('images', FileType::class, array('label' => false, 'required' => false));
+            ->add('town', TextType::class, array('data_class' => null, 'label' => false))
+            ->add('phoneNumber', TextType::class, array('data_class' => null, 'label' => false))
+            ->add('price', TextType::class, array('data_class' => null, 'label' => false))
+            ->add('images', FileType::class, array('data_class' => null, 'label' => false, 'required' => false));
     }
 
     public function configureOptions(OptionsResolver $resolver)

@@ -17,4 +17,12 @@ class AdRepository extends \Doctrine\ORM\EntityRepository
             ->setParameter('id', $id)
             ->getResult();
     }
+    public function findAdsByUser($username){
+        return $this->getEntityManager()
+            ->createQuery('SELECT a.id, a.title, a.summary, a.dateAdded, a.author, a.town, 
+            a.phoneNumber, a.price, a.images, a.views FROM AppBundle:Ad a JOIN AppBundle:User u
+            WITH a.author=u.username WHERE a.author= :username')
+            ->setParameter('username', $username)
+            ->getResult();
+    }
 }

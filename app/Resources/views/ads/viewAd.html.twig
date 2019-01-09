@@ -31,6 +31,7 @@
             <br/>
         {% endif %}
         <p size="18">{{ ad.description }}</p>
+        <a class="text-left" href="{{ path('adsByUser', {username : ad.author}) }}">User: {{ ad.author }}</a><br/>
         <h5 class="pull-left">Viewed: {{ ad.views }} times</h5>
         <h5 class="pull-right">{{ ad.dateAdded|date('H:i d-m-Y') }}</h5><br/>
 

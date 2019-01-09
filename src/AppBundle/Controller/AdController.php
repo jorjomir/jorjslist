@@ -167,4 +167,15 @@ class AdController extends Controller
 
         return $this->render('default/allCategories.html.twig', ['categories' => $categories]);
     }
+
+    /**
+     * @Route("/ads/user/{username}", name="adsByUser")
+     * @param $username
+     * @return \Symfony\Component\HttpFoundation\Response
+     */
+    public function adsByUser($username) {
+        $ads=$this->getDoctrine()->getRepository(Ad::class)->findAdsByUser($username);
+
+        return $this->render('ads/adsByCategory.html.twig', ['ads' => $ads]);
+    }
 }

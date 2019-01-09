@@ -3,27 +3,36 @@
 {% block main %}
     <div>
         <div class="well">
+            {{ form_start(form) }}
             <form class="form-horizontal" action="{{ path('editArticle', {id: article.id}) }}" method="POST">
-                <fieldset>
+                <fieldset id="editArticle">
                     <legend>Edit Article</legend>
 
                     <div class="form-group">
-                        <label class="col-sm-4 control-label" for="article_title">Post Title</label>
+                        <label class="col-sm-4 control-label" for="article_title">Title</label>
                         <div class="col-sm-4 ">
-                            <input type="text" class="form-control" id="article_title" placeholder="Post Title"
-                                   name="article[title]" value="{{ article.title }}">
+                            {{ form_row(form.title) }}
                         </div>
                     </div>
-
                     <div class="form-group">
                         <label class="col-sm-4 control-label" for="article_content">Content</label>
-                        <div class="col-sm-6">
-                        <textarea class="form-control" rows="6" id="article_content"
-                                  name="article[content]">{{ article.content }}</textarea>
+                        <div class="col-sm-4 ">
+                            {{ form_row(form.content,
+                                {'attr': {'rows' : '8', 'cols' : '60'}}) }}
                         </div>
+                    </div>
+                    <div class="form-group">
+                        <label class="col-sm-4 control-label" for="article_image">Image</label>
+                        <div class="col-sm-4 ">
+                            {{ form_row(form.image) }}
+                        </div>
+                    </div>
+                    <div class="text-center">
+                        <p class="text-danger">Upload image only if you want to replace the old one!</p>
                     </div>
 
                     {{ form_row(form._token) }}
+                    {{ form_end(form) }}
 
                     <div class="form-group">
                         <div class="col-sm-offset-4">

@@ -5,7 +5,7 @@
         {% for ad in ads %}
     <div class="col-lg-4 col-md-4 col-sm-12">
         <figure class="card card-product">
-            <div class="img-wrap">
+            <div class="img-wrap text-center">
                 {% if ad.images %}
                     <img href="{{ path('viewAd', {id : ad.id}) }}" src="{{ asset('uploads/images/' ~ ad.images) }}">
                 {% else %}

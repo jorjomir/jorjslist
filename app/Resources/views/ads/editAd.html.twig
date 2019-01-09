@@ -3,6 +3,7 @@
 {% block main %}
     <div>
         <div id="editAd" class="well">
+            {{ form_start(form) }}
             <form class="form-horizontal" action="{{ path('editAd', {id: ad.id}) }}" method="POST">
                 <fieldset>
                     <legend>Edit Ad</legend>
