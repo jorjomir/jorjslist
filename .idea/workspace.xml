@@ -400,7 +400,7 @@
       <path value="$PROJECT_DIR$/vendor/plasticbrain/php-flash-messages" />
     </include_path>
   </component>
-  <component name="ProjectFrameBounds" extendedState="6">
+  <component name="ProjectFrameBounds" extendedState="7">
     <option name="x" value="448" />
     <option name="y" value="-8" />
     <option name="width" value="1024" />
@@ -825,12 +825,12 @@
       <workItem from="1545767862464" duration="33846000" />
       <workItem from="1546529957987" duration="48127000" />
       <workItem from="1546961740933" duration="14161000" />
-      <workItem from="1547029631108" duration="25539000" />
+      <workItem from="1547029631108" duration="26137000" />
     </task>
     <servers />
   </component>
   <component name="TimeTrackingManager">
-    <option name="totallyTimeSpent" value="212422000" />
+    <option name="totallyTimeSpent" value="213020000" />
   </component>
   <component name="TodoView">
     <todo-panel id="selected-file">
@@ -842,7 +842,7 @@
     </todo-panel>
   </component>
   <component name="ToolWindowManager">
-    <frame x="-8" y="-8" width="1382" height="754" extended-state="6" />
+    <frame x="-8" y="-8" width="1382" height="754" extended-state="7" />
     <editor active="true" />
     <layout>
       <window_info active="true" content_ui="combo" id="Project" order="0" sideWeight="0.4989154" visible="true" weight="0.23676248" />
