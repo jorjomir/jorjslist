@@ -35,7 +35,7 @@ class AdController extends Controller
         /** @var User $currentUser */
         $currentUser= $this->getUser();
         if($currentUser==null) {
-            $this->addFlash('error', 'In order to create ad, please Log in!');
+            $this->addFlash('error', 'За да създадете обява моля влезте в профила си!');
             return $this->redirectToRoute('login');
         }
         /** @var Ad $ad */
@@ -46,35 +46,43 @@ class AdController extends Controller
 
         if($form->isSubmitted() && $form->isValid()) {
             $em=$this->getDoctrine()->getManager();
+            $images = $ad->getImages();
+            $arr = [];
+            if ($images) {
+                foreach ($images as $image) {
+                    $fileName = md5(uniqid()) . '.' . $image->guessExtension();
+                    $arr[] = $fileName;
+                    try {
+                        $image->move(
+                            $this->getParameter('images_directory'),
+                            $fileName
+                        );
+                    } catch (FileException $e) {
+                        // ... handle exception if something happens during file upload
+                    }
+                }
+                $ad->setImages($arr);
+                /** @var Symfony\Component\HttpFoundation\File\UploadedFile $file */
+                //$file = $form->get('images')->getData();
 
-            /** @var Symfony\Component\HttpFoundation\File\UploadedFile $file */
-            $file = $form->get('images')->getData();
-            $fileName = md5(uniqid()) . '.' . $file->guessExtension();
-            try {
-                $file->move(
-                    $this->getParameter('images_directory'),
-                    $fileName
-                );
-            } catch (FileException $e) {
-                // ... handle exception if something happens during file upload
+
+                $ad->setAuthor($currentUser->getUsername());
+                $em_category = $this->getDoctrine()->getManager();
+                $data=$request->request->all();
+                $categoryId=intval($data["ad"]["categoryId"]);
+                $category = $em_category->getRepository('AppBundle:Category')->findOneBy(array('id' => $categoryId));
+                $ad->setCategoryId($category);
+                $em->persist($ad);
+                $em->flush();
+                $this->addFlash('success', 'Ad created successfuly!');
+                return $this->redirectToRoute('myAds');
+
             }
-            $ad->setImages($fileName);
-
-
-            $ad->setAuthor($currentUser->getUsername());
-            $em_category = $this->getDoctrine()->getManager();
-            $data=$request->request->all();
-            $categoryId=intval($data["ad"]["categoryId"]);
-            $category = $em_category->getRepository('AppBundle:Category')->findOneBy(array('id' => $categoryId));
-            $ad->setCategoryId($category);
-            $em->persist($ad);
-            $em->flush();
-            $this->addFlash('success', 'Ad created successfuly!');
-            return $this->redirectToRoute('myAds');
         }
+            return $this->render('ads/newAd.html.twig',
+                array('form' => $form->createView(),
+                    'user' => $currentUser));
 
-        return $this->render('ads/newAd.html.twig',
-            array('form' => $form->createView()));
     }
 
     /**
@@ -85,11 +93,12 @@ class AdController extends Controller
     public function viewAd($id) {
         $em = $this->getDoctrine()->getManager();
         $ad=$em->getRepository('AppBundle:Ad')->find($id);
+        $images=$ad->getImages();
         $views=$ad->getViews();
         $ad->setViews($views+1);
         $em->persist($ad);
         $em->flush();
-        return $this->render('ads/viewAd.html.twig', ['ad' => $ad]);
+        return $this->render('ads/viewAd.html.twig', ['ad' => $ad, 'images' => $images]);
     }
 
     /**
@@ -148,10 +157,16 @@ class AdController extends Controller
      */
     public function deleteAd($id)
     {
-        /** @var Filesystem $nesh */
-        $nesh=new Filesystem();
         $em = $this->getDoctrine()->getManager();
         $ad=$em->getRepository('AppBundle:Ad')->find($id);
+        $re = '/(...)(.jpeg)/m';
+        $re1 = '/(...)(.png)/m';
+
+        if(preg_match($re, $ad->getImages())) {
+            /** @var Filesystem $fileSystem */
+            $fileSystem = new Filesystem();
+            $fileSystem->remove($this->get('kernel')->getRootDir() . "\..\web\uploads\images\\" . $ad->getImages());
+        }
         $em->remove($ad);
         $em->flush();
         $this->addFlash('success', 'Ad Deleted Successfully!');

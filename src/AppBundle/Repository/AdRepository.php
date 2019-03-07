@@ -25,4 +25,11 @@ class AdRepository extends \Doctrine\ORM\EntityRepository
             ->setParameter('username', $username)
             ->getResult();
     }
+    public function search($query){
+        return $this->getEntityManager()
+            ->createQuery("SELECT a.id, a.description, a.title, a.summary, a.dateAdded, a.author, a.town, 
+            a.phoneNumber, a.price, a.images, a.views FROM AppBundle:Ad WHERE a.description LIKE '% :query %'")
+            ->setParameter('query', $query)
+            ->getResult();
+    }
 }

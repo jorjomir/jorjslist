@@ -7,13 +7,13 @@
                 {{ message }}
             </div>
         {% endfor %}
-        <h4>All Images &nbsp; &nbsp; &nbsp; &nbsp;<a class="btn btn-primary btn-sm" type="button" href="{{ path('addImageToSlide') }}" role="button">Add Image</a></h4>
+        <h4>Всички снимки в слайдер &nbsp; &nbsp;<a class="btn btn-primary btn-sm" type="button" href="{{ path('addImageToSlide') }}" role="button">Добави снимка</a></h4>
         <table class="table">
             <thead>
             <tr>
-                <th scope="col">Order</th>
-                <th scope="col">Image</th>
-                <th scope="col">Delete</th>
+                <th scope="col">Подредба</th>
+                <th scope="col">Снимка</th>
+                <th scope="col">Изтрий</th>
             </tr>
             </thead>
             <tbody>
@@ -25,11 +25,11 @@
                             <img style="max-width: 150px; max-height: 130px" src="{{ asset('uploads/images/' ~ image.image) }}" class="img-md">
                         </div>
                     </td>
-                    <td><a class="btn btn-danger btn-sm" href="{{ path('imageDelete', {id: image.id}) }}" onclick="return confirm('Are u sure you want to Delete this Image?')">Delete</a></td>
+                    <td><a class="btn btn-danger btn-sm" href="{{ path('imageDelete', {id: image.id}) }}" onclick="return confirm('Сигурни ли сте, че искате да изтриете тази снимка?')">Изтрий</a></td>
                 </tr>
             {% else %}
                 <tr>
-                    <th scope="row">No Articles Found!</th>
+                    <th scope="row">Няма добавени снимки!</th>
                 </tr>
             {% endfor %}
             </tbody>

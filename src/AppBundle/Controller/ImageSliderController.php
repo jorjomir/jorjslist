@@ -94,10 +94,13 @@ class ImageSliderController extends Controller
         $em = $this->getDoctrine()->getManager();
         $image=$em->getRepository('AppBundle:ImageSlider')->find($id);
 
-        /** @var Filesystem $fileSystem */
-        $fileSystem=new Filesystem();
-        $fileSystem->remove($this->get('kernel')->getRootDir()."/../web/uploads/images/".$image->getImage());
+        $re = '/(...)(.jpeg)/m';
 
+        if(preg_match($re, $image->getImage())) {
+            /** @var Filesystem $fileSystem */
+            $fileSystem = new Filesystem();
+            $fileSystem->remove($this->get('kernel')->getRootDir() . "\..\web\uploads\images\\" . $image->getImage());
+        }
         $em->remove($image);
         $em->flush();
 

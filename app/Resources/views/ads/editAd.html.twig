@@ -6,53 +6,53 @@
             {{ form_start(form) }}
             <form class="form-horizontal" action="{{ path('editAd', {id: ad.id}) }}" method="POST">
                 <fieldset>
-                    <legend>Edit Ad</legend>
+                    <legend>Редактирай обява</legend>
 
                     <div class="form-group">
-                        <label class="col-sm-4 control-label" for="ad_title">Title</label>
+                        <label class="col-sm-4 control-label" for="ad_title">Заглавие</label>
                         <div class="col-sm-4 ">
                             {{ form_row(form.title) }}
                         </div>
                     </div>
                     <div class="form-group">
-                        <label class="col-sm-4 control-label" for="ad_summary">Summary</label>
+                        <label class="col-sm-4 control-label" for="ad_summary">Кратко описание</label>
                         <div class="col-sm-4 ">
                             {{ form_row(form.summary) }}
                         </div>
                     </div>
                     <div class="form-group">
-                        <label class="col-sm-4 control-label" for="ad_description">Description</label>
+                        <label class="col-sm-4 control-label" for="ad_description">Описание</label>
                         <div class="col-sm-4 ">
                             {{ form_row(form.description,
                                 {'attr': {'rows' : '8', 'cols' : '60'}}) }}
                         </div>
                     </div>
                     <div class="form-group">
-                        <label class="col-sm-4 control-label" for="ad_category">Category</label>
+                        <label class="col-sm-4 control-label" for="ad_category">Категория</label>
                         <div class="col-sm-4 ">
                             {{ form_row(form.categoryId) }}
                         </div>
                     </div>
                     <div class="form-group">
-                        <label class="col-sm-4 control-label" for="ad_town">Town</label>
+                        <label class="col-sm-4 control-label" for="ad_town">Град</label>
                         <div class="col-sm-4 ">
                             {{ form_row(form.town) }}
                         </div>
                     </div>
                     <div class="form-group">
-                        <label class="col-sm-4 control-label" for="ad_phoneNumber">Phone Number</label>
+                        <label class="col-sm-4 control-label" for="ad_phoneNumber">Тел. номер</label>
                         <div class="col-sm-4 ">
                             {{ form_row(form.phoneNumber) }}
                         </div>
                     </div>
                     <div class="form-group">
-                        <label class="col-sm-4 control-label" for="ad_price">Price</label>
+                        <label class="col-sm-4 control-label" for="ad_price">Цена</label>
                         <div class="col-sm-4 ">
                             {{ form_row(form.price) }}
                         </div>
                     </div>
                     <div class="form-group">
-                        <label class="col-sm-4 control-label" for="ad_images">Image</label>
+                        <label class="col-sm-4 control-label" for="ad_images">Снимка</label>
                         <div class="col-sm-4 ">
                             {{ form_row(form.images) }}
                         </div>
@@ -61,7 +61,7 @@
                     {{ form_end(form) }}
                     <div class="form-group">
                         <div class="col-sm-4 col-sm-offset-4">
-                            <button type="submit" class="btn btn-primary btn-sm">Submit</button>
+                            <button type="submit" class="btn btn-primary btn-sm">Изпрати</button>
                         </div>
                     </div>
                 </fieldset>

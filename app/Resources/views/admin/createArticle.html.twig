@@ -7,14 +7,14 @@
                     <legend>New Article</legend>
 
                     <div class="form-group">
-                        <label class="col-sm-4 control-label" for="article_title">Article Title</label>
+                        <label class="col-sm-4 control-label" for="article_title">Заглавие</label>
                         <div class="col-sm-4 ">
                             {{ form_row(form.title) }}
                         </div>
                     </div>
 
                     <div class="form-group">
-                        <label class="col-sm-4 control-label" for="article_content"><br/>Content</label>
+                        <label class="col-sm-4 control-label" for="article_content"><br/>Съдържание</label>
                         <div class="col-sm-4">
                             {{ form_row(form.content,
                             {'attr': {'rows' : '8', 'cols' : '60'}}) }}
@@ -22,7 +22,7 @@
                     </div>
 
                     <div class="form-group">
-                        <label class="col-sm-4 control-label" for="article_image">Image</label>
+                        <label class="col-sm-4 control-label" for="article_image">Снимка</label>
                         <div class="col-sm-4">
                             {{ form_row(form.image) }}
                         </div>
@@ -33,12 +33,18 @@
                     {{ form_end(form) }}
                     <div class="form-group">
                         <div class="col-sm-4 col-sm-offset-4">
-                            <button type="submit" class="btn btn-primary">Submit</button>
+                            <button type="submit" class="btn btn-primary">Изпрати</button>
                         </div>
                     </div>
                 </fieldset>
             </form>
         </div>
 
-
+    <script src="{{ asset('js/ckeditor/adapters/jquery.js') }}" type="text/javascript"></script>
+    <script src="{{ asset('js/ckeditor/ckeditor.js') }}" type="text/javascript"></script>
+    <script type="text/javascript">
+        $(function() {
+            $('textarea.ckeditor').ckeditor();
+        });
+    </script>
 {% endblock main %}

@@ -22,46 +22,46 @@
 
 {% block header %}
     <header>
-        <nav class="navbar navbar-default navbar-static-top" role="navigation">
-                <div class="navbar-header">
-                    <a href="{{ path('index') }}" class="navbar-brand">JorjsList</a>
+        <nav class="navbar navbar-default navbar-fixed-top bg-primary" role="navigation">
+            <div class="navbar-header">
+                <a href="{{ path('index') }}" class="navbar-brand">JorjsList</a>
 
-                    <button type="button" class="navbar-toggle" data-toggle="collapse" data-target=".navbar-collapse">
-                        <span class="icon-bar"></span>
-                        <span class="icon-bar"></span>
-                        <span class="icon-bar"></span>
-                    </button>
-                </div>
-                <div class="navbar-collapse collapse">
-                    <ul class="nav navbar-nav navbar-left">
+                <button type="button" class="navbar-toggle" data-toggle="collapse" data-target=".navbar-collapse">
+                    <span class="icon-bar"></span>
+                    <span class="icon-bar"></span>
+                    <span class="icon-bar"></span>
+                </button>
+            </div>
+            <div class="navbar-collapse collapse">
+                <ul class="nav navbar-nav navbar-left">
 
-                            {{ render(controller('AppBundle:Default:primaryMenuCategoriesDropdownMenu')) }}
+                    {{ render(controller('AppBundle:Default:primaryMenuCategoriesDropdownMenu')) }}
 
-                        <li><a class="nav-item nav-link" href="{{ path('allArticles') }}">Articles</a></li>
-                    </ul>
-                    <ul class="nav navbar-nav navbar-right">
+                    <li><a class="nav-item nav-link" href="{{ path('allArticles') }}">Статии</a></li>
+                    <li>{{ render(controller('AppBundle:Default:search')) }}</li>
+                </ul>
+
+                <ul class="nav navbar-nav navbar-right">
                     {% if app.user %}
-                        <li><a id="login" class="nav-item nav-link" href="{{ path('login') }}">Hello, {{ app.user.username }}!</a></li>
-                        <li><a id="logout" class="nav-item nav-link" href="{{ path('logout') }}">Logout</a></li>
+                        <li><a id="login" class="nav-item nav-link" href="{{ path('login') }}">Здравей, {{ app.user.username }}!</a></li>
+                        <li><a id="logout" class="nav-item nav-link" href="{{ path('logout') }}">Излез</a></li>
                         {% if app.user.role=="admin" %}
-                            {% if path(app.request.attributes.get('_route'),
-    app.request.attributes.get('_route_params')) starts with '/admin' %}
-                                {% else %}
-                                    <li><a id="adminButton" class="nav-item nav-link" href="{{ path('adminIndex') }}">Админ Панел </a></li>
-                                {% endif %}
+                            {% if app.request.requestUri starts with '/admin' %}
+                            {% else %}
+                                <li><a id="adminButton" class="nav-item nav-link" href="{{ path('adminIndex') }}">Админ Панел</a></li>
+                            {% endif %}
                         {% endif %}
                     {% else %}
-                    <li><a id="login" class="nav-item nav-link" href="{{ path('login') }}">Log In</a></li>
+                        <li><a id="login" class="nav-item nav-link" href="{{ path('login') }}">Вход</a></li>
                     {% endif %}
-                    </ul>
-                </div>
+                </ul>
+            </div>
         </nav>
     </header>
 {% endblock %}
 
 {% block secondNav %}
-    {% if path(app.request.attributes.get('_route'),
-        app.request.attributes.get('_route_params')) starts with '/admin' %}
+    {% if app.request.requestUri starts with '/admin' %}
         {% include 'admin/adminSidebar.html.twig' %}
     {% endif %}
 {% endblock %}
@@ -69,46 +69,44 @@
 
 <div class="container body-container">
     {% block body %}
-        <div class="row">
-            <div class="col-lg-9 col-md-9 col-sm-12">
-            {% if path(app.request.attributes.get('_route'),
-                app.request.attributes.get('_route_params')) starts with '/admin' %}
+    <div class="row">
+        <div class="col-lg-9 col-md-9 col-sm-12">
+            {% if app.request.requestUri starts with '/admin' %}
             <div id="mainAdmin">
                 {% else %}
                 <div id="main">
-            {% endif %}
+                    {% endif %}
 
-                {% block main %}{% endblock %}
+                    {% block main %}{% endblock %}
                 </div>
             </div>
-                {% if not (path(app.request.attributes.get('_route'),
-                    app.request.attributes.get('_route_params')) starts with '/admin') %}
-                    {{ render(controller('AppBundle:Default:sidebarWidget')) }}
-         {% endif %}
+            {% if not (app.request.requestUri starts with '/admin') %}
+                {{ render(controller('AppBundle:Default:sidebarWidget')) }}
+            {% endif %}
+        </div>
+        {% endblock %}
+
+    </div>
+
+
+
+
+
+    {% block footer %}
+        <footer class="page-footer mdb-color darken-3 pt-4">
+            <div class="footer-copyright text-center py-3">
+                <a href="#">© 2019 Всички права запазени Георги Събев</a>
             </div>
+        </footer>
     {% endblock %}
 
-</div>
-
-
-
-
-
-{% block footer %}
-    <footer class="page-footer mdb-color darken-3 pt-4">
-        <div class="footer-copyright text-center py-3">
-            <a href="#">© 2019 Copyright Georgi Sabev</a>
-        </div>
-    </footer>
-{% endblock %}
-
-{% block javascripts %}
-    <script src="{{ asset('js/jquery-2.2.4.min.js') }}"></script>
-    <script src="{{ asset('js/moment.min.js') }}"></script>
-    <script src="{{ asset('js/bootstrap.js') }}"></script>
-    <script src="{{ asset('js/custom.js') }}"></script>
-    <script src="{{ asset('js/mdb.min.js') }}"></script>
-{% endblock %}
+    {% block javascripts %}
+        <script src="{{ asset('js/jquery-2.2.4.min.js') }}"></script>
+        <script src="{{ asset('js/moment.min.js') }}"></script>
+        <script src="{{ asset('js/bootstrap.js') }}"></script>
+        <script src="{{ asset('js/custom.js') }}"></script>
+        <script src="{{ asset('js/mdb.min.js') }}"></script>
+    {% endblock %}
 
 </body>
 </html>

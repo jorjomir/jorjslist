@@ -7,13 +7,13 @@
                 {{ message }}
             </div>
         {% endfor %}
-        <h4>All Categories &nbsp; &nbsp; &nbsp; &nbsp;<a class="btn btn-primary btn-sm" type="button" href="{{ path('createCategory') }}" role="button">Create Category</a></h4>
+        <h4>Всички категории &nbsp; &nbsp; &nbsp; &nbsp;<a class="btn btn-primary btn-sm" type="button" href="{{ path('createCategory') }}" role="button">Създай категория</a></h4>
         <table class="table">
             <thead>
             <tr>
                 <th scope="col">ID</th>
-                <th scope="col">Name</th>
-                <th scope="col">Delete</th>
+                <th scope="col">Име</th>
+                <th scope="col">Изтрий</th>
             </tr>
             </thead>
             <tbody>
@@ -21,11 +21,11 @@
                 <tr>
                     <th scope="row">{{ category.id }}</th>
                     <td>{{ category.name }}</td>
-                    <td><a class="btn btn-danger btn-sm" href="{{ path('deleteCategory', {id: category.id}) }}" onclick="return confirm('Are u sure you want to Delete this Category?')">Delete</a></td>
+                    <td><a class="btn btn-danger btn-sm" href="{{ path('deleteCategory', {id: category.id}) }}" onclick="return confirm('Сигурни ли сте, че искате да изтриете тази категория?')">Delete</a></td>
                 </tr>
             {% else %}
                 <tr>
-                    <th scope="row">No Categories Found!</th>
+                    <th scope="row">Не бяха намерени категории!</th>
                 </tr>
             {% endfor %}
             </tbody>

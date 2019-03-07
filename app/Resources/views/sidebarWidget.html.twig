@@ -1,16 +1,16 @@
 <div class="col-lg-3  col-md-3 col-sm-12">
     <div class="text-center">
-    <a class="btn btn-deep-orange btn-sm" href="{{ path('newAd') }}">New Ad</a>
+    <a class="btn btn-deep-orange btn-sm" href="{{ path('newAd') }}">Нова обява</a>
     {% if app.user %}
-    <a class="btn btn-deep-orange btn-sm" href="{{ path('myAds') }}">My Ads</a>
+    <a class="btn btn-deep-orange btn-sm" href="{{ path('myAds') }}">Моите обяви</a>
     {% endif %}
     </div>
 
     <!-- Begin fluid width widget -->
-    <div class="panel panel-info">
+    <div class="panel panel-primary">
         <div class="panel-heading">
             <h3 class="panel-title">
-                Recent Articles
+                Последни статии
             </h3>
         </div>
         <div class="panel-body">
@@ -24,13 +24,13 @@
                             </a>
                         </h4>
                         <p class="margin-top-10 margin-bottom-20">
-                            {{ article.content|slice(0,33) }}...
+                            {{ article.content |slice(0,33) |raw }}...
                         </p>
                     </div>
                 </li>
                 {% endfor %}
             </ul>
-            <a href="{{ path('allArticles') }}" class="btn btn-primary btn-block btn-sm">All Articles »</a>
+            <a href="{{ path('allArticles') }}" class="btn btn-primary btn-block btn-sm">Всички статии »</a>
         </div>
     </div>
 </div>

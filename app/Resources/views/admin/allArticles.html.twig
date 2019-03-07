@@ -7,15 +7,15 @@
             {{ message }}
         </div>
     {% endfor %}
-    <h4>All Articles &nbsp; &nbsp; &nbsp; &nbsp;<a class="btn btn-primary btn-sm" type="button" href="{{ path('createArticle') }}" role="button">Create Article</a></h4>
+    <h4>Всички статии &nbsp; &nbsp;<a class="btn btn-primary btn-sm" type="button" href="{{ path('createArticle') }}" role="button">Създай статия</a></h4>
 <table class="table">
     <thead>
     <tr>
         <th scope="col">ID</th>
-        <th scope="col">Title</th>
-        <th scope="col">Date Added</th>
-        <th scope="col">Edit</th>
-        <th scope="col">Delete</th>
+        <th scope="col">Заглавие</th>
+        <th scope="col">Дата на добавяне</th>
+        <th scope="col">Редактирай</th>
+        <th scope="col">Изтрий</th>
     </tr>
     </thead>
     <tbody>
@@ -24,12 +24,12 @@
         <th scope="row">{{ article.id }}</th>
         <td>{{ article.title }}</td>
         <td>{{ article.dateAdded|date('Y-m-d H:i') }}</td>
-        <td><a class="btn btn-info btn-sm" href="{{ path('editArticle', {id: article.id}) }}">Edit</a></td>
-        <td><a class="btn btn-danger btn-sm" href="{{ path('deleteArticle', {id: article.id}) }}" onclick="return confirm('Are u sure you want to Delete this Article?')">Delete</a></td>
+        <td><a class="btn btn-info btn-sm" href="{{ path('editArticle', {id: article.id}) }}">Редактирай</a></td>
+        <td><a class="btn btn-danger btn-sm" href="{{ path('deleteArticle', {id: article.id}) }}" onclick="return confirm('Сигурни ли сте, че искате да изтриете тази статия?')">Изтрий</a></td>
     </tr>
         {% else %}
         <tr>
-            <th scope="row">No Articles Found!</th>
+            <th scope="row">Няма намерени статии!</th>
         </tr>
     {% endfor %}
     </tbody>

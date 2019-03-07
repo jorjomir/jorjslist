@@ -135,10 +135,13 @@ class ArticleController extends Controller
         $em = $this->getDoctrine()->getManager();
         $article=$em->getRepository('AppBundle:Article')->find($id);
 
-        /** @var Filesystem $fileSystem */
-        $fileSystem=new Filesystem();
-        $fileSystem->remove($this->get('kernel')->getRootDir()."/../web/uploads/images/".$article->getImage());
+        $re = '/(...)(.jpeg)/m';
 
+        if(preg_match($re, $article->getImage())) {
+            /** @var Filesystem $fileSystem */
+            $fileSystem = new Filesystem();
+            $fileSystem->remove($this->get('kernel')->getRootDir() . "\..\web\uploads\images\\" . $article->getImage());
+        }
         $em->remove($article);
         $em->flush();
         $this->addFlash('success', 'Article Deleted Successfully!');

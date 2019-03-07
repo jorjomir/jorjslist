@@ -1,38 +1,53 @@
 {% extends 'base.html.twig' %}
 
+
 {% block main %}
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/gh/fancyapps/fancybox@3.5.6/dist/jquery.fancybox.min.css" />
+    <script src="https://cdn.jsdelivr.net/gh/fancyapps/fancybox@3.5.6/dist/jquery.fancybox.min.js"></script>
     <div class="well">
         {% for message in app.flashes('success') %}
             <div class="alert alert-success" id="success-alert">
                 {{ message }}
             </div>
         {% endfor %}
-        {% if ad.author==app.user.username %}
-            <div class="text-right">
-                <a href="{{ path('editAd', {id : ad.id}) }}" class="btn btn-info btn-sm">Edit</a>
-                <a href="{{ path('deleteAd', {id : ad.id}) }}" class="btn btn-danger btn-sm">Delete</a>
-            </div>
+        {% if app.user %}
+            {% if ad.author==app.user.username %}
+                <div class="text-right">
+                    <a href="{{ path('editAd', {id : ad.id}) }}" class="btn btn-info btn-sm">Редактирай</a>
+                    <a href="{{ path('deleteAd', {id : ad.id}) }}" class="btn btn-danger btn-sm">Изтрий</a>
+                </div>
+            {% endif %}
         {% endif %}
+
         <h2 class="text-center">{{ ad.title }}</h2>
 
-        {% if ad.images %}
-            <img style="max-width: 500px" class="img-rounded img-responsive center-block" src="{{ asset('uploads/images/' ~ ad.images) }}" alt="{{ ad.title }}">
+        {% if images %}
+            <div id="adPicture">
+            <img style="max-width: 500px" class="img-rounded img-responsive" src="{{ asset('uploads/images/' ~ images[0]) }}" alt="{{ ad.title }}">
+            </div>
         {% else %}
             <img style="max-width: 500px" class="img-rounded img-responsive center-block" href="{{ path('viewAd', {id : ad.id}) }}" src="{{ asset('uploads/images/noimage.jpg') }}">
         {% endif %}
         <br/>
-        <h4 class="pull-left"><strong>Price: {{ ad.price }} лв.</strong></h4>
-        <h4 class="pull-right"><strong>City: {{ ad.town }}</strong></h4>
+        <h4 class="pull-left"><strong>Цена: {{ ad.price }} лв.</strong></h4>
+        <h4 class="pull-right"><strong>Град: {{ ad.town }}</strong></h4>
         <br/>
         {% if app.user %}
-        <h4><strong class="text-left">Tel: {{ ad.phoneNumber }}</strong></h4>
+        <h4><strong class="text-left">Тел: {{ ad.phoneNumber }}</strong></h4>
         {% else %}
-        <h5 class="text-muted text-left">You need to be logged in order to see the Phone Number</h5>
+        <h5 class="text-muted text-left">Трябва да влезете в профила си, за дад видите тел. номер.</h5>
             <br/>
         {% endif %}
         <p size="18">{{ ad.description }}</p>
-        <a class="text-left" href="{{ path('adsByUser', {username : ad.author}) }}">User: {{ ad.author }}</a><br/>
-        <h5 class="pull-left">Viewed: {{ ad.views }} times</h5>
+        <a class="text-left" href="{{ path('adsByUser', {username : ad.author}) }}">Потребител: {{ ad.author }}</a><br/>
+        {% if images[1] %}
+            {% for image in images %}
+                <a data-fancybox="gallery" href="{{ asset('uploads/images/' ~ image) }}">
+                    <img src="{{ asset('uploads/images/' ~ image) }}">
+                </a>
+            {% endfor %}
+        {% endif %}
+        <h5 class="pull-left">Видяно: {{ ad.views }} пъти</h5>
         <h5 class="pull-right">{{ ad.dateAdded|date('H:i d-m-Y') }}</h5><br/>
 
 

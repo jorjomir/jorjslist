@@ -245,3 +245,90 @@ float: unset;
 #editAd .control-label {
     padding-top: 5px;
 }
+@media (min-width: 768px) {
+    #createArticle .col-sm-4 {
+        width: unset!important;
+    }
+}
+#search-form .btn {
+
+    display: inline;
+}
+/*NAVBAR FIXED PUSH BODY */
+body { padding-top: 70px; }
+/*.navbar-search {
+    position: absolute;
+    width: 100%;
+    left: 0;
+    text-align: center;
+    margin:0 auto;
+}*/
+
+#search-form .btn.btn-sm {
+    padding: 10px 15px;
+}
+#search-form .btn {
+    margin: unset;
+    background-color: transparent;
+    color: white;
+    -webkit-box-shadow: unset;
+    box-shadow: 0 0 0 0 white, 0 0 5px 0 white;
+}
+#search-form .btn:hover {
+    box-shadow: 0 0 0 0 black, 0 0 5px 0 black;
+}
+#search-form {
+    padding-top: 10px;
+    color: white!important;
+}
+#search-form input {
+    width: 300px;
+    height: 40px;
+}
+/* #search-form input:focus ~ #buttonInput{
+    -moz-box-shadow: 0 0 20px lightblue;
+    -webkit-box-shadow: 0 0 20px lightblue;
+    box-shadow: 0 0 20px lightblue;
+    border-color: #ff80ff;
+    box-shadow: 0 1px 1px rgba(0, 0, 0, 0.075) inset, 0 0 8px rgba(255, 100, 255, 0.5);
+}
+*/
+.panel-primary {
+    border-color: #4285f4!important;
+}
+.panel-primary > .panel-heading {
+    background-color: #4285f4!important;
+}
+.md-form {
+    display: inline-flex;
+    margin-top: unset!important;
+    margin-bottom: unset!important;
+}
+.md-form input[type=text]:focus:not([readonly]) {
+    -webkit-box-shadow: 0 1px 0 0 black!important;
+    box-shadow: 0 1px 0 0 black!important;
+    border-bottom: 1px solid black!important;
+}
+.md-form input[type=text]::placeholder {
+    color: white!important;
+}
+
+.navbar .dropdown-menu {
+    min-width: 200px;
+}
+header .bg-primary {
+    color: transparent!important;
+}
+.navbar a:hover {
+    color: black!important;
+}
+#adPicture img {
+    max-height: 350px;
+    width: 33%;
+}
+
+.gallery
+{
+    display: inline-block;
+    margin-top: 20px;
+}

@@ -95,11 +95,12 @@ class Ad
     private $views=0;
 
     /**
-     * @ORM\Column(type="string")
+     * @var array
      *
-     * @Assert\File(mimeTypes={ "image/jpeg", "image/png" })
+     * @ORM\Column(name="images", type="array", nullable=true)
      */
     private $images;
+
 
     public function __construct()
     {
@@ -309,16 +310,6 @@ class Ad
         return $this->categoryId;
     }
 
-    public function getImages()
-    {
-        return $this->images;
-    }
-
-    public function setImages($images)
-    {
-        $this->images = $images;
-    }
-
     /**
      * @return string
      */
@@ -350,6 +341,28 @@ class Ad
     {
         $this->views = $views;
     }
+    /**
+     * Set images
+     *
+     * @param array $images
+     *
+     * @return Ad
+     */
+    public function setImages($images)
+    {
+        $this->images = $images;
 
+        return $this;
+    }
+
+    /**
+     * Get images
+     *
+     * @return array
+     */
+    public function getImages()
+    {
+        return $this->images;
+    }
 
 }

@@ -3,10 +3,10 @@
     <div class="well">
         <form id="createCategory" class="form-horizontal" action="{{ path('createCategory') }}" method="POST">
             <fieldset>
-                <legend>New Category</legend>
+                <legend>Нова категория</legend>
 
                 <div class="form-group">
-                    <label class="col-sm-4 control-label" for="category_name">Category Name</label>
+                    <label class="col-sm-4 control-label" for="category_name">Име на категория</label>
                     <div class="col-sm-4 ">
                         {{ form_row(form.name) }}
                     </div>
@@ -14,7 +14,7 @@
                 {{ form_row(form._token) }}
                 <div class="form-group">
                     <div class="col-sm-4 col-sm-offset-4">
-                        <button type="submit" class="btn btn-primary">Submit</button>
+                        <button type="submit" class="btn btn-primary">Изпращане</button>
                     </div>
                 </div>
             </fieldset>

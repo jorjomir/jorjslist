@@ -6,23 +6,23 @@
             {{ form_start(form) }}
             <form class="form-horizontal" action="{{ path('editArticle', {id: article.id}) }}" method="POST">
                 <fieldset id="editArticle">
-                    <legend>Edit Article</legend>
+                    <legend>Редактирай статия</legend>
 
                     <div class="form-group">
-                        <label class="col-sm-4 control-label" for="article_title">Title</label>
+                        <label class="col-sm-4 control-label" for="article_title">Заглавие</label>
                         <div class="col-sm-4 ">
                             {{ form_row(form.title) }}
                         </div>
                     </div>
                     <div class="form-group">
-                        <label class="col-sm-4 control-label" for="article_content">Content</label>
+                        <label class="col-sm-4 control-label" for="article_content">Съдържание</label>
                         <div class="col-sm-4 ">
                             {{ form_row(form.content,
                                 {'attr': {'rows' : '8', 'cols' : '60'}}) }}
                         </div>
                     </div>
                     <div class="form-group">
-                        <label class="col-sm-4 control-label" for="article_image">Image</label>
+                        <label class="col-sm-4 control-label" for="article_image">Снимка</label>
                         <div class="col-sm-4 ">
                             {{ form_row(form.image) }}
                         </div>
@@ -33,8 +33,8 @@
 
                     <div class="form-group">
                         <div class="col-sm-offset-4">
-                            <a class="btn btn-default btn-sm" href="{{ path('allArticles') }}">Cancel</a>
-                            <button type="submit" class="btn btn-success btn-sm">Edit</button>
+                            <a class="btn btn-default btn-sm" href="{{ path('allArticles') }}">Откажи</a>
+                            <button type="submit" class="btn btn-success btn-sm">Редактирай</button>
                         </div>
                     </div>
                 </fieldset>

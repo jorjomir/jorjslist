@@ -7,14 +7,14 @@
                 {{ message }}
             </div>
         {% endfor %}
-        <h2 class="text-center">My Ads</h2>
+        <h2 class="text-center">Моите обяви</h2>
         {% for ad in ads %}
             <article class="itemlist">
                 <div class="row row-sm">
                     <aside class="col-sm-3">
                         <div class="img-wrap">
                             {% if ad.images %}
-                                <img style="max-width: 150px; max-height: 130px" href="{{ path('viewAd', {id : ad.id}) }}" src="{{ asset('uploads/images/' ~ ad.images) }}" class="img-md">
+                                <img style="max-width: 150px; max-height: 130px" href="{{ path('viewAd', {id : ad.id}) }}" src="{{ asset('uploads/images/' ~ ad.images[0]) }}" class="img-md">
                             {% else %}
                                 <img style="max-width: 150px; max-height: 130px" href="{{ path('viewAd', {id : ad.id}) }}" src="{{ asset('uploads/images/noimage.jpg') }}" class="img-md">
                             {% endif %}
@@ -25,8 +25,8 @@
                             <h3 class="title">{{ ad.title }}</h3>
                             <p>{{ ad.summary }}</p>
                             <p class="rating-wrap my-0 text-muted">
-                                <span class="label-rating">Viewed: {{ ad.views }} times</span><br/>
-                                <span class="label-rating">Date: {{ ad.dateAdded|date('H:i d-m-Y') }}</span>
+                                <span class="label-rating">Видяно: {{ ad.views }} пъти</span><br/>
+                                <span class="label-rating">Дата: {{ ad.dateAdded|date('H:i d-m-Y') }}</span>
                             </p> <!-- rating-wrap.// -->
                         </div> <!-- text-wrap.// -->
                     </div> <!-- col.// -->
@@ -36,7 +36,7 @@
                                 <span class="h3 price">{{ ad.price }} лв.</span>
                             </div> <!-- info-price-detail // -->
                             <p>
-                                <a href="{{ path('viewAd', {id : ad.id}) }}" class="btn btn-light btn-sm">Details</a> </p>
+                                <a href="{{ path('viewAd', {id : ad.id}) }}" class="btn btn-light btn-sm">Детайли</a> </p>
                         </div> <!-- action-wrap.// -->
                     </aside> <!-- col.// -->
                 </div> <!-- row.// -->

@@ -8,8 +8,8 @@
     <img style="max-width: 500px; max-height: 600px" class="img-rounded img-responsive center-block" src="{{ asset('uploads/images/' ~ article.image) }}">
     {% endif %}
     <br/>
-    <p>{{ article.content }}</p>
-    <h5 class="text-right">Viewed: {{ article.views }} times</h5>
+    <p>{{ article.content |raw }}</p>
+    <h5 class="text-right">Видяно: {{ article.views }} пъти</h5>
 
 
 
