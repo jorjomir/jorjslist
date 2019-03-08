@@ -37,7 +37,7 @@ class CategoryController extends Controller
             $em=$this->getDoctrine()->getManager();
             $em->persist($category);
             $em->flush();
-            $this->addFlash('success', 'Category created successfuly!');
+            $this->addFlash('success', 'Успешно създадохте Категория!');
             return $this->redirectToRoute('adminAllCategories');
         }
 
@@ -76,7 +76,7 @@ class CategoryController extends Controller
         $category=$em->getRepository('AppBundle:Category')->find($id);
         $em->remove($category);
         $em->flush();
-        $this->addFlash('success', 'Category Deleted Successfully!');
+        $this->addFlash('success', 'Успешно изтрихте категорията!');
         return $this->redirectToRoute('adminAllCategories');
     }
 }

@@ -61,6 +61,7 @@ class AdController extends Controller
                         // ... handle exception if something happens during file upload
                     }
                 }
+            }
                 $ad->setImages($arr);
                 /** @var Symfony\Component\HttpFoundation\File\UploadedFile $file */
                 //$file = $form->get('images')->getData();
@@ -74,11 +75,10 @@ class AdController extends Controller
                 $ad->setCategoryId($category);
                 $em->persist($ad);
                 $em->flush();
-                $this->addFlash('success', 'Ad created successfuly!');
+                $this->addFlash('success', 'Успешно публикувахте Вашата обява!');
                 return $this->redirectToRoute('myAds');
 
             }
-        }
             return $this->render('ads/newAd.html.twig',
                 array('form' => $form->createView(),
                     'user' => $currentUser));
@@ -125,6 +125,7 @@ class AdController extends Controller
      */
     public function editAd($id, Request $request) {
         $ad=$this->getDoctrine()->getRepository(Ad::class)->find($id);
+        $oldImages=$ad->getImages();
         /** @var User $currentUser */
         $currentUser= $this->getUser();
         if($currentUser->getUsername()!=$ad->getAuthor()) {
@@ -138,10 +139,36 @@ class AdController extends Controller
         $form=$this->createForm(AdType::class, $ad);
         $form->handleRequest($request);
         if($form->isSubmitted() && $form->isValid()) {
+            if($ad->getImages() == null)
+            {
+                $ad->setImages($oldImages);
+            }
+            else {
+                $arr = [];
+                foreach ($ad->getImages() as $image) {
+                    $fileName = md5(uniqid()) . '.' . $image->guessExtension();
+                    $arr[] = $fileName;
+                    try {
+                        $image->move(
+                            $this->getParameter('images_directory'),
+                            $fileName
+                        );
+                    } catch (FileException $e) {
+                        // ... handle exception if something happens during file upload
+                    }
+                }
+                $fileSystem = new Filesystem();
+                foreach ($oldImages as $image) {
+                    $fileSystem->remove($this->get('kernel')->getRootDir() . "\..\web\uploads\images\\" . $image);
+                }
+                $ad->setImages($arr);
+            }
+
+
             $em=$this->getDoctrine()->getManager();
             $em->persist($ad);
             $em->flush();
-            $this->addFlash('success', 'You have successfuly edited ' . $ad->getTitle() . '!');
+            $this->addFlash('success', 'Успешно редактирахте ' . $ad->getTitle() . '!');
             return $this->redirect("/ad/".$ad->getId());
         }
         return $this->render('ads/editAd.html.twig',
@@ -161,15 +188,17 @@ class AdController extends Controller
         $ad=$em->getRepository('AppBundle:Ad')->find($id);
         $re = '/(...)(.jpeg)/m';
         $re1 = '/(...)(.png)/m';
-
-        if(preg_match($re, $ad->getImages())) {
-            /** @var Filesystem $fileSystem */
-            $fileSystem = new Filesystem();
-            $fileSystem->remove($this->get('kernel')->getRootDir() . "\..\web\uploads\images\\" . $ad->getImages());
+        foreach ($ad->getImages() as $image) {
+            if(preg_match($re, $image) || preg_match($re1, $image)) {
+                /** @var Filesystem $fileSystem */
+                $fileSystem = new Filesystem();
+                $fileSystem->remove($this->get('kernel')->getRootDir() . "\..\web\uploads\images\\" . $image);
+            }
         }
+
         $em->remove($ad);
         $em->flush();
-        $this->addFlash('success', 'Ad Deleted Successfully!');
+        $this->addFlash('success', 'Успешно изтрихте Вашата обява!');
         return $this->redirectToRoute('myAds');
     }
 

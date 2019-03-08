@@ -2,29 +2,43 @@
 
 {% block main %}
     <div id="adsCategory">
+        {% if ads %}
         {% for ad in ads %}
-    <div class="col-lg-4 col-md-4 col-sm-12">
-        <figure class="card card-product">
-            <div class="img-wrap text-center">
-                {% if ad.images %}
-                    <img href="{{ path('viewAd', {id : ad.id}) }}" src="{{ asset('uploads/images/' ~ ad.images) }}">
-                {% else %}
-                    <img href="{{ path('viewAd', {id : ad.id}) }}" src="{{ asset('uploads/images/noimage.jpg') }}">
-                {% endif %}
-            </div>
-            <figcaption class="info-wrap">
-                <a href="{{ path('viewAd', {id : ad.id}) }}" class="title text-center">{{ ad.title }}</a><br/>
-                <a href="{{ path('viewAd', {id : ad.id}) }}" class="text-info text-sm-center">{{ ad.summary }}</a>
-                <div class="action-wrap">
-                    <div class="price-wrap h5">
-                        <span class="price-new text-center">{{ ad.price }} лв.</span>
-                    </div> <!-- price-wrap.// -->
-                    <a href="{{ path('viewAd', {id : ad.id}) }}" class="btn btn-primary btn-sm">Детайли</a><br/>
-                    <span class="text-right">Видяно {{ ad.views }} пъти</span>
-                </div> <!-- action-wrap -->
-            </figcaption>
-        </figure> <!-- card // -->
-    </div> <!-- col // -->
+            <div class="col-lg-4 col-md-4 col-sm-4">
+                <figure class="card card-product">
+                    <div class="img-wrap text-center">
+                        {% if ad.images %}
+                            <img href="{{ path('viewAd', {id : ad.id}) }}" src="{{ asset('uploads/images/' ~ ad.images[0]) }}">
+                        {% else %}
+                            <img href="{{ path('viewAd', {id : ad.id}) }}" src="{{ asset('uploads/images/noimage.jpg') }}">
+                        {% endif %}
+                    </div>
+                    <figcaption class="info-wrap">
+                        <h4 class="text-center">
+                            <a href="{{ path('viewAd', {id : ad.id}) }}" class="title text-center">{{ ad.title }}</a></h4><br/>
+                        <h5 class="text-center">
+                            <a href="{{ path('viewAd', {id : ad.id}) }}" class="text-info text-sm-center">{{ ad.summary }}</a></h5>
+                        <div class="action-wrap">
+                            <div class="price-wrap h5">
+                                <h4 class="price-new text-center">{{ ad.price }} лв.</h4>
+                            </div> <!-- price-wrap.// -->
+                            <div class="text-center">
+                                <a href="{{ path('viewAd', {id : ad.id}) }}" class="btn btn-primary btn-sm">Детайли</a><br/>
+                            </div>
+                            <h5 size="10" class="text-right">Видяно:
+                                {{ ad.views }}
+                                {% if ad.views==1 %}
+                                    път
+                                {% else %}
+                                    пъти
+                                {% endif %}</h5>
+                        </div> <!-- action-wrap -->
+                    </figcaption>
+                </figure> <!-- card // -->
+            </div> <!-- col // -->
         {% endfor %}
+        {% else %}
+        <h3 class="text-center">Няма обяви в тази категория :(</h3>
+        {% endif %}
     </div>
 {% endblock %}

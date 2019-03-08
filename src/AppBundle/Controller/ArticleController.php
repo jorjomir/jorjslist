@@ -60,7 +60,7 @@ class ArticleController extends Controller
             $em=$this->getDoctrine()->getManager();
             $em->persist($article);
             $em->flush();
-            $this->addFlash('success', 'Article created successfuly!');
+            $this->addFlash('success', 'Успешно публикувахте статия!');
             return $this->redirectToRoute('adminAllArticles');
         }
         return $this->render('admin/createArticle.html.twig',
@@ -81,7 +81,7 @@ class ArticleController extends Controller
             return $this->redirectToRoute('index');
         }
 
-        $articles=$this->getDoctrine()->getRepository(Article::class)->findAll();
+        $articles=$this->getDoctrine()->getRepository(Article::class)->findAllArticlesOrdered();
 
         return $this->render('admin/allArticles.html.twig', ['articles' => $articles]);
     }
@@ -104,7 +104,7 @@ class ArticleController extends Controller
         }
 
         $article=$this->getDoctrine()->getRepository(Article::class)->find($id);
-
+        $oldImages=$article->getImage();
         if($article===null) {
             return $this->redirectToRoute("allArticles");
         }
@@ -112,11 +112,29 @@ class ArticleController extends Controller
         $form=$this->createForm(ArticleType::class, $article);
         $form->handleRequest($request);
         if($form->isSubmitted() && $form->isValid()) {
+            if($article->getImage() == null)
+            {
+                $article->setImage($oldImages);
+            }
+            else {
+                $fileName = md5(uniqid()) . '.' . $article->getImage()->guessExtension();
+                try {
+                    $article->getImage()->move(
+                        $this->getParameter('images_directory'),
+                        $fileName
+                    );
+                } catch (FileException $e) {
+                    // ... handle exception if something happens during file upload
+                }
+                $fileSystem = new Filesystem();
+                    $fileSystem->remove($this->get('kernel')->getRootDir() . "\..\web\uploads\images\\" . $oldImages);
+                $article->setImage($fileName);
+            }
             $em=$this->getDoctrine()->getManager();
             $em->persist($article);
             $em->flush();
-            $this->addFlash('success', 'Article edited successfuly!');
-            return $this->redirectToRoute('allArticles');
+            $this->addFlash('success', 'Успешно редактирахте статията!');
+            return $this->redirectToRoute('adminAllArticles');
         }
         return $this->render('admin/editArticle.html.twig',
             array('article' => $article,
@@ -144,7 +162,7 @@ class ArticleController extends Controller
         }
         $em->remove($article);
         $em->flush();
-        $this->addFlash('success', 'Article Deleted Successfully!');
+        $this->addFlash('success', 'Успешно изтрихте статията!');
         return $this->redirectToRoute('adminAllArticles');
     }
 
@@ -153,7 +171,7 @@ class ArticleController extends Controller
      */
     public function allArticles() {
 
-        $articles=$this->getDoctrine()->getRepository(Article::class)->findRecentArticles();
+        $articles=$this->getDoctrine()->getRepository(Article::class)->findAllArticlesOrdered();
         return $this->render('default/allArticles.html.twig', ['articles' => $articles]);
     }
 

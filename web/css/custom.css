@@ -133,6 +133,7 @@ html { font-size: 130%; }
 #articles {
     width: 50%;
     padding-bottom: 30px;
+    min-height: 320px;
 }
 #articles h3 {
     text-align: center;
@@ -181,7 +182,7 @@ html { font-size: 130%; }
 
 /* Add an active class to the active dropdown button */
 .active {
-    background-color: green;
+    background-color: #4285f4;
     color: white;
 }
 
@@ -194,13 +195,14 @@ html { font-size: 130%; }
 
 #adsCategory .col-md-4 {
     width: 33%;
+    margin-top: 25px;
 }
 
 #createAd .control-label {
     padding-top: 5px;
 }
 #createAd .form-group .col-sm-4 {
-float: unset;
+    float: unset;
 }
 #createArticle .col-sm-4 {
     float: none;
@@ -236,10 +238,10 @@ float: unset;
         max-height: 300px;
     }
 }
-@media (min-width: 1198px) {
+@media (min-width: 1199px) {
     .card-product img {
         max-width: 250px;
-        max-height: 350px;
+        max-height: 280px;
     }
 }
 #editAd .control-label {
@@ -247,6 +249,9 @@ float: unset;
 }
 @media (min-width: 768px) {
     #createArticle .col-sm-4 {
+        width: unset!important;
+    }
+    #editArticle .col-sm-4 {
         width: unset!important;
     }
 }
@@ -322,13 +327,21 @@ header .bg-primary {
 .navbar a:hover {
     color: black!important;
 }
+#adPicture {
+    text-align: center;
+}
 #adPicture img {
     max-height: 350px;
-    width: 33%;
+    max-width: 400px;
 }
-
-.gallery
-{
-    display: inline-block;
-    margin-top: 20px;
+#adGalery [data-fancybox="images"] img {
+    max-width: 150px!important;
+    margin-top: 60px;
+}
+#adGalery [data-fancybox="images"] {
+    text-align: left!important;
+}
+.page-footer > div{
+    margin: auto;
+    width: 70%;
 }

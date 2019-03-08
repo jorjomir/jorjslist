@@ -16,4 +16,9 @@ class ArticleRepository extends \Doctrine\ORM\EntityRepository
             ->setMaxResults(5)
             ->getResult();
     }
+    public function findAllArticlesOrdered(){
+        return $this->getEntityManager()
+            ->createQuery('SELECT a.id, a.title, a.content, a.dateAdded FROM AppBundle:Article a ORDER BY a.dateAdded DESC')
+            ->getResult();
+    }
 }

@@ -8,6 +8,8 @@
             </div>
         {% endfor %}
         <h2 class="text-center">Моите обяви</h2>
+        <hr/>
+        {% if ads %}
         {% for ad in ads %}
             <article class="itemlist">
                 <div class="row row-sm">
@@ -42,5 +44,8 @@
                 </div> <!-- row.// -->
             </article> <!-- itemlist.// -->
         {% endfor %}
+        {% else %}
+        <h3 class="text-center">Нямате публикувани обяви :(</h3>
+        {% endif %}
     </div>
 {% endblock %}

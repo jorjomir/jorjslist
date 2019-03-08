@@ -33,7 +33,7 @@ class UserController extends Controller
      * @return \Symfony\Component\HttpFoundation\Response
      */
     public function errorLogin() {
-        $this->addFlash('error', 'Wrong username or password!');
+        $this->addFlash('error', 'Грешно потребителско име или парола!');
         return $this->render('login/login.html.twig');
     }
 
@@ -71,7 +71,7 @@ class UserController extends Controller
             $em = $this->getDoctrine()->getManager();
             $em->persist($user);
             $em->flush();
-            $this->addFlash('success', 'You have successfully created your profile!');
+            $this->addFlash('success', 'Успешна регистрация! Сега влезте в профила си!');
 
             // ... do any other work - like sending them an email, etc
             // maybe set a "flash" success message for the user

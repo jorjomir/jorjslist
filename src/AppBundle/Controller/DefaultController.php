@@ -26,11 +26,18 @@ class DefaultController extends Controller
      */
     public function index(Request $request)
     {
-
-
+        $ads=$this->getDoctrine()->getRepository(Ad::class)->findRecentAds();
         $categories=$this->getDoctrine()->getRepository(Category::class)->findAll();
         $images=$this->getDoctrine()->getRepository(ImageSlider::class)->recentImages();
-        return $this->render('/default/index.html.twig', ['categories' => $categories, 'images' => $images]);
+        return $this->render('/default/index.html.twig', ['categories' => $categories,
+            'images' => $images, 'ads' => $ads]);
+    }
+
+    /**
+     * @Route("/documentation", name="documentation")
+     */
+    public function documentation() {
+        return $this->render('default/documentation.html.twig');
     }
 
     public function primaryMenuCategoriesDropdownMenuAction()

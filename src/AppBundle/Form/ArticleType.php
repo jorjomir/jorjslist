@@ -14,7 +14,8 @@ class ArticleType extends AbstractType
     public function buildForm(FormBuilderInterface $builder, array $options)
     {
         $builder
-            ->add('title', TextType::class, array('data_class' => null, 'label' => false))
+            ->add('title', TextType::class, array('data_class' => null, 'label' => false,
+                'attr' => array('style' => 'width: 500px')))
             ->add('content', TextareaType::class, array('data_class' => null, 'label' => false,
                 'attr' => array('class' => 'ckeditor')))
             ->add('image', FileType::class, array('data_class' => null, 'label' => false,

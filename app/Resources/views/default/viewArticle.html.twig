@@ -9,7 +9,14 @@
     {% endif %}
     <br/>
     <p>{{ article.content |raw }}</p>
-    <h5 class="text-right">Видяно: {{ article.views }} пъти</h5>
+    <h5 class="text-right">Видяно:
+        {{ article.views }}
+        {% if article.views==1 %}
+        път
+        {% else %}
+        пъти
+        {% endif %}
+    </h5>
 
 
 

@@ -14,7 +14,7 @@
                     <aside class="col-sm-3">
                         <div class="img-wrap">
                             {% if ad.images %}
-                                <img style="max-width: 150px; max-height: 130px" href="{{ path('viewAd', {id : ad.id}) }}" src="{{ asset('uploads/images/' ~ ad.images) }}" class="img-md">
+                                <img style="max-width: 150px; max-height: 130px" href="{{ path('viewAd', {id : ad.id}) }}" src="{{ asset('uploads/images/' ~ ad.images[0]) }}" class="img-md">
                             {% else %}
                                 <img style="max-width: 150px; max-height: 130px" href="{{ path('viewAd', {id : ad.id}) }}" src="{{ asset('uploads/images/noimage.jpg') }}" class="img-md">
                             {% endif %}

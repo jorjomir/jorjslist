@@ -2,6 +2,8 @@
 
 {% block main %}
     <div class="row">
+        <h3 class="text-center">Всички статии</h3>
+        <hr/>
         {% for article in articles %}
         <div id="articles" class="col-lg-4 col-md-4 col-sm-12">
             <div class="post">
@@ -11,7 +13,7 @@
                         <time datetime="{{ article.dateAdded|date('Y-m-d H:i') }}">{{ article.dateAdded|date('Y-m-d H:i') }}</time>
                     </div>
                     <div>
-                        {{ article.content|slice(0,130) }}
+                        {{ article.content|slice(0,130) |raw }}
                     </div>
                     <div>
                         <a href="{{ path('viewArticle', {id: article.id}) }}" class="btn btn-primary btn-sm">Прочети повече</a>

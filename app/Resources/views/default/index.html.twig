@@ -35,13 +35,44 @@
             <span class="glyphicon glyphicon-chevron-right"></span>
         </a>
     </div>
-    <h2>Hello,<br/>
-        My name is Georgi Sabev and this is the website I created as a project for SoftUni PHP MVC
-        Frameworks. I used PHPStorm, Symfony, Doctrine, Twig, and MDBootstrap. It's a free web platform
-        for posting smartphone ads. There are admins who can create and edit Articles wrote by them
-        for Tech Products.
-
-    </h2>
+<div id="adsCategory">
+    <h2 class="text-center">Последно добавени обяви</h2>
+    <hr/>
+    {% for ad in ads %}
+        <div class="col-lg-4 col-md-4 col-sm-4">
+            <figure class="card card-product">
+                <div class="img-wrap text-center">
+                    {% if ad.images %}
+                        <img href="{{ path('viewAd', {id : ad.id}) }}" src="{{ asset('uploads/images/' ~ ad.images[0]) }}">
+                    {% else %}
+                        <img href="{{ path('viewAd', {id : ad.id}) }}" src="{{ asset('uploads/images/noimage.jpg') }}">
+                    {% endif %}
+                </div>
+                <figcaption class="info-wrap">
+                    <h4 class="text-center">
+                        <a href="{{ path('viewAd', {id : ad.id}) }}" class="title text-center">{{ ad.title }}</a></h4><br/>
+                    <h5 class="text-center">
+                        <a href="{{ path('viewAd', {id : ad.id}) }}" class="text-info text-sm-center">{{ ad.summary }}</a></h5>
+                    <div class="action-wrap">
+                        <div class="price-wrap h5">
+                            <h4 class="price-new text-center">{{ ad.price }} лв.</h4>
+                        </div> <!-- price-wrap.// -->
+                        <div class="text-center">
+                            <a href="{{ path('viewAd', {id : ad.id}) }}" class="btn btn-primary btn-sm">Детайли</a><br/>
+                        </div>
+                        <h5 size="10" class="text-right">Видяно:
+                            {{ ad.views }}
+                            {% if ad.views==1 %}
+                                път
+                            {% else %}
+                                пъти
+                            {% endif %}</h5>
+                    </div> <!-- action-wrap -->
+                </figcaption>
+            </figure> <!-- card // -->
+        </div> <!-- col // -->
+    {% endfor %}
+</div>
 
 
 

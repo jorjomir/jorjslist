@@ -60,7 +60,7 @@ class AdminController extends Controller
         $user->setRole('admin');
         $em->persist($user);
         $em->flush();
-        $this->addFlash('message', 'Article Deleted Successfully!');
+        $this->addFlash('message', 'Успешно дадохте Администраторкси права на този потребител!');
         return $this->redirectToRoute('allUsers');
     }
 
@@ -75,7 +75,7 @@ class AdminController extends Controller
         $user=$em->getRepository('AppBundle:User')->find($id);
         $em->remove($user);
         $em->flush();
-        $this->addFlash('success', 'User Deleted Successfully!');
+        $this->addFlash('success', 'Успешно изтрихте този потребител!');
 
         return $this->redirectToRoute('allUsers');
     }

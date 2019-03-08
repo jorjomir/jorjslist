@@ -57,7 +57,7 @@ class ImageSliderController extends Controller
             $em=$this->getDoctrine()->getManager();
             $em->persist($image);
             $em->flush();
-            $this->addFlash('success', 'Image added successfuly!');
+            $this->addFlash('success', 'Успешно добавихте снимката!');
             return $this->redirectToRoute('allImagesInSlider');
         }
         return $this->render('admin/imageSlider/addImageSlider.html.twig',
@@ -105,7 +105,7 @@ class ImageSliderController extends Controller
         $em->flush();
 
 
-        $this->addFlash('success', 'Image Deleted Successfully!');
+        $this->addFlash('success', 'Успешно изтрихте снимката');
         return $this->redirectToRoute('allImagesInSlider');
     }
 }

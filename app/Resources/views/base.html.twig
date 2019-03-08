@@ -94,18 +94,21 @@
 
     {% block footer %}
         <footer class="page-footer mdb-color darken-3 pt-4">
-            <div class="footer-copyright text-center py-3">
-                <a href="#">© 2019 Всички права запазени Георги Събев</a>
+
+            <div class="footer-copyright py-3">
+                <a class="pull-left" href="#">© 2019 Всички права запазени Георги Събев</a>
+                <a class="pull-right" href="{{ path('documentation') }}">Документация</a>
             </div>
         </footer>
     {% endblock %}
 
     {% block javascripts %}
-        <script src="{{ asset('js/jquery-2.2.4.min.js') }}"></script>
+        <script src="{{ asset('js/jquery-3.3.1.min.js') }}"></script>
         <script src="{{ asset('js/moment.min.js') }}"></script>
         <script src="{{ asset('js/bootstrap.js') }}"></script>
         <script src="{{ asset('js/custom.js') }}"></script>
         <script src="{{ asset('js/mdb.min.js') }}"></script>
+        <script src="{{ asset('js/jquery.fancybox.min.js') }}"></script>
     {% endblock %}
 
 </body>
