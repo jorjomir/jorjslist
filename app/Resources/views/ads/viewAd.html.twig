@@ -2,9 +2,9 @@
 
 
 {% block main %}
-    <link rel="stylesheet" href="https://cdn.jsdelivr.net/gh/fancyapps/fancybox@3.5.6/dist/jquery.fancybox.min.css" />
+    <link rel="stylesheet" href="{{ asset('css/jquery.fancybox.min.css') }}">
 
-    <div class="well">
+    <div class="well col-lg-9 col-md-9 col-sm-12">
         {% for message in app.flashes('success') %}
             <div class="alert alert-success" id="success-alert">
                 {{ message }}

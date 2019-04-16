@@ -10,4 +10,9 @@ namespace AppBundle\Repository;
  */
 class UserRepository extends \Doctrine\ORM\EntityRepository
 {
+    public function findExistingUsernames(){
+        return $this->getEntityManager()
+            ->createQuery('SELECT a.username FROM AppBundle:User a')
+            ->getResult();
+    }
 }

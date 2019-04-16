@@ -1,16 +1,15 @@
-
 <form id="search-form" class="form-inline" action="{{ path('search') }}" method="POST">
-    {{ form_start(form) }}
+        {{ form_start(form) }}
         <div class="md-form">
-    {{ form_widget(form.search_text) }}
+                {{ form_widget(form.search_text) }}
 
                 <div class="input-group-btn">
-        <button id="buttonInput" type="submit" class="btn btn-sm">
-                <i class="glyphicon glyphicon-search" aria-hidden="true"></i>
-        </button>
+                        <button id="buttonInput" type="submit" class="btn btn-sm">
+                                <i class="glyphicon glyphicon-search" aria-hidden="true"></i>
+                        </button>
                 </div>
         </div>
-    {{ form_end(form) }}
+        {{ form_end(form) }}
 </form>
 
 

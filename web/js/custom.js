@@ -27,7 +27,17 @@
                 }
             });
         }
+
+        $(".dropdown-li").click(function () {
+           $(".dropdown-content").toggle("slow");
+        });
+
+
+
+
+
     });
+
 
 
 

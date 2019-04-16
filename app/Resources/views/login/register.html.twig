@@ -4,32 +4,35 @@
     <div>
         <div class="well">
             <form class="form-horizontal" action="{{ path('register') }}" method="post">
-                <fieldset>
+                <fieldset id="field">
                     <legend>Регистрация</legend>
                     <div class="form-group">
                         <label class="col-sm-4 control-label" for="username">Потребителско име</label>
                         <div class="col-sm-4 ">
-                            <input type="text" class="form-control" id="username" placeholder="Потребителско име"
+                            <input type="text" class="form-control" id="username_register" placeholder="Потребителско име"
                                    name="user[username]" required>
+                            <span></span>
                         </div>
                     </div>
                     <div class="form-group">
                         <label class="col-sm-4 control-label" for="user_password_first">Парола</label>
                         <div class="col-sm-4">
-                            <input type="password" class="form-control" id="user_password_first" placeholder="Парола"
+                            <input type="password" class="form-control" id="passFirst" placeholder="Парола"
                                    name="user[password][first]" required>
+                            <span></span>
                         </div>
                     </div>
                     <div class="form-group">
                         <label class="col-sm-4 control-label" for="user_password_second">Потвърди парола</label>
                         <div class="col-sm-4">
-                            <input type="password" class="form-control" id="user_password_second" placeholder="Потвърди парола"
+                            <input type="password" class="form-control" id="passConfirm" placeholder="Потвърди парола"
                                    name="user[password][second]" required>
+                            <span></span>
                         </div>
                     </div>
                     <div class="form-group">
                         <div class="col-sm-4 col-sm-offset-4">
-                            <button type="submit" class="btn btn-primary">Продължи</button>
+                            <button id="submitButton" type="submit" class="btn btn-primary">Продължи</button>
                         </div>
                     </div>
                     {{ form_row(form._token) }}
@@ -39,5 +42,132 @@
             </form>
         </div>
     </div>
+    <script>
+        $(document).ready(function(){
+            function delay(callback, ms) {
+                var timer = 0;
+                return function() {
+                    var context = this, args = arguments;
+                    clearTimeout(timer);
+                    timer = setTimeout(function () {
+                        callback.apply(context, args);
+                    }, ms || 0);
+                };
+            }
+            let input=$("#username_register");
+            let usernames = {{ usernames|json_encode|raw }};
+            let arr=[];
+            for (let x=0; x<usernames.length; x++) {
+                let currName = usernames[x]['username'];
+                arr.push(currName);
+            }
+            let userErrorLabel="<span id=\"errorSpanUsername\" class=\"help-block\">Това потребителско име вече съществува!</span>";
+            let brUser=0;
+            let isAlreadyBlurred= false;
+            input.blur(function () {
+                if (!isAlreadyBlurred) {
+                if (arr.includes(input.val()) || input.val() === "") {
+                    $("#field").find(".form-group").eq(0).removeClass("has-success has-feedback");
+                    $("#field").find(".form-group").eq(0).addClass("has-error has-feedback");
+                    input.parent().find('span').eq(0).removeClass("glyphicon glyphicon-ok form-control-feedback");
+                    input.parent().find('span').eq(0).addClass("glyphicon glyphicon-remove form-control-feedback");
+                    if (brUser === 0) {
+                        input.parent().append(userErrorLabel);
+                        brUser++;
+                    }
+                } else {
+                    $("#field").find(".form-group").eq(0).removeClass("has-error has-feedback");
+                    $("#field").find(".form-group").eq(0).addClass("has-success has-feedback");
+                    input.parent().find('span').eq(0).removeClass("glyphicon glyphicon-remove form-control-feedback");
+                    input.parent().find('span').eq(0).addClass("glyphicon glyphicon-ok form-control-feedback");
+                    $("#errorSpanUsername").empty().remove();
+                    brUser = 0;
+                }
+                isAlreadyBlurred = true;
+            }
+            });
+                input.keyup(delay(function () {
+                    if(isAlreadyBlurred) {
+                        if (arr.includes(input.val()) || input.val() === "") {
+                            $("#field").find(".form-group").eq(0).removeClass("has-success has-feedback");
+                            $("#field").find(".form-group").eq(0).addClass("has-error has-feedback");
+                            input.parent().find('span').eq(0).removeClass("glyphicon glyphicon-ok form-control-feedback");
+                            input.parent().find('span').eq(0).addClass("glyphicon glyphicon-remove form-control-feedback");
+                            //if(brUser===0) {
+                            input.parent().append(userErrorLabel);
+                            brUser++;
+                            //}
+                        } else {
+                            $("#field").find(".form-group").eq(0).removeClass("has-error has-feedback");
+                            $("#field").find(".form-group").eq(0).addClass("has-success has-feedback");
+                            input.parent().find('span').eq(0).removeClass("glyphicon glyphicon-remove form-control-feedback");
+                            input.parent().find('span').eq(0).addClass("glyphicon glyphicon-ok form-control-feedback");
+                            $("#errorSpanUsername").empty().remove();
+                            brUser = 0;
+                        }
+                    }
+                },500));
+
+            let userFirst=$("#passFirst");
+            let userSecond=$("#passConfirm");
+            //iznesi tva otdolu vyv funkciq i go vikai na vseki action
+            if(input.val() === "" || userFirst === "" || userSecond === "") {
+                $("#submitButton").prop('disabled', true);
+            }
+
+
+            let brLength=0;
+
+            userFirst.keypress(delay(function () {
+
+                let passwordErrorLength="<span id=\"passwordErrorLength\" class=\"help-block\">Паролaта трябва да съдържа 4 или повече символа!</span>";
+                if(userFirst.val().length < 4) {
+                    $("#field").find(".form-group").eq(1).removeClass("has-success has-feedback");
+                    $("#field").find(".form-group").eq(1).addClass("has-error has-feedback");
+                    userFirst.parent().find('span').eq(0).removeClass("glyphicon glyphicon-ok form-control-feedback");
+                    userFirst.parent().find('span').eq(0).addClass("glyphicon glyphicon-remove form-control-feedback");
+                    if(brLength===0) {
+                        userFirst.parent().append(passwordErrorLength);
+                        brLength++;
+                    }
+                } else {
+                    $("#field").find(".form-group").eq(1).removeClass("has-error has-feedback");
+                    $("#field").find(".form-group").eq(1).addClass("has-success has-feedback");
+                    userFirst.parent().find('span').eq(0).removeClass("glyphicon glyphicon-remove form-control-feedback");
+                    userFirst.parent().find('span').eq(0).addClass("glyphicon glyphicon-ok form-control-feedback");
+                    $("#passwordErrorLength").empty().remove();
+                    brLength=0;
+                }
+            }, 500));
+
+            let passwordErrorLabel="<span id=\"passwordErrorLabel\" class=\"help-block\">Паролите не съвпадат!</span>";
+            let br=0;
+            //userFirst.blur(function () {
+                    userSecond.keyup(delay(function () {
+                        if(userFirst.val() !== userSecond.val()) {
+                            $("#field").find(".form-group").eq(2).removeClass("has-success has-feedback");
+                            $("#field").find(".form-group").eq(2).addClass("has-error has-feedback");
+                            userSecond.parent().find('span').eq(0).removeClass("glyphicon glyphicon-ok form-control-feedback");
+                            userSecond.parent().find('span').eq(0).addClass("glyphicon glyphicon-remove form-control-feedback");
+                            if(br===0) {
+                                userSecond.parent().append(passwordErrorLabel);
+                                br++;
+                            }
+                            $("#submitButton").prop('disabled', true);
+                        } else {
+                            $("#field").find(".form-group").eq(2).removeClass("has-error has-feedback");
+                            $("#field").find(".form-group").eq(2).addClass("has-success has-feedback");
+                            userSecond.parent().find('span').eq(0).removeClass("glyphicon glyphicon-remove form-control-feedback");
+                            userSecond.parent().find('span').eq(0).addClass("glyphicon glyphicon-ok form-control-feedback");
+                            $("#passwordErrorLabel").empty().remove();
+                            $("#submitButton").prop('disabled', false);
+                            br=0;
+                        }
+                    }, 500));
+            //});
+
+        });
+    </script>
 {% endblock %}
+
 

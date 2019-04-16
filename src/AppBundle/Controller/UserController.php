@@ -60,6 +60,7 @@ class UserController extends Controller
         // 2) handle the submit (will only happen on POST)
         $form->handleRequest($request);
 
+        $usernames=$this->getDoctrine()->getRepository(User::class)->findExistingUsernames();
         if ($form->isSubmitted() && $form->isValid()) {
 
             // 3) Encode the password (you could also do this via Doctrine listener)
@@ -81,9 +82,8 @@ class UserController extends Controller
 
         return $this->render(
             'login/register.html.twig',
-            array('form' => $form->createView())
+            array('form' => $form->createView(), 'usernames' => $usernames)
         );
-        //return $this->render('login/register.html.twig');
     }
 
     /**
