@@ -1,11 +1,18 @@
 {% extends 'base.html.twig' %}
 
+{% block indexTop %}
+    <div id="homeFullWidth" class="container-fluid">
+        <h3 class="white-text text-center">Продаваш телефон или си търсиш нов? Това е идеалното място за теб!</h3>
+    </div>
+{% endblock %}
+
 {% block main %}
     {% if app.request.get('login') == "success" %}
         <div class="alert alert-success" id="success-alert">
             Успешно влязохте в профила си!
         </div>
     {% endif %}
+
     <div id="myCarousel" class="carousel slide" data-ride="carousel">
         <!-- Indicators -->
         <ol class="carousel-indicators">

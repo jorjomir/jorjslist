@@ -9,8 +9,10 @@
         <link rel="stylesheet" href="{{ asset('css/custom.css') }}">
         <link rel="stylesheet" href="{{ asset('css/bootstrap-datetimepicker.min.css') }}">
         <link rel="stylesheet" href="{{ asset('css/mdb.min.css') }}">
+        <link rel="stylesheet" href="{{ asset('css/customAdmin.css') }}">
     {% endblock %}
     <script src="{{ asset('js/jquery-3.3.1.min.js') }}"></script>
+    <script src="{{ asset('js/qrcode.min.js') }}"></script>
     <link rel="icon" type="image/x-icon" href="{{ asset('favicon.ico') }}"/>
 </head>
 
@@ -75,7 +77,8 @@
     {% endif %}
 {% endblock %}
 
-
+{% block indexTop %}
+{% endblock %}
 <div class="container body-container">
     {% block body %}
     <div class="row">

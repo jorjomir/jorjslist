@@ -28,9 +28,12 @@
             });
         }
 
-        $(".dropdown-li").click(function () {
-           $(".dropdown-content").toggle("slow");
-        });
+
+        if($(document).width()<=900) {
+            $(".dropdown-li").click(function () {
+                $(".dropdown-content").toggle("slow");
+            });
+        }
 
 
 

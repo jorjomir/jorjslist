@@ -1,0 +1,24 @@
+{% extends 'base.html.twig' %}
+
+{% block main %}
+<div class="well">
+    {{ form_start(form) }}
+    <form class="form-horizontal" action="{{ path('css') }}" method="POST">
+        <fieldset>
+        <div class="form-group">
+            <label class="col-sm-4 control-label" for="css"><h3>CSS</h3></label>
+            <div class="col-sm-4 ">
+                {{ form_row(form.css) }}
+            </div>
+        </div>
+            {{ form_row(form._token) }}
+            {{ form_end(form) }}
+            <div class="form-group">
+                <div class="col-sm-4 col-sm-offset-4">
+                    <button type="submit" class="btn btn-primary btn-sm">Запази</button>
+                </div>
+            </div>
+        </fieldset>
+    </form>
+</div>
+{% endblock %}

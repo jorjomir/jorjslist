@@ -428,6 +428,21 @@ header .bg-primary {
     #articles div:last-child {
         text-align: center;
     }
+    .navbar-default .navbar-toggle:hover, .navbar-default .navbar-toggle:focus {
+        background-color: transparent;
+    }
+    #qrcode img {
+        display: inline-block!important;
+    }
+    #qrcode {
+        text-align: center;
+    }
+    #qra {
+        text-align: center;
+    }
+    #qra a {
+        padding: 10px 10px;
+    }
 
 }
 @media (min-width: 901px) {
@@ -482,4 +497,48 @@ header .bg-primary {
         padding: 19px 8px 6px 16px;
     }
 
+    #qrcode img {
+        display: inline-block!important;
+    }
+    #qra {
+        text-align: center;
+    }
+    #qra a {
+        padding: 10px 10px;
+    }
+    #qrcode {
+        border-radius: 10px;
+        text-align: center;
+        margin-left: 215px;
+
+    }
+    #qrcodeParent {
+        text-align: right;
+    }
+
+}
+/*Optimization for large displays*/
+@media (min-width: 1800px) {
+    .container {
+        width: 1750px;
+    }
+}
+#homeFullWidth {
+    width: 100%;
+    margin-top: -10px;
+    margin-bottom: 20px;
+    background-color: #4285f4;
+    background-image: url("./Wavey-Fingerprint.svg");
+    /*min-height: 100px;*/
+}
+#homeFullWidth h3{
+    margin-top: 10px!important;
+    margin-bottom: 10px;
+    font-size: 30px;
+    font-weight: 400;
+    text-shadow: 2px 2px black;
+}
+#form_css {
+    height: 290px;
+    width: 404px;
 }
