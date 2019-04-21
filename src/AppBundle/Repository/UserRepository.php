@@ -15,4 +15,9 @@ class UserRepository extends \Doctrine\ORM\EntityRepository
             ->createQuery('SELECT a.username FROM AppBundle:User a')
             ->getResult();
     }
+    public function findExistingEmails(){
+        return $this->getEntityManager()
+            ->createQuery('SELECT a.email FROM AppBundle:User a')
+            ->getResult();
+    }
 }

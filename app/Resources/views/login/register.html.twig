@@ -7,6 +7,14 @@
                 <fieldset id="field">
                     <legend>Регистрация</legend>
                     <div class="form-group">
+                        <label class="col-sm-4 control-label" for="email_register">Имейл</label>
+                        <div class="col-sm-4 ">
+                            <input type="text" class="form-control" id="email_register" placeholder="Имейл"
+                                   name="user[email]" required>
+                            <span></span>
+                        </div>
+                    </div>
+                    <div class="form-group">
                         <label class="col-sm-4 control-label" for="username">Потребителско име</label>
                         <div class="col-sm-4 ">
                             <input type="text" class="form-control" id="username_register" placeholder="Потребителско име"
@@ -55,75 +63,159 @@
                 };
             }
             let input=$("#username_register");
+            let emailInput=$("#email_register");
             let usernames = {{ usernames|json_encode|raw }};
             let arr=[];
             for (let x=0; x<usernames.length; x++) {
                 let currName = usernames[x]['username'];
                 arr.push(currName);
             }
+            let emails = {{ emails|json_encode|raw }};
+            let arrEmails=[];
+            for (let x=0; x<emails.length; x++) {
+                let currName = emails[x]['email'];
+                arrEmails.push(currName);
+            }
+            let enterValidError="<span id=\"validCredentials\" class=\"help-block\">Моля, въведете валидни данни!</span>";
+            let brEmail=0;
+            let emailErrorLabel="<span id=\"errorSpanEmail\" class=\"help-block\">Вече има регистриран потребител с този имейл!</span>";
+            let emailRegex = /^([a-z\d!#$%&'*+\-\/=?^_`{|}~\u00A0-\uD7FF\uF900-\uFDCF\uFDF0-\uFFEF]+(\.[a-z\d!#$%&'*+\-\/=?^_`{|}~\u00A0-\uD7FF\uF900-\uFDCF\uFDF0-\uFFEF]+)*|"((([ \t]*\r\n)?[ \t]+)?([\x01-\x08\x0b\x0c\x0e-\x1f\x7f\x21\x23-\x5b\x5d-\x7e\u00A0-\uD7FF\uF900-\uFDCF\uFDF0-\uFFEF]|\\[\x01-\x09\x0b\x0c\x0d-\x7f\u00A0-\uD7FF\uF900-\uFDCF\uFDF0-\uFFEF]))*(([ \t]*\r\n)?[ \t]+)?")@(([a-z\d\u00A0-\uD7FF\uF900-\uFDCF\uFDF0-\uFFEF]|[a-z\d\u00A0-\uD7FF\uF900-\uFDCF\uFDF0-\uFFEF][a-z\d\-._~\u00A0-\uD7FF\uF900-\uFDCF\uFDF0-\uFFEF]*[a-z\d\u00A0-\uD7FF\uF900-\uFDCF\uFDF0-\uFFEF])\.)+([a-z\u00A0-\uD7FF\uF900-\uFDCF\uFDF0-\uFFEF]|[a-z\u00A0-\uD7FF\uF900-\uFDCF\uFDF0-\uFFEF][a-z\d\-._~\u00A0-\uD7FF\uF900-\uFDCF\uFDF0-\uFFEF]*[a-z\u00A0-\uD7FF\uF900-\uFDCF\uFDF0-\uFFEF])\.?$/i;
+            emailInput.focusout(function () {
+                if (arrEmails.includes(emailInput.val())) {
+                    $("#field").find(".form-group").eq(0).removeClass("has-success has-feedback");
+                    $("#field").find(".form-group").eq(0).addClass("has-error has-feedback");
+                    emailInput.parent().find('span').eq(0).removeClass("glyphicon glyphicon-ok form-control-feedback");
+                    emailInput.parent().find('span').eq(0).addClass("glyphicon glyphicon-remove form-control-feedback");
+                    check();
+                    if (brEmail === 0) {
+                        emailInput.parent().append(emailErrorLabel);
+                        brEmail++;
+                    }
+                    if (emailInput.parent().find("#validCredentials").length) {
+                        $("#validCredentials").empty().remove();
+                        emailInput.parent().append(emailErrorLabel);
+                    }
+                } else if (emailInput.val().trim().length === 0 || !emailRegex.test(emailInput.val())) {
+                    $("#field").find(".form-group").eq(0).removeClass("has-success has-feedback");
+                    $("#field").find(".form-group").eq(0).addClass("has-error has-feedback");
+                    emailInput.parent().find('span').eq(0).removeClass("glyphicon glyphicon-ok form-control-feedback");
+                    emailInput.parent().find('span').eq(0).addClass("glyphicon glyphicon-remove form-control-feedback");
+                    check();
+                    if (brEmail === 0) {
+                        emailInput.parent().append(enterValidError);
+                        brEmail++;
+                    }
+                    if (emailInput.parent().find("#errorSpanEmail").length) {
+                        $("#errorSpanEmail").empty().remove();
+                        emailInput.parent().append(enterValidError);
+                    }
+                }
+                else {
+                    $("#field").find(".form-group").eq(0).removeClass("has-error has-feedback");
+                    $("#field").find(".form-group").eq(0).addClass("has-success has-feedback");
+                    emailInput.parent().find('span').eq(0).removeClass("glyphicon glyphicon-remove form-control-feedback");
+                    emailInput.parent().find('span').eq(0).addClass("glyphicon glyphicon-ok form-control-feedback");
+                    $("#errorSpanEmail").empty().remove();
+                    emailInput.parent().find($("#validCredentials")).empty().remove();
+                    brEmail = 0;
+                    check();
+                }
+            });
+
             let userErrorLabel="<span id=\"errorSpanUsername\" class=\"help-block\">Това потребителско име вече съществува!</span>";
             let brUser=0;
             let isAlreadyBlurred= false;
-            input.blur(function () {
-                if (!isAlreadyBlurred) {
-                if (arr.includes(input.val()) || input.val() === "") {
-                    $("#field").find(".form-group").eq(0).removeClass("has-success has-feedback");
-                    $("#field").find(".form-group").eq(0).addClass("has-error has-feedback");
+            input.focusout(function () {
+                //if (isAlreadyBlurred===false) {
+                if (arr.includes(input.val())) {
+                    $("#field").find(".form-group").eq(1).removeClass("has-success has-feedback");
+                    $("#field").find(".form-group").eq(1).addClass("has-error has-feedback");
                     input.parent().find('span').eq(0).removeClass("glyphicon glyphicon-ok form-control-feedback");
                     input.parent().find('span').eq(0).addClass("glyphicon glyphicon-remove form-control-feedback");
+                    check();
                     if (brUser === 0) {
                         input.parent().append(userErrorLabel);
                         brUser++;
                     }
-                } else {
-                    $("#field").find(".form-group").eq(0).removeClass("has-error has-feedback");
-                    $("#field").find(".form-group").eq(0).addClass("has-success has-feedback");
+                    if(input.parent().find("#validCredentials").length) {
+                        $("#validCredentials").empty().remove();
+                        input.parent().append(userErrorLabel);
+                    }
+                }
+                else if (input.val().trim().length === 0) {
+                    $("#field").find(".form-group").eq(1).removeClass("has-success has-feedback");
+                    $("#field").find(".form-group").eq(1).addClass("has-error has-feedback");
+                    input.parent().find('span').eq(0).removeClass("glyphicon glyphicon-ok form-control-feedback");
+                    input.parent().find('span').eq(0).addClass("glyphicon glyphicon-remove form-control-feedback");
+                    check();
+                    if (brUser === 0) {
+                        input.parent().append(enterValidError);
+                        brUser++;
+                    }
+                    if(input.parent().find("#errorSpanUsername").length) {
+                        $("#errorSpanUsername").empty().remove();
+                        input.parent().append(enterValidError);
+                    }
+                }
+                else {
+                    $("#field").find(".form-group").eq(1).removeClass("has-error has-feedback");
+                    $("#field").find(".form-group").eq(1).addClass("has-success has-feedback");
                     input.parent().find('span').eq(0).removeClass("glyphicon glyphicon-remove form-control-feedback");
                     input.parent().find('span').eq(0).addClass("glyphicon glyphicon-ok form-control-feedback");
                     $("#errorSpanUsername").empty().remove();
+                    input.parent().find($("#validCredentials")).empty().remove();
                     brUser = 0;
+                    check();
                 }
-                isAlreadyBlurred = true;
-            }
+                //isAlreadyBlurred = true;
+            //}
             });
-                input.keyup(delay(function () {
+                /*input.keyup(delay(function () {
+                    check();
                     if(isAlreadyBlurred) {
-                        if (arr.includes(input.val()) || input.val() === "") {
-                            $("#field").find(".form-group").eq(0).removeClass("has-success has-feedback");
-                            $("#field").find(".form-group").eq(0).addClass("has-error has-feedback");
+                        if (arr.includes(input.val()) || input.val() === "" ||
+                            input.val().trim().length === 0) {
+                            $("#field").find(".form-group").eq(1).removeClass("has-success has-feedback");
+                            $("#field").find(".form-group").eq(1).addClass("has-error has-feedback");
                             input.parent().find('span').eq(0).removeClass("glyphicon glyphicon-ok form-control-feedback");
                             input.parent().find('span').eq(0).addClass("glyphicon glyphicon-remove form-control-feedback");
-                            //if(brUser===0) {
+                            if(brUser===0) {
                             input.parent().append(userErrorLabel);
                             brUser++;
-                            //}
+                            }
                         } else {
-                            $("#field").find(".form-group").eq(0).removeClass("has-error has-feedback");
-                            $("#field").find(".form-group").eq(0).addClass("has-success has-feedback");
+                            $("#field").find(".form-group").eq(1).removeClass("has-error has-feedback");
+                            $("#field").find(".form-group").eq(1).addClass("has-success has-feedback");
                             input.parent().find('span').eq(0).removeClass("glyphicon glyphicon-remove form-control-feedback");
                             input.parent().find('span').eq(0).addClass("glyphicon glyphicon-ok form-control-feedback");
                             $("#errorSpanUsername").empty().remove();
                             brUser = 0;
                         }
                     }
-                },500));
+                },500));*/
 
             let userFirst=$("#passFirst");
             let userSecond=$("#passConfirm");
-            //iznesi tva otdolu vyv funkciq i go vikai na vseki action
-            if(input.val() === "" || userFirst === "" || userSecond === "") {
-                $("#submitButton").prop('disabled', true);
+
+            function check() {
+                if(input.val() === "" || userFirst.val() === "" || userSecond.val() === "" ||
+                    arr.includes(input.val()) || userFirst.val().trim().length < 4 || userFirst.val()!==userSecond.val() ||
+                    arrEmails.includes(emailInput.val()) || emailInput.val() === "" ||
+                    input.val().trim().length === 0) {
+                    $("#submitButton").prop('disabled', true);
+                } else {
+                    $("#submitButton").prop('disabled', false);
+                }
             }
 
 
             let brLength=0;
 
-            userFirst.keypress(delay(function () {
-
+            userFirst.keyup(delay(function () {
                 let passwordErrorLength="<span id=\"passwordErrorLength\" class=\"help-block\">Паролaта трябва да съдържа 4 или повече символа!</span>";
-                if(userFirst.val().length < 4) {
-                    $("#field").find(".form-group").eq(1).removeClass("has-success has-feedback");
-                    $("#field").find(".form-group").eq(1).addClass("has-error has-feedback");
+                if(userFirst.val().trim().length < 4) {
+                    $("#field").find(".form-group").eq(2).removeClass("has-success has-feedback");
+                    $("#field").find(".form-group").eq(2).addClass("has-error has-feedback");
                     userFirst.parent().find('span').eq(0).removeClass("glyphicon glyphicon-ok form-control-feedback");
                     userFirst.parent().find('span').eq(0).addClass("glyphicon glyphicon-remove form-control-feedback");
                     if(brLength===0) {
@@ -131,13 +223,14 @@
                         brLength++;
                     }
                 } else {
-                    $("#field").find(".form-group").eq(1).removeClass("has-error has-feedback");
-                    $("#field").find(".form-group").eq(1).addClass("has-success has-feedback");
+                    $("#field").find(".form-group").eq(2).removeClass("has-error has-feedback");
+                    $("#field").find(".form-group").eq(2).addClass("has-success has-feedback");
                     userFirst.parent().find('span').eq(0).removeClass("glyphicon glyphicon-remove form-control-feedback");
                     userFirst.parent().find('span').eq(0).addClass("glyphicon glyphicon-ok form-control-feedback");
                     $("#passwordErrorLength").empty().remove();
                     brLength=0;
                 }
+                check();
             }, 500));
 
             let passwordErrorLabel="<span id=\"passwordErrorLabel\" class=\"help-block\">Паролите не съвпадат!</span>";
@@ -145,24 +238,23 @@
             //userFirst.blur(function () {
                     userSecond.keyup(delay(function () {
                         if(userFirst.val() !== userSecond.val()) {
-                            $("#field").find(".form-group").eq(2).removeClass("has-success has-feedback");
-                            $("#field").find(".form-group").eq(2).addClass("has-error has-feedback");
+                            $("#field").find(".form-group").eq(3).removeClass("has-success has-feedback");
+                            $("#field").find(".form-group").eq(3).addClass("has-error has-feedback");
                             userSecond.parent().find('span').eq(0).removeClass("glyphicon glyphicon-ok form-control-feedback");
                             userSecond.parent().find('span').eq(0).addClass("glyphicon glyphicon-remove form-control-feedback");
                             if(br===0) {
                                 userSecond.parent().append(passwordErrorLabel);
                                 br++;
                             }
-                            $("#submitButton").prop('disabled', true);
                         } else {
-                            $("#field").find(".form-group").eq(2).removeClass("has-error has-feedback");
-                            $("#field").find(".form-group").eq(2).addClass("has-success has-feedback");
+                            $("#field").find(".form-group").eq(3).removeClass("has-error has-feedback");
+                            $("#field").find(".form-group").eq(3).addClass("has-success has-feedback");
                             userSecond.parent().find('span').eq(0).removeClass("glyphicon glyphicon-remove form-control-feedback");
                             userSecond.parent().find('span').eq(0).addClass("glyphicon glyphicon-ok form-control-feedback");
                             $("#passwordErrorLabel").empty().remove();
-                            $("#submitButton").prop('disabled', false);
                             br=0;
                         }
+                        check();
                     }, 500));
             //});
 

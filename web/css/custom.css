@@ -445,6 +445,8 @@ header .bg-primary {
     }
 
 }
+
+/*--------------------------DESKTOP VERSION---------------------------*/
 @media (min-width: 901px) {
     #searchNav {
         display: none!important;;
