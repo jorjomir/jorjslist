@@ -38,4 +38,9 @@ class AdRepository extends \Doctrine\ORM\EntityRepository
             ->setMaxResults(3)
             ->getResult();
     }
+    public function adminRecentAds(){
+        return $this->getEntityManager()
+            ->createQuery('SELECT a.id, a.title, a.summary, a.dateAdded, a.author, a.town, a.phoneNumber, a.price, a.images, a.views FROM AppBundle:Ad a ORDER BY a.dateAdded DESC')
+            ->getResult();
+    }
 }

@@ -45,12 +45,13 @@
                     {{ render(controller('AppBundle:Default:primaryMenuCategoriesDropdownMenu')) }}
 
                     <li><a class="nav-item nav-link" href="{{ path('allArticles') }}">Статии</a></li>
+                    <li><a class="nav-item nav-link" href="{{ path('contacts') }}">Контакти</a></li>
                     <li>{{ render(controller('AppBundle:Default:search')) }}</li>
                 </ul>
 
                 <ul class="nav navbar-nav navbar-right navbar-collapse">
                     {% if app.user %}
-                        <li><a id="login" class="nav-item nav-link" href="{{ path('login') }}">Здравей, {{ app.user.username }}!</a></li>
+                        <li><a id="login" class="nav-item nav-link" href="{{ path('editUser') }}">Здравей, {{ app.user.username }}!</a></li>
                         <li><a id="logout" class="nav-item nav-link" href="{{ path('logout') }}">Излез</a></li>
                         {% if app.user.role=="admin" %}
                             {% if app.request.requestUri starts with '/admin' %}

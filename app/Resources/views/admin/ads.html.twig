@@ -1,0 +1,41 @@
+{% extends 'base.html.twig' %}
+
+{% block main %}
+    <div class="well">
+        {% for message in app.flashes('success') %}
+            <div class="alert alert-success" id="success-alert">
+                {{ message }}
+            </div>
+        {% endfor %}
+        <h4>Всички обяви</h4>
+        <table class="table">
+            <thead>
+            <tr>
+                <th scope="col">ID</th>
+                <th scope="col">Заглавие</th>
+                <th scope="col">Дата на добавяне</th>
+                <th scope="col">Потребител</th>
+                <th scope="col">Изтрий</th>
+                <th scope="col">Виж</th>
+            </tr>
+            </thead>
+            <tbody>
+            {% for ad in ads %}
+                <tr>
+                    <th scope="row">{{ ad.id }}</th>
+                    <td>{{ ad.title }}</td>
+                    <td>{{ ad.dateAdded|date('H:i d-m-Y') }}</td>
+                    <td>{{ ad.author }}</td>
+                    <td><a class="btn btn-danger btn-sm" href="{{ path('adminDeleteAd', {id: ad.id}) }}" onclick="return confirm('Сигурни ли сте, че искате да изтриете тази обява?')">Изтрий</a></td>
+                    <td><a target="_blank" class="btn btn-grey btn-sm" href="{{ path('viewAd', {id: ad.id}) }}">Виж</a></td>
+                </tr>
+            {% else %}
+                <tr>
+                    <th scope="row">Няма намерени обяви!</th>
+                </tr>
+            {% endfor %}
+            </tbody>
+        </table>
+    </div>
+{% endblock %}
+

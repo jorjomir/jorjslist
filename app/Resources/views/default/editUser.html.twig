@@ -1,0 +1,45 @@
+{% extends 'base.html.twig' %}
+
+{% block main %}
+        <div class="well">
+            <form class="form-horizontal" action="{{ path('editUser') }}" method="POST">
+                <fieldset id="field">
+                    <legend>Редактиране на профил</legend>
+                    <div class="form-group">
+                        <label class="col-sm-4 control-label" for="article_title">Имейл</label>
+                        <div class="col-sm-4 ">
+                            {{ form_row(form.email, {'label':false}) }}
+                        </div>
+                    </div>
+                    <div class="form-group">
+                        <label class="col-sm-4 control-label" for="article_title">Потребителско име</label>
+                        <div class="col-sm-4 ">
+                            {{ form_row(form.username, {'label':false}) }}
+                        </div>
+                    </div>
+                    <div class="form-group">
+                        <label class="col-sm-4 control-label" for="article_title">Нова Парола</label>
+                        <div class="col-sm-4 ">
+                            {{ form_row(form.password.first, {'label':false, 'required':false}) }}
+                        </div>
+                    </div>
+                    <div class="form-group">
+                        <label class="col-sm-4 control-label" for="article_title">Потвърди парола</label>
+                        <div class="col-sm-4 ">
+                            {{ form_row(form.password.second, {'label':false, 'required':false}) }}
+                        </div>
+                    </div>
+                    {{ form_row(form._token) }}
+                    {{ form_end(form) }}
+                    <div class="text-center">
+                        <small>Ако не въведете нова парола, старата ще бъде запазена!</small>
+                    </div>
+                    <div class="form-group">
+                        <div class="col-sm-4 col-sm-offset-4">
+                            <button type="submit" class="btn btn-primary btn-sm">Продължи</button>
+                        </div>
+                    </div>
+                </fieldset>
+            </form>
+        </div>
+{% endblock %}

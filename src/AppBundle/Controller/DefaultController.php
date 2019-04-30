@@ -6,6 +6,7 @@ use AppBundle\Entity\Ad;
 use AppBundle\Entity\Article;
 use AppBundle\Entity\Category;
 use AppBundle\Entity\ImageSlider;
+use AppBundle\Entity\User;
 use AppBundle\Form\SearchType;
 use AppBundle\Repository\AdRepository;
 use AppBundle\Repository\ArticleRepository;
@@ -15,6 +16,7 @@ use Ivory\GoogleMapBundle\IvoryGoogleMapBundle;
 use Sensio\Bundle\FrameworkExtraBundle\Configuration\Method;
 use Symfony\Bundle\FrameworkBundle\Controller\Controller;
 use Symfony\Component\Form\Extension\Core\Type\SubmitType;
+use Symfony\Component\Form\Extension\Core\Type\TextareaType;
 use Symfony\Component\Form\Extension\Core\Type\TextType;
 use Symfony\Component\HttpFoundation\Request;
 use Symfony\Component\Routing\Annotation\Route;
@@ -97,4 +99,36 @@ class DefaultController extends Controller
 
         return $this->render('searchResults.html.twig', array('ads' => $adsToShow, 'query' => $query));
     }
+
+    /**
+     * @Route("/contacts", name="contacts")
+     * @param Request $request
+     * @param \Swift_Mailer $mailer
+     * @return \Symfony\Component\HttpFoundation\Response
+     */
+    public function contacts(Request $request, \Swift_Mailer $mailer) {
+        /** @var User $currentUser */
+        $currentUser= $this->getUser();
+            $form = $this->createFormBuilder()
+                ->add('name', TextType::class, array('label' => false,))
+                ->add('emailSender', TextType::class, array('label' => false, 'invalid_message' => 'Въведете валиден имейл!'))
+                ->add('message', TextareaType::class, array('label' => false))
+                ->getForm();
+        $form->handleRequest($request);
+        if($form->isSubmitted() && $form->isValid()) {
+            $contactForm= $form->getData();
+            $message = (new \Swift_Message('Запитване от контактна форма в JorjsList.eu'))
+                ->setFrom('admin@jorjslist.eu')
+                ->setTo('georgi.msabev@gmail.com')
+                ->setBody('Имейл на подател: ' . $contactForm["emailSender"] . PHP_EOL .
+                    'Име: ' . $contactForm["name"] . PHP_EOL . 'Съобщение: ' . $contactForm["message"]);
+            $mailer->send($message);
+
+            $this->addFlash('success', 'Успешно изпратихте своето запитване! Очаквайте имейл отговор на имейл адресът Ви: ' . $contactForm["emailSender"] . '!');
+            return $this->redirectToRoute('index');
+        }
+        return $this->render('default/contacts.html.twig', ['form' => $form->createView()]);
+    }
 }
+
+

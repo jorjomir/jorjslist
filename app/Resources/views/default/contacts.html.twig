@@ -1,0 +1,45 @@
+{% extends 'base.html.twig' %}
+
+{% block main %}
+    <h3>За контакти с администратора:</h3>
+    <ul style="list-style-type:square;">
+        <li><strong>admin@jorjslist.eu</strong></li>
+    </ul>
+    <hr/>
+    <h3 class="text-center">Контактна форма:</h3>
+    </br>
+    <div class="col-md-9 mb-md-0 mb-5">
+    <form id="contactForm" name="contact-form" action="{{ path('contacts') }}" method="POST">
+            <div class="row">
+                <div class="col-md-12">
+            <div class="md-form mb-5">
+                <input type="text" id="form_name" name="form[name]"/>
+                <label class="" for="form_name">Име</label>
+            </div>
+                </div>
+            </div>
+            <div class="row">
+                <div class="col-md-12">
+            <div class="md-form mb-5">
+                <input type="email" id="form_emailSender" name="form[emailSender]"/>
+                <label class="" for="form_emailSender">Имейл</label>
+            </div>
+                </div>
+            </div>
+            <div class="row">
+                <div class="col-md-12">
+            <div class="md-form">
+                <textarea class="form-control md-textarea" rows="4" cols="50" id="form_message" name="form[message]"></textarea>
+                <label class="" for="form_message">Съобщение</label>
+            </div>
+                </div>
+            </div>
+            {{ form_row(form._token) }}
+            <div class="row">
+                <div class="text-md-left">
+                    <button type="submit" class="btn btn-primary btn-sm">Запази</button>
+                </div>
+            </div>
+    </form>
+    </div>
+{% endblock %}

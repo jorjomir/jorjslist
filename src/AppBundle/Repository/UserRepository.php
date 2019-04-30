@@ -20,4 +20,11 @@ class UserRepository extends \Doctrine\ORM\EntityRepository
             ->createQuery('SELECT a.email FROM AppBundle:User a')
             ->getResult();
     }
+    public function getIdWithEmail($email){
+        return $this->getEntityManager()
+            ->createQuery('SELECT u.id, u.email, u.username, u.password, u.role FROM AppBundle:User u 
+            WHERE u.email= :email')
+            ->setParameter('email', $email)
+            ->getResult();
+    }
 }

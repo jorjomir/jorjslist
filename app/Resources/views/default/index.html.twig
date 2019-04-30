@@ -4,21 +4,25 @@
     <div id="homeFullWidth" class="container-fluid">
         <h3 class="white-text text-center">Продаваш телефон или си търсиш нов? Това е идеалното място за теб!</h3>
     </div>
-{% endblock %}
-
-{% block main %}
+    {% for message in app.flashes('success') %}
+        <div style="margin-top: -20px;" class="alert alert-success text-center" id="success-alert">
+            {{ message }}
+        </div>
+    {% endfor %}
     {% if app.request.get('login') == "success" %}
-        <div class="alert alert-success" id="success-alert">
+        <div style="margin-top: -20px;" class="alert alert-success text-center" id="success-alert">
             Успешно влязохте в профила си!
         </div>
     {% endif %}
+{% endblock %}
 
+{% block main %}
     <div id="myCarousel" class="carousel slide" data-ride="carousel">
         <!-- Indicators -->
         <ol class="carousel-indicators">
             {% for image in images %}
-            <li data-target="#myCarousel" data-slide-to="{{ loop.index-1 }}"
-                class="{% if loop.first %} active {% endif %}"></li>
+                <li data-target="#myCarousel" data-slide-to="{{ loop.index-1 }}"
+                    class="{% if loop.first %} active {% endif %}"></li>
             {% endfor %}
         </ol>
 
@@ -27,9 +31,9 @@
 
 
             {% for image in images %}
-            <div class="item {% if loop.first %} active {% endif %}">
-                <img src="{{ asset('uploads/images/' ~ image.image) }}">
-            </div>
+                <div class="item {% if loop.first %} active {% endif %}">
+                    <img src="{{ asset('uploads/images/' ~ image.image) }}">
+                </div>
             {% endfor %}
 
         </div>
@@ -42,44 +46,46 @@
             <span class="glyphicon glyphicon-chevron-right"></span>
         </a>
     </div>
-<div id="adsCategory">
-    <h2 class="text-center">Последно добавени обяви</h2>
-    <hr/>
-    {% for ad in ads %}
-        <div class="col-lg-4 col-md-4 col-sm-4">
-            <figure class="card card-product">
-                <div class="img-wrap text-center">
-                    {% if ad.images %}
-                        <img href="{{ path('viewAd', {id : ad.id}) }}" src="{{ asset('uploads/images/' ~ ad.images[0]) }}">
-                    {% else %}
-                        <img href="{{ path('viewAd', {id : ad.id}) }}" src="{{ asset('uploads/images/noimage.jpg') }}">
-                    {% endif %}
-                </div>
-                <figcaption class="info-wrap">
-                    <h4 class="text-center">
-                        <a href="{{ path('viewAd', {id : ad.id}) }}" class="title text-center">{{ ad.title }}</a></h4><br/>
-                    <h5 class="text-center">
-                        <a href="{{ path('viewAd', {id : ad.id}) }}" class="text-info text-sm-center">{{ ad.summary }}</a></h5>
-                    <div class="action-wrap">
-                        <div class="price-wrap h5">
-                            <h4 class="price-new text-center">{{ ad.price }} лв.</h4>
-                        </div> <!-- price-wrap.// -->
-                        <div class="text-center">
-                            <a href="{{ path('viewAd', {id : ad.id}) }}" class="btn btn-primary btn-sm">Детайли</a><br/>
-                        </div>
-                        <h5 size="10" class="text-right">Видяно:
-                            {{ ad.views }}
-                            {% if ad.views==1 %}
-                                път
-                            {% else %}
-                                пъти
-                            {% endif %}</h5>
-                    </div> <!-- action-wrap -->
-                </figcaption>
-            </figure> <!-- card // -->
-        </div> <!-- col // -->
-    {% endfor %}
-</div>
+    <div id="adsCategory">
+        <h2 class="text-center">Последно добавени обяви</h2>
+        <hr/>
+        {% for ad in ads %}
+            <div class="col-lg-4 col-md-4 col-sm-4">
+                <figure class="card card-product">
+                    <a class="overlay" href="{{ path('viewAd', {id : ad.id}) }}">
+                    <div class="img-wrap text-center">
+                        {% if ad.images %}
+                            <img href="{{ path('viewAd', {id : ad.id}) }}" src="{{ asset('uploads/images/' ~ ad.images[0]) }}">
+                        {% else %}
+                            <img href="{{ path('viewAd', {id : ad.id}) }}" src="{{ asset('uploads/images/noimage.jpg') }}">
+                        {% endif %}
+                    </div>
+                    </a>
+                    <figcaption class="info-wrap">
+                        <h4 class="text-center">
+                            <a href="{{ path('viewAd', {id : ad.id}) }}" class="title text-center">{{ ad.title }}</a></h4><br/>
+                        <h5 class="text-center">
+                            <a href="{{ path('viewAd', {id : ad.id}) }}" class="text-info text-sm-center">{{ ad.summary }}</a></h5>
+                        <div class="action-wrap">
+                            <div class="price-wrap h5">
+                                <h4 class="price-new text-center">{{ ad.price }} лв.</h4>
+                            </div> <!-- price-wrap.// -->
+                            <div class="text-center">
+                                <a href="{{ path('viewAd', {id : ad.id}) }}" class="btn btn-primary btn-sm">Детайли</a><br/>
+                            </div>
+                            <h5 size="10" class="text-right">Видяно:
+                                {{ ad.views }}
+                                {% if ad.views==1 %}
+                                    път
+                                {% else %}
+                                    пъти
+                                {% endif %}</h5>
+                        </div> <!-- action-wrap -->
+                    </figcaption>
+                </figure> <!-- card // -->
+            </div> <!-- col // -->
+        {% endfor %}
+    </div>
 
 
 

@@ -2,9 +2,11 @@
 
 namespace AppBundle\Controller;
 
+use AppBundle\Entity\Ad;
 use AppBundle\Entity\Article;
 use AppBundle\Entity\User;
 use AppBundle\Form\cssType;
+use Symfony\Component\Filesystem\Filesystem;
 use Symfony\Component\Form\Extension\Core\Type\TextareaType;
 use Symfony\Component\HttpFoundation\Request;
 use Symfony\Bundle\FrameworkBundle\Controller\Controller;
@@ -113,5 +115,46 @@ class AdminController extends Controller
         return $this->redirectToRoute('allUsers');
     }
 
+    /**
+     * @Route("/ads", name="allAds")
+     */
+    public function allAds() {
+        /** @var User $currentUser */
+        $currentUser= $this->getUser();
+        if($currentUser==null) {
+            return $this->redirectToRoute('index');
+        }
+        if($currentUser->getRole()!=="admin") {
+            return $this->redirectToRoute('index');
+        }
 
+        $ads=$this->getDoctrine()->getRepository(Ad::class)->adminRecentAds();
+        return $this->render('admin/ads.html.twig', ['ads' => $ads]);
+    }
+
+    /**
+     * @Route("/ads/delete/{id}", name="adminDeleteAd")
+     *
+     * @param $id
+     * @return \Symfony\Component\HttpFoundation\RedirectResponse
+     */
+    public function adminDeleteAd($id)
+    {
+        $em = $this->getDoctrine()->getManager();
+        $ad=$em->getRepository('AppBundle:Ad')->find($id);
+        $re = '/(...)(.jpeg)/m';
+        $re1 = '/(...)(.png)/m';
+        foreach ($ad->getImages() as $image) {
+            if(preg_match($re, $image) || preg_match($re1, $image)) {
+                /** @var Filesystem $fileSystem */
+                $fileSystem = new Filesystem();
+                $fileSystem->remove($this->get('kernel')->getRootDir() . "\..\web\uploads\images\\" . $image);
+            }
+        }
+
+        $em->remove($ad);
+        $em->flush();
+        $this->addFlash('success', 'Успешно изтрихте обявата!');
+        return $this->redirectToRoute('allAds');
+    }
 }

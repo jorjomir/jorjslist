@@ -234,8 +234,8 @@ html { font-size: 130%; }
 
 @media (max-width: 1198px) {
     .card-product img {
-        max-width: 200px;
-        max-height: 300px;
+        max-width: 170px;
+        max-height: 132px;
     }
 }
 @media (min-width: 1199px) {
@@ -287,7 +287,7 @@ body { padding-top: 70px; }
     color: white!important;
 }
 #search-form input {
-    width: 300px;
+    width: 200px;
     height: 40px;
 }
 /* #search-form input:focus ~ #buttonInput{
@@ -309,7 +309,7 @@ body { padding-top: 70px; }
     margin-top: unset!important;
     margin-bottom: unset!important;
 }
-.md-form input[type=text]:focus:not([readonly]) {
+header .md-form input[type=text]:focus:not([readonly]) {
     -webkit-box-shadow: 0 1px 0 0 black!important;
     box-shadow: 0 1px 0 0 black!important;
     border-bottom: 1px solid black!important;
@@ -544,3 +544,31 @@ header .bg-primary {
     height: 290px;
     width: 404px;
 }
+
+#contactForm .active {
+    background-color: transparent!important;
+    color: black!important;
+}
+#contactForm .md-form label {
+    font-size: 18px;
+    top: 0!important;
+    left: 5px!important;
+}
+#contactForm label.active {
+    font-size:.6rem;
+    -webkit-transform:translateY(-110%)!important;
+    -ms-transform:translateY(-110%)!important;
+    transform:translateY(-110%)!important;
+}
+#contactForm .row {
+    margin-bottom: 30px;
+}
+#contactForm input, #contactForm textarea {
+    width: 300px!important;
+}
+@media only screen and (min-device-width: 901px) and (max-device-width: 1030px) {
+    #search-form input {
+        width: 150px!important;
+    }
+}
+
