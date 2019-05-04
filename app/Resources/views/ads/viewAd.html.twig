@@ -15,7 +15,9 @@
                     <a href="{{ path('editAd', {id : ad.id}) }}" class="btn btn-info btn-sm">Редактирай</a>
                     <a href="{{ path('deleteAd', {id : ad.id}) }}" class="btn btn-danger btn-sm">Изтрий</a>
                 </div>
+
             {% endif %}
+
         {% endif %}
 
         <h2 class="text-center">{{ ad.title }}</h2>
@@ -66,6 +68,46 @@
                 <span class="glyphicon glyphicon-download-alt"></span>&nbsp;&nbsp;Изтегли</a>
             </div>
         </div>
+        {% if app.user %}
+        {% if ad.author!=app.user.username %}
+            <div class="text-right">
+                <a style="cursor: pointer" type="button" class="black-text" data-toggle="modal" data-target="#reportAd">
+                    <span class="glyphicon glyphicon-alert"></span>&nbsp;Докладвай</a>
+            </div>
+            <!-- Modal -->
+            <div class="modal fade" id="reportAd" role="dialog">
+                <div class="modal-dialog">
+                    <!-- Modal content-->
+                    <div class="modal-content">
+                        <div class="modal-header">
+                            <button type="button" class="close" data-dismiss="modal">&times;</button>
+                            <h4 class="modal-title">Докладвай обява</h4>
+                        </div>
+                        <div class="modal-body">
+                            {{ form_start(form) }}
+                            <form action="{{ path('viewAd', {id : ad.id}) }}" method="POST">
+                                <fieldset>
+                                    <div class="form-group">
+                                        <label class="col-sm-4 control-label" for="comment">Съобщение</label>
+                                        <div class="col-sm-4 ">
+                                            {{ form_row(form.comment) }}
+                                        </div>
+                                    </div>
+                                    {{ form_row(form._token) }}
+                                    {{ form_end(form) }}
+                                    <div class="col-md-12 text-center">
+                                        <button type="submit" class="btn btn-primary btn-sm">Докладвай</button>
+                                    </div>
+                                </fieldset>
+                            </form>
+                        </div>
+
+                    </div>
+
+                </div>
+            </div>
+        {% endif %}
+        {% endif %}
 
     </div>
 
@@ -83,15 +125,12 @@
                 .attr("href", img)
                 .attr("download", "qrCode.png");
 
-
-            //$("#qrcode").append(a);
-            //$("#qrcode").append("<p>" + img + "</p>");
-            /*let canvas = $('#qrcode canvas');
-            console.log(canvas);
-
-            //or
-            //var img = $(canvas)[0].toDataURL("image/png");
-            document.write('<img src="'+img+'"/>');*/
+            /*REPORT AD
+            let btn=$("#reportAd").parent();
+            btn.click(function () {
+                $("#reportAd").toggle();
+            })
+            */
         });
     </script>
 {% endblock %}

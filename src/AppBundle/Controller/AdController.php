@@ -4,10 +4,12 @@ namespace AppBundle\Controller;
 
 use AppBundle\Entity\Ad;
 use AppBundle\Entity\Category;
+use AppBundle\Entity\Report;
 use AppBundle\Entity\User;
 use AppBundle\Form\AdType;
 use Symfony\Bundle\FrameworkBundle\Controller\Controller;
 use Symfony\Component\Filesystem\Filesystem;
+use Symfony\Component\Form\Extension\Core\Type\TextareaType;
 use Symfony\Component\HttpFoundation\File\Exception\FileException;
 use Symfony\Component\HttpFoundation\Request;
 use Symfony\Component\Routing\Annotation\Route;
@@ -88,9 +90,13 @@ class AdController extends Controller
     /**
      * @Route("/ad/{id}", name="viewAd")
      * @param $id
+     * @param Request $request
      * @return \Symfony\Component\HttpFoundation\Response
      */
-    public function viewAd($id) {
+    public function viewAd($id, Request $request) {
+        /** @var User $currentUser */
+        $currentUser= $this->getUser();
+
         $em = $this->getDoctrine()->getManager();
         $ad=$em->getRepository('AppBundle:Ad')->find($id);
         $images=$ad->getImages();
@@ -98,7 +104,26 @@ class AdController extends Controller
         $ad->setViews($views+1);
         $em->persist($ad);
         $em->flush();
-        return $this->render('ads/viewAd.html.twig', ['ad' => $ad, 'images' => $images]);
+        /** @var Report $report */
+        $report=new Report();
+        $form=$this->createFormBuilder()
+            ->add('comment', TextareaType::class, array('label' => false))
+            ->getForm();
+        $form->handleRequest($request);
+        if($form->isSubmitted() && $form->isValid())
+        {
+            $data= $form->getData();
+            $report->setComment($data["comment"]);
+            $report->setAdId($id);
+            $report->setUserId($currentUser->getId());
+            $em->persist($report);
+            $em->flush();
+            $this->addFlash("success", "Благодарим Ви, успешно докладвахте обявата!");
+            return $this->redirectToRoute('viewAd', ['id' => $id]);
+        }
+
+        return $this->render('ads/viewAd.html.twig',
+            ['ad' => $ad, 'images' => $images, 'form' => $form->createView()]);
     }
 
     /**

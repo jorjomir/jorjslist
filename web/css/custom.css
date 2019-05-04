@@ -571,4 +571,10 @@ header .bg-primary {
         width: 150px!important;
     }
 }
+@media (min-width: 900px)
+{
+    .modal-dialog {
+        margin: 130px auto;
+    }
+}
 
