@@ -51,11 +51,8 @@ class ArticleController extends Controller
                         $fileName
                     );
                 } catch (FileException $e) {
-                    // ... handle exception if something happens during file upload
-                }
 
-                // updates the 'brochure' property to store the PDF file name
-                // instead of its contents
+                }
                 $article->setImage($fileName);
             }
 

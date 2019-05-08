@@ -121,12 +121,12 @@ class DefaultController extends Controller
         $form->handleRequest($request);
         if($form->isSubmitted() && $form->isValid()) {
             $contactForm= $form->getData();
-                /*$message = (new \Swift_Message('Запитване от контактна форма в JorjsList.eu'))
+                $message = (new \Swift_Message('Запитване от контактна форма в JorjsList.eu'))
                     ->setFrom('admin@jorjslist.eu')
                     ->setTo('georgi.msabev@gmail.com')
                     ->setBody('Имейл на подател: ' . $contactForm["emailSender"] . PHP_EOL .
                         'Име: ' . $contactForm["name"] . PHP_EOL . 'Съобщение: ' . $contactForm["message"]);
-                $mailer->send($message);*/
+                $mailer->send($message);
 
                 $this->addFlash('success', 'Успешно изпратихте своето запитване! Очаквайте имейл отговор на имейл адресът Ви: ' . $contactForm["emailSender"] . '!');
                 return $this->redirectToRoute('index');
