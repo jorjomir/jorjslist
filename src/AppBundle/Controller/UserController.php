@@ -58,10 +58,13 @@ class UserController extends Controller
         $emails=$this->getDoctrine()->getRepository(User::class)->findExistingEmails();
         if ($form->isSubmitted() && $form->isValid()) {
             $email=$form["email"]->getData();
+            $username=$form["username"]->getData();
             $message = (new \Swift_Message('Регистрация в JorjsList.eu'))
                 ->setFrom('admin@jorjslist.eu')
                 ->setTo($email)
-                ->setBody('Вие успешно се регистрирахте!');
+                ->setBody('Вие успешно се регистрирахте!' . PHP_EOL .
+                    'Потребителско име: ' . $username . PHP_EOL .
+                    'Влезте в профила си от тук: ' . 'http://jorjslist.eu/login/');
             $mailer->send($message);
 
             $password = $this->get('security.password_encoder')
