@@ -23,11 +23,12 @@
                                 {{ article.title }}
                             </a>
                         </h4>
-                        <p class="margin-top-10 margin-bottom-20">
-                            {{ article.content |slice(0,33) |raw }}...
+                        <p class="text-right text-muted margin-top-10 margin-bottom-20">
+                            {{ article.dateAdded|date('H:i d-m-Y') }}
                         </p>
                     </div>
                 </li>
+                    <hr style="margin-bottom: 0; margin-top: 0">
                 {% endfor %}
             </ul>
             <a href="{{ path('allArticles') }}" class="btn btn-primary btn-block btn-sm">Всички статии »</a>

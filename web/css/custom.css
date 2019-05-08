@@ -517,6 +517,12 @@ header .bg-primary {
     #qrcodeParent {
         text-align: right;
     }
+    #editAd input#ad_title, #editAd input#ad_summary, #editAd textarea#ad_description {
+        min-width: 400px;
+    }
+    #createAd input#ad_title, #createAd input#ad_summary, #createAd textarea#ad_description {
+        min-width: 400px;
+    }
 
 }
 /*Optimization for large displays*/
@@ -560,11 +566,24 @@ header .bg-primary {
     -ms-transform:translateY(-110%)!important;
     transform:translateY(-110%)!important;
 }
+#contactFormCaptcha label.active {
+    font-size:unset!important;
+    -webkit-transform:unset!important;
+    -ms-transform:unset!important;
+    transform:unset!important;
+}
+#contactFormCaptcha input#form_captcha {
+    max-width: 50px!important;
+}
 #contactForm .row {
     margin-bottom: 30px;
 }
-#contactForm input, #contactForm textarea {
-    width: 300px!important;
+#contactForm input#form_emailSender, #contactForm input#form_name, #contactForm textarea#form_message {
+    min-width: 400px!important;
+    margin-left: -70px!important;
+}
+#contactForm label, #contactForm label.active {
+    margin-left: -70px!important;
 }
 @media only screen and (min-device-width: 901px) and (max-device-width: 1030px) {
     #search-form input {
@@ -576,5 +595,9 @@ header .bg-primary {
     .modal-dialog {
         margin: 130px auto;
     }
+}
+
+#editAd input#ad_images {
+    margin: auto;
 }
 

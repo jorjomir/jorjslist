@@ -15,7 +15,29 @@
                     <a href="{{ path('editAd', {id : ad.id}) }}" class="btn btn-info btn-sm">Редактирай</a>
                     <a href="{{ path('deleteAd', {id : ad.id}) }}" class="btn btn-danger btn-sm">Изтрий</a>
                 </div>
-
+                {% elseif app.user.role=="admin" %}
+                    <div class="text-right">
+                        <a href="{{ path('deleteAd', {id : ad.id}) }}" class="btn btn-danger btn-sm">Изтрий</a>
+                        {% if app.user.email not in ad.subs %}
+                                <a title="Получавай имейл известия, когато цената се промени"
+                                   href="{{ path('subscribe', {id: ad.id}) }}" class="btn btn-light-green btn-sm">Абонирай се</a>
+                        {% else %}
+                                <a title="Премахване на абонамента за получаване на известия при промяна на цената"
+                                   href="{{ path('removeSubscription', {id: ad.id}) }}" class="btn btn-red btn-sm">Премахни абонамента</a>
+                        {% endif %}
+                    </div>
+                {% else %}
+                        {% if app.user.email not in ad.subs %}
+                            <div class="text-right">
+                                <a title="Получавай имейл известия, когато цената се промени"
+                                    href="{{ path('subscribe', {id: ad.id}) }}" class="btn btn-light-green btn-sm">Абонирай се</a>
+                            </div>
+                        {% else %}
+                            <div class="text-right">
+                                <a title="Премахване на абонамента за получаване на известия при промяна на цената"
+                                   href="{{ path('removeSubscription', {id: ad.id}) }}" class="btn btn-red btn-sm">Премахни абонамента</a>
+                            </div>
+                        {% endif %}
             {% endif %}
 
         {% endif %}

@@ -1,6 +1,11 @@
 {% extends 'base.html.twig' %}
 
 {% block main %}
+    {% for message in app.flashes('error') %}
+        <div class="alert alert-danger" id="success-alert">
+            {{ message }}
+        </div>
+    {% endfor %}
     <h3>За контакти с администратора:</h3>
     <ul style="list-style-type:square;">
         <li><strong>admin@jorjslist.eu</strong></li>
@@ -8,7 +13,7 @@
     <hr/>
     <h3 class="text-center">Контактна форма:</h3>
     </br>
-    <div class="col-md-9 mb-md-0 mb-5">
+    <div class="text-center">
     <form id="contactForm" name="contact-form" action="{{ path('contacts') }}" method="POST">
             <div class="row">
                 <div class="col-md-12">
@@ -34,6 +39,11 @@
             </div>
                 </div>
             </div>
+
+                <div class="col-md-12" id="contactFormCaptcha">
+                    <label>Пресметни: {{ firstVal }} + {{ secondVal }} =</label>
+                    <input maxlength="2" type="text" id="form_captcha" name="form[captcha]"/>
+                </div>
             {{ form_row(form._token) }}
             <div class="row">
                 <div class="text-md-left">
@@ -42,4 +52,61 @@
             </div>
     </form>
     </div>
+    <script>
+        $(document).ready(function() {
+            function delay(callback, ms) {
+                var timer = 0;
+                return function() {
+                    var context = this, args = arguments;
+                    clearTimeout(timer);
+                    timer = setTimeout(function () {
+                        callback.apply(context, args);
+                    }, ms || 0);
+                };
+            }
+            let sum = {{ sum }};
+            let captcha= $("#contactFormCaptcha");
+            let br=0;
+            let button=$("#contactForm").find('button');
+            let input=$("#form_captcha");
+            //alert(sum);
+            input.keyup(delay(function () {
+                if(parseInt(input.val()) !== sum) {
+                    if(br===0) {
+                        captcha.append("<div class='row'><span class='red-text'>Грешно пресмятане!</span></div>");
+                        br++;
+                        ifCaptchaEmpty();
+                    }
+                } else {
+                    captcha.find('span').empty().remove();
+                    br=0;
+                    ifCaptchaEmpty();
+                }
+
+                }, 300));
+            ifCaptchaEmpty();
+            $("#form_name").focusout(function () {
+                ifCaptchaEmpty();
+            });
+            $("#form_message").focusout(function () {
+                ifCaptchaEmpty();
+            });
+            $("#form_emailSender").focusout(function () {
+                ifCaptchaEmpty()
+                }
+            );
+            input.focusout(function () {
+                ifCaptchaEmpty();
+            });
+            function ifCaptchaEmpty() {
+               if(input.val()==="" || parseInt(input.val()) !== sum ||
+                    $("#form_message").val()==="") {
+                   button.prop('disabled', true);
+               } else {
+                   button.prop('disabled', false);
+               }
+            }
+
+        })
+    </script>
 {% endblock %}

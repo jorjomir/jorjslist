@@ -101,6 +101,13 @@ class Ad
      */
     private $images;
 
+    /**
+     * @var array
+     *
+     * @ORM\Column(name="subs", type="array", nullable=true)
+     */
+    private $subs;
+
 
     public function __construct()
     {
@@ -364,5 +371,22 @@ class Ad
     {
         return $this->images;
     }
+
+    /**
+     * @return array
+     */
+    public function getSubs()
+    {
+        return $this->subs;
+    }
+
+    /**
+     * @param array $subs
+     */
+    public function setSubs($subs)
+    {
+        $this->subs = $subs;
+    }
+
 
 }

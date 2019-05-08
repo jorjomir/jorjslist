@@ -42,20 +42,22 @@ class ArticleController extends Controller
         if($form->isSubmitted() && $form->isValid()) {
             /** @var Symfony\Component\HttpFoundation\File\UploadedFile $file */
             $file = $form->get('image')->getData();
-            $fileName = md5(uniqid()) . '.' . $file->guessExtension();
-            // Move the file to the directory where brochures are stored
-            try {
-                $file->move(
-                    $this->getParameter('images_directory'),
-                    $fileName
-                );
-            } catch (FileException $e) {
-                // ... handle exception if something happens during file upload
-            }
+            if($file!==null) {
+                $fileName = md5(uniqid()) . '.' . $file->guessExtension();
+                // Move the file to the directory where brochures are stored
+                try {
+                    $file->move(
+                        $this->getParameter('images_directory'),
+                        $fileName
+                    );
+                } catch (FileException $e) {
+                    // ... handle exception if something happens during file upload
+                }
 
-            // updates the 'brochure' property to store the PDF file name
-            // instead of its contents
-            $article->setImage($fileName);
+                // updates the 'brochure' property to store the PDF file name
+                // instead of its contents
+                $article->setImage($fileName);
+            }
 
             $em=$this->getDoctrine()->getManager();
             $em->persist($article);

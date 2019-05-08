@@ -2,7 +2,7 @@
 
 {% block main %}
     <div>
-        <div id="editAd" class="well">
+        <div id="editAd" class="text-center well">
             {{ form_start(form) }}
             <form class="form-horizontal" action="{{ path('editAd', {id: ad.id}) }}" method="POST">
                 <fieldset>
@@ -10,52 +10,37 @@
 
                     <div class="form-group">
                         <label class="col-sm-4 control-label" for="ad_title">Заглавие</label>
-                        <div class="col-sm-4 ">
                             {{ form_row(form.title) }}
-                        </div>
                     </div>
                     <div class="form-group">
                         <label class="col-sm-4 control-label" for="ad_summary">Кратко описание</label>
-                        <div class="col-sm-4 ">
                             {{ form_row(form.summary) }}
-                        </div>
                     </div>
                     <div class="form-group">
                         <label class="col-sm-4 control-label" for="ad_description">Описание</label>
-                        <div class="col-sm-4 ">
                             {{ form_row(form.description,
                                 {'attr': {'rows' : '8', 'cols' : '60'}}) }}
-                        </div>
                     </div>
                     <div class="form-group">
                         <label class="col-sm-4 control-label" for="ad_category">Категория</label>
-                        <div class="col-sm-4 ">
                             {{ form_row(form.categoryId) }}
-                        </div>
                     </div>
                     <div class="form-group">
                         <label class="col-sm-4 control-label" for="ad_town">Град</label>
-                        <div class="col-sm-4 ">
                             {{ form_row(form.town) }}
-                        </div>
                     </div>
                     <div class="form-group">
                         <label class="col-sm-4 control-label" for="ad_phoneNumber">Тел. номер</label>
-                        <div class="col-sm-4 ">
                             {{ form_row(form.phoneNumber) }}
-                        </div>
                     </div>
                     <div class="form-group">
                         <label class="col-sm-4 control-label" for="ad_price">Цена</label>
-                        <div class="col-sm-4 ">
                             {{ form_row(form.price) }}
-                        </div>
+                        <p><span class="red-text">*</span> в лева</p>
                     </div>
-                    <div class="form-group">
+                    <div class="text-center form-group">
                         <label class="col-sm-4 control-label" for="ad_images">Снимка</label>
-                        <div class="col-sm-4 ">
                             {{ form_row(form.images) }}
-                        </div>
                         <p style="color: red">Ако качите снимки, старите ще бъдат заместени!</p>
                     </div>
                     {{ form_row(form._token) }}

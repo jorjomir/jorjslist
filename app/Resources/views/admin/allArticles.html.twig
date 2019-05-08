@@ -22,7 +22,7 @@
     {% for article in articles %}
     <tr>
         <th scope="row">{{ article.id }}</th>
-        <td>{{ article.title }}</td>
+        <td><a class="overlay" target="_blank" href="{{ path('viewArticle', {id: article.id}) }}">{{ article.title }}</a></td>
         <td>{{ article.dateAdded|date('Y-m-d H:i') }}</td>
         <td><a class="btn btn-info btn-sm" href="{{ path('editArticle', {id: article.id}) }}">Редактирай</a></td>
         <td><a class="btn btn-danger btn-sm" href="{{ path('deleteArticle', {id: article.id}) }}" onclick="return confirm('Сигурни ли сте, че искате да изтриете тази статия?')">Изтрий</a></td>

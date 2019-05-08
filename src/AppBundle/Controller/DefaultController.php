@@ -107,27 +107,32 @@ class DefaultController extends Controller
      * @return \Symfony\Component\HttpFoundation\Response
      */
     public function contacts(Request $request, \Swift_Mailer $mailer) {
+        $firstVal=rand(1,10);
+        $secondVal=rand(1,10);
+        $sum=$firstVal+$secondVal;
         /** @var User $currentUser */
         $currentUser= $this->getUser();
             $form = $this->createFormBuilder()
                 ->add('name', TextType::class, array('label' => false,))
                 ->add('emailSender', TextType::class, array('label' => false, 'invalid_message' => 'Въведете валиден имейл!'))
                 ->add('message', TextareaType::class, array('label' => false))
+                ->add('captcha', TextType::class, array('required' => true, 'label' => false))
                 ->getForm();
         $form->handleRequest($request);
         if($form->isSubmitted() && $form->isValid()) {
             $contactForm= $form->getData();
-            $message = (new \Swift_Message('Запитване от контактна форма в JorjsList.eu'))
-                ->setFrom('admin@jorjslist.eu')
-                ->setTo('georgi.msabev@gmail.com')
-                ->setBody('Имейл на подател: ' . $contactForm["emailSender"] . PHP_EOL .
-                    'Име: ' . $contactForm["name"] . PHP_EOL . 'Съобщение: ' . $contactForm["message"]);
-            $mailer->send($message);
+                /*$message = (new \Swift_Message('Запитване от контактна форма в JorjsList.eu'))
+                    ->setFrom('admin@jorjslist.eu')
+                    ->setTo('georgi.msabev@gmail.com')
+                    ->setBody('Имейл на подател: ' . $contactForm["emailSender"] . PHP_EOL .
+                        'Име: ' . $contactForm["name"] . PHP_EOL . 'Съобщение: ' . $contactForm["message"]);
+                $mailer->send($message);*/
 
-            $this->addFlash('success', 'Успешно изпратихте своето запитване! Очаквайте имейл отговор на имейл адресът Ви: ' . $contactForm["emailSender"] . '!');
-            return $this->redirectToRoute('index');
+                $this->addFlash('success', 'Успешно изпратихте своето запитване! Очаквайте имейл отговор на имейл адресът Ви: ' . $contactForm["emailSender"] . '!');
+                return $this->redirectToRoute('index');
         }
-        return $this->render('default/contacts.html.twig', ['form' => $form->createView()]);
+        return $this->render('default/contacts.html.twig', ['form' => $form->createView(), 'sum' => $sum,
+            'firstVal' => $firstVal, 'secondVal' => $secondVal]);
     }
 }
 

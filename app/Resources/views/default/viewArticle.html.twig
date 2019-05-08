@@ -2,6 +2,14 @@
 
 {% block main %}
 <div class="well">
+    {% if app.user %}
+        {% if app.user.role=="admin" %}
+            <div class="text-right">
+                <a class="btn btn-danger btn-sm" href="{{ path('deleteArticle', {id: article.id}) }}" onclick="return confirm('Сигурни ли сте, че искате да изтриете тази статия?')">Изтрий</a>
+                <a target="_blank" href="{{ path('editArticle', {id : article.id}) }}" class="btn btn-orange btn-sm">Редактирай</a>
+            </div>
+        {% endif %}
+    {% endif %}
     <h2 class="text-center">{{ article.title }}</h2>
 
     {% if article.image %}
@@ -17,8 +25,5 @@
         пъти
         {% endif %}
     </h5>
-
-
-
 </div>
 {% endblock %}

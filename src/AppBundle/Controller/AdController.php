@@ -146,10 +146,12 @@ class AdController extends Controller
      *
      * @param $id
      * @param Request $request
+     * @param \Swift_Mailer $mailer
      * @return \Symfony\Component\HttpFoundation\Response
      */
-    public function editAd($id, Request $request) {
+    public function editAd($id, Request $request, \Swift_Mailer $mailer) {
         $ad=$this->getDoctrine()->getRepository(Ad::class)->find($id);
+        $oldPrice=$ad->getPrice();
         $oldImages=$ad->getImages();
         /** @var User $currentUser */
         $currentUser= $this->getUser();
@@ -189,6 +191,20 @@ class AdController extends Controller
                 $ad->setImages($arr);
             }
 
+            if($ad->getPrice()!==$oldPrice) {
+                if($ad->getSubs()!==null || $ad->getSubs()!=="") {
+                    foreach ($ad->getSubs() as $subscriber) {
+                        $message = (new \Swift_Message('Обновена цена на ' . $ad->getTitle() . ' - JorjsList'))
+                            ->setFrom('admin@jorjslist.eu')
+                            ->setTo($subscriber)
+                            ->setBody('Цената на обявата беше обновена!' . PHP_EOL .
+                                'Стара цена: ' . $oldPrice . ' лв.' . PHP_EOL .
+                                'Нова цена: ' . $ad->getPrice() . ' лв.' . PHP_EOL .
+                                'Линк: http://jorjslist.eu/ad/' . $ad->getId());
+                        $mailer->send($message);
+                    }
+                }
+            }
 
             $em=$this->getDoctrine()->getManager();
             $em->persist($ad);
@@ -246,5 +262,73 @@ class AdController extends Controller
         $ads=$this->getDoctrine()->getRepository(Ad::class)->findAdsByUser($username);
 
         return $this->render('ads/adsByCategory.html.twig', ['ads' => $ads]);
+    }
+
+    /**
+     * @Route("/adSubscribe/{id}", name="subscribe")
+     * @param $id
+     * @return \Symfony\Component\HttpFoundation\RedirectResponse
+     */
+    public function subscribe($id) {
+        $em = $this->getDoctrine()->getManager();
+        /** @var User $currentUser */
+        $currentUser=$this->getUser();
+        $ad=$this->getDoctrine()->getRepository(Ad::class)->find($id);
+        if($ad->getSubs()==null || $ad->getSubs()=="") {
+            $arr[]=$currentUser->getEmail();
+            $ad->setSubs($arr);
+            $em->persist($ad);
+            $em->flush();
+            $this->addFlash('success', 'При промяна на цената, ще получите имейл!');
+            return $this->redirectToRoute('viewAd', ['id' => $id]);
+        } else {
+            $arr=$ad->getSubs();
+            $arr[]=$currentUser->getEmail();
+            $ad->setSubs($arr);
+            $em->persist($ad);
+            $em->flush();
+            $this->addFlash('success', 'При промяна на цената, ще получите имейл!');
+            return $this->redirectToRoute('viewAd', ['id' => $id]);
+        }
+
+    }
+
+    /**
+     * @Route("/adRemoveSubscription/{id}", name="removeSubscription")
+     * @param $id
+     * @return \Symfony\Component\HttpFoundation\RedirectResponse
+     */
+    public function removeSubscription($id) {
+        $em = $this->getDoctrine()->getManager();
+        /** @var User $currentUser */
+        $currentUser=$this->getUser();
+        $ad=$this->getDoctrine()->getRepository(Ad::class)->find($id);
+        $arr=$ad->getSubs();
+        $newarr=[];
+        foreach($arr as $el) {
+            if($el!==$currentUser->getEmail()) {
+                $newarr[]=$el;
+            }
+        }
+        $index = array_search($currentUser->getEmail(), $newarr);
+        if(count($newarr) == 1 && $index==true) {
+            $newarr=null;
+        }
+        if(count($newarr) == 0) {
+            $newarr=null;
+        }
+
+        $ad->setSubs($newarr);
+        $em->persist($ad);
+        $em->flush();
+        $this->addFlash('success', 'Вече няма да получавате имейли при промяна на цената!');
+        return $this->redirectToRoute('viewAd', ['id' => $id]);
+    }
+
+    public function deleteElement($element, &$array){
+        $index = array_search($element, $array);
+        if($index !== false){
+            unset($array[$index]);
+        }
     }
 }

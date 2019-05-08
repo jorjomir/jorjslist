@@ -4,6 +4,7 @@ namespace AppBundle\Controller;
 
 use AppBundle\Entity\Ad;
 use AppBundle\Entity\Article;
+use AppBundle\Entity\Report;
 use AppBundle\Entity\User;
 use AppBundle\Form\cssType;
 use Symfony\Component\Filesystem\Filesystem;
@@ -31,8 +32,13 @@ class AdminController extends Controller
         if($currentUser->getRole()!=="admin") {
             return $this->redirectToRoute('index');
         }
-        $articles=$this->getDoctrine()->getRepository(Article::class)->findRecentArticles();
-        return $this->render('admin/index.html.twig', ['articles' => $articles]);
+        $reports=$this->getDoctrine()->getRepository(Report::class)->findAll();
+        $usernames=[];
+        foreach ($reports as $report) {
+            $user=$this->getDoctrine()->getRepository(User::class)->find($report->getUserId());
+            array_push($usernames, $user->getUsername());
+        }
+        return $this->render('admin/index.html.twig', ['reports' => $reports, 'usernames' => $usernames]);
     }
 
     /**
@@ -105,14 +111,33 @@ class AdminController extends Controller
      * @return \Symfony\Component\HttpFoundation\Response
      */
     public function deleteUser($id) {
-
         $em = $this->getDoctrine()->getManager();
         $user=$em->getRepository('AppBundle:User')->find($id);
+        $ads=$em->getRepository(Ad::class)->findAdsByUser($user->getUsername());
+        foreach ($ads as $ad) {
+            $this->deleteAd($ad["id"]);
+        }
         $em->remove($user);
         $em->flush();
         $this->addFlash('success', 'Успешно изтрихте този потребител!');
 
         return $this->redirectToRoute('allUsers');
+    }
+
+    /**
+     * @Route("deleteReport/{id}", name="deleteReport")
+     * @param $id
+     * @return \Symfony\Component\HttpFoundation\Response
+     */
+    public function deleteReport($id) {
+
+        $em = $this->getDoctrine()->getManager();
+        $report=$em->getRepository('AppBundle:Report')->find($id);
+        $em->remove($report);
+        $em->flush();
+        $this->addFlash('success', 'Успешно изтрихте съобщението!');
+
+        return $this->redirectToRoute('adminIndex');
     }
 
     /**
@@ -140,6 +165,12 @@ class AdminController extends Controller
      */
     public function adminDeleteAd($id)
     {
+        $this->deleteAd($id);
+        $this->addFlash('success', 'Успешно изтрихте обявата!');
+        return $this->redirectToRoute('allAds');
+    }
+
+    public function deleteAd($id) {
         $em = $this->getDoctrine()->getManager();
         $ad=$em->getRepository('AppBundle:Ad')->find($id);
         $re = '/(...)(.jpeg)/m';
@@ -154,7 +185,5 @@ class AdminController extends Controller
 
         $em->remove($ad);
         $em->flush();
-        $this->addFlash('success', 'Успешно изтрихте обявата!');
-        return $this->redirectToRoute('allAds');
     }
 }

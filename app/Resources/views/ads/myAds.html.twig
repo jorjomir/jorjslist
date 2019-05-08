@@ -15,17 +15,19 @@
                 <div class="row row-sm">
                     <aside class="col-sm-3">
                         <div class="img-wrap">
+                            <a class="overlay" href="{{ path('viewAd', {id : ad.id}) }}">
                             {% if ad.images %}
                                 <img style="max-width: 150px; max-height: 130px" href="{{ path('viewAd', {id : ad.id}) }}" src="{{ asset('uploads/images/' ~ ad.images[0]) }}" class="img-md">
                             {% else %}
                                 <img style="max-width: 150px; max-height: 130px" href="{{ path('viewAd', {id : ad.id}) }}" src="{{ asset('uploads/images/noimage.jpg') }}" class="img-md">
                             {% endif %}
+                            </a>
                         </div>
                     </aside> <!-- col.// -->
                     <div class="col-sm-6">
                         <div class="text-wrap">
                             <h3 class="title">{{ ad.title }}</h3>
-                            <p>{{ ad.summary }}</p>
+                            <p title="Брой абонирани за обявата"><span class="glyphicon">&#x2709;</span> {{ ad.subs|length }}</p>
                             <p class="rating-wrap my-0 text-muted">
                                 <span class="label-rating">Видяно: {{ ad.views }} пъти</span><br/>
                                 <span class="label-rating">Дата: {{ ad.dateAdded|date('H:i d-m-Y') }}</span>
