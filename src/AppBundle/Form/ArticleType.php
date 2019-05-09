@@ -15,7 +15,7 @@ class ArticleType extends AbstractType
     {
         $builder
             ->add('title', TextType::class, array('data_class' => null, 'label' => false,
-                'attr' => array('style' => 'width: 500px')))
+                'attr' => array('style' => 'min-width: 500px')))
             ->add('content', TextareaType::class, array('data_class' => null, 'label' => false,
                 'attr' => array('class' => 'ckeditor')))
             ->add('image', FileType::class, array('data_class' => null, 'label' => false,

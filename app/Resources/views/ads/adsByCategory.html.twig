@@ -9,11 +9,13 @@
             <div class="col-lg-4 col-md-4 col-sm-4">
                 <figure class="card card-product">
                     <div class="img-wrap text-center">
+                        <a class="overlay" href="{{ path('viewAd', {id : ad.id}) }}">
                         {% if ad.images %}
                             <img href="{{ path('viewAd', {id : ad.id}) }}" src="{{ asset('uploads/images/' ~ ad.images[0]) }}">
                         {% else %}
                             <img href="{{ path('viewAd', {id : ad.id}) }}" src="{{ asset('uploads/images/noimage.jpg') }}">
                         {% endif %}
+                        </a>
                     </div>
                     <figcaption class="info-wrap">
                         <h4 class="text-center">
