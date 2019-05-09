@@ -148,7 +148,16 @@ class ArticleController extends Controller
      */
     public function deleteArticle($id)
     {
-
+        /** @var User $currentUser */
+        $currentUser= $this->getUser();
+        if($currentUser==null) {
+            $this->addFlash('error', 'Неуспешен опит за изтриване на статия!');
+            return $this->redirectToRoute('index');
+        }
+        if($currentUser->getRole()!="admin") {
+            $this->addFlash('error', 'Неуспешен опит за изтриване на статия!');
+            return $this->redirectToRoute('index');
+        }
         $em = $this->getDoctrine()->getManager();
         $article=$em->getRepository('AppBundle:Article')->find($id);
 

@@ -226,22 +226,36 @@ class AdController extends Controller
      */
     public function deleteAd($id)
     {
+
         $em = $this->getDoctrine()->getManager();
         $ad=$em->getRepository('AppBundle:Ad')->find($id);
-        $re = '/(...)(.jpeg)/m';
-        $re1 = '/(...)(.png)/m';
-        foreach ($ad->getImages() as $image) {
-            if(preg_match($re, $image) || preg_match($re1, $image)) {
-                /** @var Filesystem $fileSystem */
-                $fileSystem = new Filesystem();
-                $fileSystem->remove($this->get('kernel')->getRootDir() . "\..\web\uploads\images\\" . $image);
-            }
+
+        /** @var User $currentUser */
+        $currentUser= $this->getUser();
+        if($currentUser==null) {
+            $this->addFlash('error', 'Неуспешен опит за изтриване на обява!');
+            return $this->redirectToRoute('index');
         }
 
-        $em->remove($ad);
-        $em->flush();
-        $this->addFlash('success', 'Успешно изтрихте Вашата обява!');
-        return $this->redirectToRoute('myAds');
+            $re = '/(...)(.jpeg)/m';
+            $re1 = '/(...)(.png)/m';
+            foreach ($ad->getImages() as $image) {
+                if(preg_match($re, $image) || preg_match($re1, $image)) {
+                    /** @var Filesystem $fileSystem */
+                    $fileSystem = new Filesystem();
+                    $fileSystem->remove($this->get('kernel')->getRootDir() . "\..\web\uploads\images\\" . $image);
+                }
+            }
+            $em->remove($ad);
+            $em->flush();
+            if($currentUser->getRole()=="admin") {
+                $this->addFlash('success', 'Успешно изтрихте обявата '. $ad->getTitle() .' !');
+                return $this->redirectToRoute('index');
+            } else {
+                $this->addFlash('success', 'Успешно изтрихте Вашата обява!');
+                return $this->redirectToRoute('myAds');
+            }
+
     }
 
     /**

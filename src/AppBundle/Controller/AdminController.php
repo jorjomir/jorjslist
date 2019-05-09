@@ -65,7 +65,16 @@ class AdminController extends Controller
      * @return \Symfony\Component\HttpFoundation\RedirectResponse
      */
     public function makeUserAdmin($id) {
-
+        /** @var User $currentUser */
+        $currentUser= $this->getUser();
+        if($currentUser==null) {
+            $this->addFlash('error', 'Неуспешен опит за изтриване на потребител!');
+            return $this->redirectToRoute('index');
+        }
+        if($currentUser->getRole()!="admin") {
+            $this->addFlash('error', 'Неуспешен опит за изтриване на потребител!');
+            return $this->redirectToRoute('index');
+        }
         $em = $this->getDoctrine()->getManager();
         $user=$em->getRepository('AppBundle:User')->find($id);
         $user->setRole('admin');
@@ -112,6 +121,16 @@ class AdminController extends Controller
      * @return \Symfony\Component\HttpFoundation\Response
      */
     public function deleteUser($id) {
+        /** @var User $currentUser */
+        $currentUser= $this->getUser();
+        if($currentUser==null) {
+            $this->addFlash('error', 'Неуспешен опит за изтриване на потребител!');
+            return $this->redirectToRoute('index');
+        }
+        if($currentUser->getRole()!="admin") {
+            $this->addFlash('error', 'Неуспешен опит за изтриване на потребител!');
+            return $this->redirectToRoute('index');
+        }
         $em = $this->getDoctrine()->getManager();
         $user=$em->getRepository('AppBundle:User')->find($id);
         $ads=$em->getRepository(Ad::class)->findAdsByUser($user->getUsername());
@@ -131,7 +150,16 @@ class AdminController extends Controller
      * @return \Symfony\Component\HttpFoundation\Response
      */
     public function deleteReport($id) {
-
+        /** @var User $currentUser */
+        $currentUser= $this->getUser();
+        if($currentUser==null) {
+            $this->addFlash('error', 'Неуспешен опит за изтриване на доклад!');
+            return $this->redirectToRoute('index');
+        }
+        if($currentUser->getRole()!="admin") {
+            $this->addFlash('error', 'Неуспешен опит за изтриване на доклад!');
+            return $this->redirectToRoute('index');
+        }
         $em = $this->getDoctrine()->getManager();
         $report=$em->getRepository('AppBundle:Report')->find($id);
         $em->remove($report);
@@ -166,6 +194,16 @@ class AdminController extends Controller
      */
     public function adminDeleteAd($id)
     {
+        /** @var User $currentUser */
+        $currentUser= $this->getUser();
+        if($currentUser==null) {
+            $this->addFlash('error', 'Неуспешен опит за изтриване на обява!');
+            return $this->redirectToRoute('index');
+        }
+        if($currentUser->getRole()!="admin") {
+            $this->addFlash('error', 'Неуспешен опит за изтриване на обява!');
+            return $this->redirectToRoute('index');
+        }
         $this->deleteAd($id);
         $this->addFlash('success', 'Успешно изтрихте обявата!');
         return $this->redirectToRoute('allAds');
