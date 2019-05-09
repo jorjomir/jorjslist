@@ -77,8 +77,8 @@ class AdminController extends Controller
 
     /**
      * @param Request $request
-     * @Route("/css", name="css")
      * @return \Symfony\Component\HttpFoundation\Response
+     * @Route("/css", name="css")
      */
     public function css(Request $request) {
         /** @var User $currentUser */
@@ -89,7 +89,6 @@ class AdminController extends Controller
         if($currentUser->getRole()!=="admin") {
             return $this->redirectToRoute('index');
         }
-
         $path = './css/customAdmin.css';
         $file=file_get_contents($path);
         $form=$this->createFormBuilder()
@@ -99,11 +98,13 @@ class AdminController extends Controller
         if($form->isSubmitted() && $form->isValid()) {
             $data= $form->getData();
             file_put_contents($path, $data);
-            return $this->redirectToRoute('css');
+            $this->addFlash("success", "Успешно добавихте CSS и изтрихте кеша!");
+            return $this->redirectToRoute('adminIndex');
         }
 
         return $this->render('admin/css.html.twig', ['form' => $form->createView(), 'file' => $file]);
     }
+
 
     /**
      * @Route("deleteUser/{id}", name="deleteUser")
