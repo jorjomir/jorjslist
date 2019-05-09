@@ -22,9 +22,10 @@ class AdController extends Controller
      * @return \Symfony\Component\HttpFoundation\Response
      */
     public function adsByCategory($id) {
+        /** @var Category $category */
+        $category=$this->getDoctrine()->getRepository(Category::class)->find($id);
         $ads=$this->getDoctrine()->getRepository(Ad::class)->findAdsByCategory($id);
-
-        return $this->render('ads/adsByCategory.html.twig', ['ads' => $ads]);
+        return $this->render('ads/adsByCategory.html.twig', ['ads' => $ads, 'category' => $category->getName()]);
     }
 
     /**
@@ -261,7 +262,7 @@ class AdController extends Controller
     public function adsByUser($username) {
         $ads=$this->getDoctrine()->getRepository(Ad::class)->findAdsByUser($username);
 
-        return $this->render('ads/adsByCategory.html.twig', ['ads' => $ads]);
+        return $this->render('ads/adsByUser.html.twig', ['ads' => $ads, 'username' => $username]);
     }
 
     /**

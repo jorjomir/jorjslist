@@ -1,22 +1,27 @@
 {% extends 'base.html.twig' %}
-
+{% block title %}Обяви от: {{ username }} - Jorjslist{% endblock %}
 {% block main %}
     <div class="well" id="myAds">
+        <h3 class="text-center">Обяви от: {{ username }}</h3>
         {% for message in app.flashes('success') %}
             <div class="alert alert-success" id="success-alert">
                 {{ message }}
             </div>
         {% endfor %}
-        <h2 class="text-center">Обява от: </h2>
+
         {% for ad in ads %}
             <article class="itemlist">
                 <div class="row row-sm">
                     <aside class="col-sm-3">
                         <div class="img-wrap">
                             {% if ad.images %}
+                                <a class="overlay" href="{{ path('viewAd', {id : ad.id}) }}">
                                 <img style="max-width: 150px; max-height: 130px" href="{{ path('viewAd', {id : ad.id}) }}" src="{{ asset('uploads/images/' ~ ad.images[0]) }}" class="img-md">
+                                </a>
                             {% else %}
+                                <a class="overlay" href="{{ path('viewAd', {id : ad.id}) }}">
                                 <img style="max-width: 150px; max-height: 130px" href="{{ path('viewAd', {id : ad.id}) }}" src="{{ asset('uploads/images/noimage.jpg') }}" class="img-md">
+                                </a>
                             {% endif %}
                         </div>
                     </aside> <!-- col.// -->

@@ -1,9 +1,10 @@
 {% extends 'base.html.twig' %}
-
+{% block title %}{{ category }} - Jorjslist{% endblock %}
 {% block main %}
     <div id="adsCategory">
+        <div class="text-center"><h3>{{ category }}</h3></div>
+        <hr>
         {% if ads %}
-
         {% for ad in ads %}
             <div class="col-lg-4 col-md-4 col-sm-4">
                 <figure class="card card-product">

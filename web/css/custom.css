@@ -595,6 +595,10 @@ header .bg-primary {
     .modal-dialog {
         margin: 130px auto;
     }
+    .modal-dialog textarea#form_comment {
+        min-width: 260px;
+        min-height: 100px;
+    }
 }
 
 #editAd input#ad_images {

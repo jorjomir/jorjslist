@@ -1,6 +1,5 @@
 {% extends 'base.html.twig' %}
-
-
+{% block title %}{{ ad.title }} - Jorjslist{% endblock %}
 {% block main %}
     <link rel="stylesheet" href="{{ asset('css/jquery.fancybox.min.css') }}">
     <div class="well col-lg-12 col-md-12 col-sm-12">
@@ -135,7 +134,7 @@
 
     <script type="text/javascript">
         $(document).ready(function() {
-            let text="http://jorjslist.eu/ad/" + {{ ad.id }};
+            let text="http://jorjslist.eu/ad/" + "{{ ad.id }}";
             new QRCode(document.getElementById("qrcode"), {
                 text: text,
                 width: 90,
@@ -143,7 +142,7 @@
             });
             let canvas = $('#qrcode canvas');
             let img = canvas.get(0).toDataURL("image/png");
-            let downloadBtn= $("#qra")
+            let downloadBtn= $("#qra").find('a')
                 .attr("href", img)
                 .attr("download", "qrCode.png");
 

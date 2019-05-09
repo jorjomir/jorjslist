@@ -1,5 +1,5 @@
 {% extends 'base.html.twig' %}
-
+{% block title %}Админ Панел - Jorjslist{% endblock %}
 {% block main %}
     {% for message in app.flashes('success') %}
         <div class="alert alert-success" id="success-alert">
